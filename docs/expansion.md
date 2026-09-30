@@ -32,9 +32,10 @@ final HTML. A failure there can affect links, search, feeds, cards and the
 sitemap together. Use isolated controls, focused pairs and a few realistic
 larger projects; an exhaustive power set would mostly duplicate coverage.
 
-This pass adds **17 projects: four isolated controls and 13 combinations**,
-plus one opt-in retained HTTP server lifecycle check. The full suite now has
-74 projects: 57 isolated and 17 combinations, across 14 plugin names.
+The first expansion added **17 projects: four isolated controls and 13
+combinations**, plus one opt-in retained HTTP server lifecycle check. The
+Material expansions below add another 31 projects. The full suite now has
+105 projects: 84 isolated and 21 combinations.
 All original migration projects remain included.
 
 New cases use multiple output extractors together. Publication checks include
@@ -102,6 +103,76 @@ artifact directory and propagates timeouts as failures. It is outside the
 default gate because the observed hang is intermittent. The saved failures
 used Material's default concurrency; a successful probe does not establish
 that concurrent rendering is safe.
+
+## Material expansion
+
+The first Material pass adds **19 projects: 17 isolated and two combinations**,
+and four search comparison guards. The follow-up below brings tags to fourteen
+isolated cases, search eight and meta eight. All cases use public builds of the
+pinned MkDocs/Material baseline and the latest stable Zensical release from PyPI.
+
+| Area | New checks |
+| --- | --- |
+| Tags instances | Independent include/exclude file filters, custom metadata properties, template variables and listing directives. Filtered pages still publish. |
+| Tags controls | Plugin, label and listing switches; named/inline directives; include/exclude tag selection; nested scope; per-listing TOC visibility. |
+| Tags lifecycle | Tag replacement, page insertion, rename/deletion and removing the last tag member. Listings, labels, nearest links, TOC and search stay observed. |
+| Tags diagnostics | Invalid scalar metadata, disallowed tags and a missing named listing require specific rejection diagnostics in both engines. |
+| Search | Section titles/anchors/tokens, nested HTML exclusion, whole-section/page exclusion, directory/flat URLs and site URL subpaths. Disabled search also checks the actual HTML UI. |
+| Search lifecycle | Section title/fragment/content edits, page exclusion/restoration and page insertion/deletion. A separator configuration edit must reach the emitted runtime config. |
+| Meta | Disabled inheritance, invalid YAML, defaults file addition/removal/restoration and moving a page between folders. Nested maps, additive lists, page overrides and sibling isolation remain checked. |
+| Combinations | Meta + tags + search propagates inherited tag/exclusion edits and new/deleted pages. Exclude + tags + search removes a private page from HTML, sitemap, search and tag catalog together. |
+
+The search comparison now verifies that every result targets an existing page
+and fragment. Focused records retain section titles, locations, tags and
+fixture tokens instead of aggregating them all by page. Regression guards
+reject missing targets, accept valid percent-encoded paths/anchors and detect
+retargeting even when page tokens are identical. Tag composition checks now
+include ordered catalog links, tag labels and TOC links.
+
+The isolated disabled-tags case confirms one native gap: Zensical 0.0.67 still
+renders metadata tag labels with `enabled: false`. Its exact label difference
+must hold on cold/warm builds before xfail. With `listings: false`, native
+keeps labels unlinked instead of emitting Material's link to a missing fragment;
+that improvement passes with an exact expected difference. Disabled search
+suppresses the UI and all content in both engines; native's empty JSON index
+is a separately checked output difference.
+
+These builds do not establish search ranking or browser query execution.
+Generated section links are checked against HTML; browser navigation remains
+follow-up work. Plugin option references:
+[tags](https://squidfunk.github.io/mkdocs-material/plugins/tags/),
+[search](https://squidfunk.github.io/mkdocs-material/plugins/search/) and
+[meta](https://squidfunk.github.io/mkdocs-material/plugins/meta/).
+
+### Additional boundaries and retained servers
+
+The follow-up adds **12 projects: ten isolated and two combinations**, plus
+one opt-in retained HTTP lifecycle check:
+
+- Tags covers Unicode filenames and custom fragments with flat URLs, duplicate
+  and scalar tags, reverse tag/page ordering, file filter changes and recovery
+  after an initially empty catalog loses its last member.
+- Search covers headingless title selection, prefaces before H2 headings,
+  Unicode/spaced paths and Unicode anchors. Rich content keeps visible code,
+  lists and Markdown inside HTML while excluding scripts, styles, objects,
+  comments and explicitly hidden content.
+- Meta covers false/zero/null values, additive empty lists, a BOM-prefixed
+  custom defaults file with YAML anchors/merge keys, and scalar/list conflicts
+  with specific failure diagnostics.
+- Reversing tags/meta declaration order preserves the inherited metadata,
+  listings and search lifecycle contracts. Minify + search checks the same
+  rich content boundaries after final HTML minification.
+- The retained meta + tags + search check edits inherited tags, excludes and
+  restores a page in search, and adds/deletes a page without restarting either
+  public server. Six HTTP snapshots per engine compare metadata, catalog links,
+  tag labels, section records, canonical URLs and sitemap membership. The
+  deleted page must return 404. Binding origins are normalized in reports;
+  actual responses and ports remain in the local evidence.
+
+For a headingless page with both metadata and navigation titles, native uses
+the navigation label for the root search result while Material uses metadata.
+That exact title pair is recorded; section titles, tokens and result targets
+remain compared.
 
 ## Next priorities
 

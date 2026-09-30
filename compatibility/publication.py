@@ -23,7 +23,6 @@
 
 """Observe published URLs, search membership and cross-reference artifacts."""
 
-import json
 import re
 import xml.etree.ElementTree as ET
 import zlib
@@ -33,6 +32,7 @@ from urllib.parse import urljoin
 from bs4 import BeautifulSoup, Comment
 
 from compatibility.checks import html, routes
+from compatibility.search import records as search_records
 
 
 def publication(site: Path) -> dict:
@@ -60,13 +60,7 @@ def publication(site: Path) -> dict:
         for node in ET.parse(site / "sitemap.xml").iter()
         if node.tag.rsplit("}", 1)[-1] == "loc"
     )
-    search = site / "search/search_index.json"
-    if not search.is_file():
-        search = site / "search.json"
-    records = []
-    if search.is_file():
-        data = json.loads(search.read_text())
-        records = data.get("docs", data.get("items", []))
+    records = search_records(site)
     # Search engines split documents differently; compare page membership and
     # explicit fixture tokens, retaining per-page content coverage.
     indexed = {}
@@ -153,6 +147,36 @@ def tag_content(site: Path) -> dict:
                     "url": urljoin(base, node.get("href", "")),
                 }
                 for node in soup.select("nav.md-tags a[href]")
+            ],
+            "labels": [
+                node.get_text(" ", strip=True)
+                for node in soup.select("nav.md-tags .md-tag")
+            ],
+            "listings": [
+                {
+                    "id": node.get("id"),
+                    "tag": node.select_one(".md-tag").get_text(" ", strip=True),
+                    "links": [
+                        {
+                            "title": link.get_text(" ", strip=True),
+                            "url": urljoin(base, link["href"]),
+                        }
+                        for listing in [node.find_next_sibling("ul")]
+                        if listing is not None
+                        for link in listing.select("a[href]")
+                    ],
+                }
+                for node in soup.select(
+                    "article h1, article h2, article h3, article h4, article h5, article h6"
+                )
+                if node.select_one(".md-tag")
+            ],
+            "toc": [
+                {
+                    "title": node.get_text(" ", strip=True),
+                    "url": urljoin(base, node["href"]),
+                }
+                for node in soup.select("nav.md-nav--secondary a[href]")
             ],
         }
     return pages

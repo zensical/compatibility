@@ -39,6 +39,9 @@ pairs live in `case.json`; changed or resolved pairs fail until reviewed.
 | Meta bookkeeping | Public metadata matches; native omits Material's private `__extends`. |
 | Tags export | Native deliberately omits the configured legacy JSON export. |
 | Tags hierarchy / shadow listings | The demo records exact child heading-depth and default shadow-membership differences. Named shadow listings stay observed. |
+| Disabled tags | In Zensical 0.0.67, `tags.enabled: false` still renders metadata tag labels. The isolated control checks the exact visible label difference on cold/warm builds before reporting xfail. |
+| Disabled search | Native emits an empty search index; MkDocs emits no index. Both remove the UI and all indexed sections. Exact index presence remains checked. |
+| Headingless search titles | Native uses the explicit navigation label for the root search result; Material uses the front matter title. The exact title pair is checked; section content and targets remain compared. |
 | RSS blog summaries | Four description fields differ only in whitespace between heading and paragraph. |
 | Social typography | Only two named cards allow mean RGB error 4 instead of 1; measured maximum is about 3.636. Metadata, paths and sizes must match. |
 | Social cached SVG | Upstream retains red pixels after the SVG edit; native renders blue. SVG/title checkpoints require one exact decoded pixel pair plus separate lifecycle expectations. Layout editing returns to normal comparison. |
@@ -55,6 +58,7 @@ Their tests pass after validating exact differences and all other contracts:
 | AutoAPI defaults | Upstream omits Home, collapses package children and publishes generated summary Markdown as a page. Native retains the hierarchy and treats generated summaries as control files. |
 | AutoAPI + literate-nav + exclude | Upstream generated summary retains the excluded link and fails strict mode with the specific missing-target warning. Native builds without that API page. |
 | Retained HTTP RSS | Upstream retains old item versions, duplicates current items on rebuilds and keeps deleted-page items. Native emits only current published pages. Exact item contents and occurrence counts are checked at each checkpoint. |
+| Disabled tag listings | Material links a tag label to a missing listing fragment. Native keeps the label unlinked. The exact MkDocs link and native absence remain checked. |
 
 The new publishing compositions use `social.concurrency: 1`. Default upstream
 concurrency timed out twice during the shared inherited-color rebuild; those
@@ -83,8 +87,13 @@ for evidence and a bounded concurrency probe. No timeout is treated as xfail.
   actual child, label, link and group. Links resolve from the real homepage
   canonical URL, including site URL subpaths.
 - Search comparison aggregates records by page URL and checks explicit
-  fixture tokens. Segmentation, ranks and full search-engine equivalence are
-  outside this contract; complete original indexes remain in artifacts.
+  fixture tokens in `publication`, after validating every published page and
+  fragment target. The focused `search` extractor retains section titles,
+  full locations, tags and per-section fixture tokens. Segmentation, ranks and
+  full search-engine equivalence are outside these contracts; complete original
+  indexes remain in artifacts.
+- Material's private metadata `__extends` paths use `/` in reports on every
+  operating system. The full inheritance path sequence remains checked.
 - RSS item enclosures are observed separately from other child fields so
   missing attachments cannot shift description/date/link pointers. Repeated
   enclosures keep their original order and attributes.

@@ -1,0 +1,35 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "search",
+    "publication"
+  ],
+  "purpose": "Disabling search removes its UI and all indexed content while retaining published pages; the native empty index is an exact expected artifact difference.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/search/sections",
+      "value": []
+    },
+    {
+      "path": "/search/ui/index.html",
+      "value": false
+    },
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html"
+      ]
+    }
+  ],
+  "differences": [
+    {
+      "path": "/search/index_present",
+      "mkdocs": false,
+      "zensical": true,
+      "reason": "Zensical publishes an empty search index when search is disabled; both engines remove the search UI and all indexed sections."
+    }
+  ]
+}

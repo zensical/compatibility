@@ -1,0 +1,44 @@
+{
+  "plugins": [
+    "meta"
+  ],
+  "check": [
+    "meta",
+    "search",
+    "publication"
+  ],
+  "purpose": "False, zero and null remain explicit values; empty incoming lists use additive inheritance instead of dropping ancestor values.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/meta/pages/index.html/context",
+      "value": {
+        "enabled": false,
+        "count": 0,
+        "items": [
+          "Root"
+        ]
+      }
+    },
+    {
+      "path": "/meta/pages/index.html/tags",
+      "value": [
+        "Root"
+      ]
+    },
+    {
+      "path": "/meta/pages/index.html/optional",
+      "value": null
+    }
+  ],
+  "differences": [
+    {
+      "path": "/meta/extends/index.html",
+      "mkdocs": [
+        ".meta.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    }
+  ]
+}

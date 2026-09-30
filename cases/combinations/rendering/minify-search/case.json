@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "minify"
+  ],
+  "check": [
+    "search",
+    "publication"
+  ],
+  "purpose": "Final HTML minification preserves code/list/Markdown text and hidden-content boundaries observed by the search index.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/search/sections/0/tokens",
+      "value": [
+        "COMPAT_AFTER",
+        "COMPAT_CODE",
+        "COMPAT_INLINE",
+        "COMPAT_LIST",
+        "COMPAT_MARKDOWN",
+        "COMPAT_TEXT"
+      ]
+    }
+  ]
+}

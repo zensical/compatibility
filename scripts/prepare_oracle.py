@@ -31,6 +31,7 @@ import json
 import re
 import shutil
 import subprocess
+import sys
 import tarfile
 import tempfile
 from pathlib import Path
@@ -74,7 +75,11 @@ def main() -> None:
             "pip",
             "install",
             "--python",
-            str(ROOT / ".environments/mkdocs/bin/python"),
+            str(
+                ROOT
+                / ".environments/mkdocs"
+                / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
+            ),
             "--no-deps",
             "--editable",
             str(destination),

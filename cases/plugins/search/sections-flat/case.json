@@ -1,0 +1,53 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "search",
+    "publication"
+  ],
+  "purpose": "Keep excluded pages published while suppressing page, nested HTML and whole-section search content; every result fragment must resolve.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/search/index_present",
+      "value": true
+    },
+    {
+      "path": "/search/sections",
+      "value": [
+        {
+          "location": "index.html",
+          "title": "Home",
+          "tokens": [
+            "COMPAT_ROOT"
+          ],
+          "tags": []
+        },
+        {
+          "location": "index.html#visible",
+          "title": "Visible section",
+          "tokens": [
+            "COMPAT_VISIBLE"
+          ],
+          "tags": []
+        },
+        {
+          "location": "index.html#visible-again",
+          "title": "Visible again",
+          "tokens": [
+            "COMPAT_AGAIN"
+          ],
+          "tags": []
+        }
+      ]
+    },
+    {
+      "path": "/publication/routes",
+      "value": [
+        "excluded.html",
+        "index.html"
+      ]
+    }
+  ]
+}

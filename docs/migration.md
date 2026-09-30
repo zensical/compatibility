@@ -27,7 +27,7 @@ IN THE SOFTWARE.
 
 Migrated on 2026-09-30 from `~/Desktop/Reproductions`. The originals remain
 untouched. [inventory.json](inventory.json) records sources and destinations.
-Each active case also names its source in `case.json`.
+Each migrated case also names its source in `case.json`.
 
 ## Active projects
 
@@ -45,8 +45,8 @@ Each active case also names its source in `case.json`.
 | `plugin-literate-nav` | `plugins/literate-nav/nested-navigation` | Nested summaries, implicit indexes, wildcards and hierarchy |
 
 The initial migration supplied **57 projects: 53 isolated and four combinations**.
-The [expansion](expansion.md) adds 17 projects, bringing the current suite to
-**74 projects: 57 isolated and 17 combinations**.
+The [expansion](expansion.md) adds 48 projects across three passes, bringing the
+current suite to **105 projects: 84 isolated and 21 combinations**.
 Multiple instances of one plugin remain isolated tests. Search can be enabled
 as infrastructure; the tags showcase checks its search integration explicitly.
 Select combinations with `--combinations`.

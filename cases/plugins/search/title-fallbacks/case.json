@@ -1,0 +1,64 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "search",
+    "publication"
+  ],
+  "purpose": "A page without H1 uses metadata/navigation fallback, while H2 section titles and anchors retain their own identity.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/search/sections",
+      "value": [
+        {
+          "location": "",
+          "title": "Home",
+          "tokens": [
+            "COMPAT_HOME"
+          ],
+          "tags": []
+        },
+        {
+          "location": "guide/",
+          "title": "Metadata title",
+          "tokens": [
+            "COMPAT_PREFACE"
+          ],
+          "tags": []
+        },
+        {
+          "location": "guide/#details",
+          "title": "Details",
+          "tokens": [
+            "COMPAT_DETAILS"
+          ],
+          "tags": []
+        },
+        {
+          "location": "plain/",
+          "title": "Plain navigation",
+          "tokens": [
+            "COMPAT_PLAIN"
+          ],
+          "tags": []
+        }
+      ],
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/search/sections/1/title",
+      "engine": "zensical",
+      "value": "Navigation label"
+    }
+  ],
+  "differences": [
+    {
+      "path": "/search/sections/1/title",
+      "mkdocs": "Metadata title",
+      "zensical": "Navigation label",
+      "reason": "For a page without H1, Zensical uses the explicit navigation label as the root search title; Material uses the front matter title. Section titles and content remain compared."
+    }
+  ]
+}

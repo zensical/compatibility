@@ -1,0 +1,42 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "publication"
+  ],
+  "purpose": "Independently disable the plugin, tag labels or listing rendering while retaining published pages and search.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": []
+    },
+    {
+      "path": "/tag-content/guide~1index.html/labels",
+      "value": [
+        "Python"
+      ]
+    },
+    {
+      "path": "/publication/search/guide~1",
+      "value": [
+        "COMPAT_GUIDE"
+      ]
+    }
+  ],
+  "differences": [
+    {
+      "path": "/tag-content/guide~1index.html/references",
+      "mkdocs": [
+        {
+          "tag": "Python",
+          "url": "https://example.test/docs/#tag:python"
+        }
+      ],
+      "zensical": [],
+      "reason": "Material creates a tag link to a missing listing fragment when listings are disabled. Native preserves the tag label without emitting a broken link."
+    }
+  ]
+}

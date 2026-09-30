@@ -38,7 +38,7 @@ from pathlib import Path
 
 import yaml
 
-from compatibility import blog, social, tags
+from compatibility import blog, search, social, tags
 from compatibility.checks import CHECKS
 from compatibility.publication import publication, references, tag_content
 from scripts.prepare_fonts import prepare_fonts
@@ -47,6 +47,8 @@ EXTRACTORS = {
     **CHECKS,
     "blog": blog.extract,
     "social": social.extract,
+    "search": search.extract,
+    "search-config": search.configuration,
     "tags": tags.extract,
     "publication": publication,
     "references": references,
@@ -213,6 +215,8 @@ print(json.dumps(info))
 
 def process_environment() -> dict[str, str]:
     env = os.environ.copy()
+    env["PYTHONUTF8"] = "1"
+    env["PYTHONIOENCODING"] = "utf-8"
     for name in ("PYTHONPATH", "PYTHONHOME"):
         env.pop(name, None)
     env.update(PYTHONNOUSERSITE="1", NO_COLOR="1", TZ="UTC")
@@ -272,16 +276,49 @@ def validate_case(case: Path, root: Path) -> dict:
 
 
 def check_build(outcome: dict, engine: str, phase: Path, failures: dict) -> None:
-    assert not outcome["timed_out"], f"{engine} timed out; see {phase}"
+    path = phase / f"{engine}.log"
+    log = path.read_text(encoding="utf-8", errors="replace") if path.is_file() else ""
+    log = re.sub(r"\x1b\[[0-9;]*m", "", log)
+    tail = "\n".join(log.splitlines()[-80:])
+    diagnostic = f"see {phase}\n{tail}"
+    assert not outcome["timed_out"], f"{engine} timed out; {diagnostic}"
     if engine in failures:
-        assert outcome["exit_code"] > 0, f"{engine} did not reject; see {phase}"
-        log = (phase / f"{engine}.log").read_text(encoding="utf-8")
-        log = re.sub(r"\x1b\[[0-9;]*m", "", log)
+        assert outcome["exit_code"] > 0, f"{engine} did not reject; {diagnostic}"
         assert re.search(failures[engine], log, re.IGNORECASE), (
-            f"{engine} rejected for the wrong reason; see {phase}"
+            f"{engine} rejected for the wrong reason; {diagnostic}"
         )
     else:
-        assert outcome["exit_code"] == 0, f"{engine} build failed; see {phase}"
+        assert outcome["exit_code"] == 0, (
+            f"{engine} build failed (exit {outcome['exit_code']}); {diagnostic}"
+        )
+
+
+def stop_process(process: subprocess.Popen, *, interrupt: bool = False) -> None:
+    """Stop a builder and its descendants, allowing servers to close first."""
+    if process.poll() is not None:
+        return
+    if interrupt:
+        try:
+            process.send_signal(
+                signal.CTRL_BREAK_EVENT if os.name == "nt" else signal.SIGINT
+            )
+            process.wait(timeout=5)
+            return
+        except (OSError, subprocess.TimeoutExpired):
+            pass
+    if process.poll() is not None:
+        return
+    if os.name == "nt":
+        subprocess.run(
+            ["taskkill", "/PID", str(process.pid), "/T", "/F"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            timeout=10,
+            check=False,
+        )
+    else:
+        os.killpg(process.pid, signal.SIGKILL)
+    process.wait(timeout=5)
 
 
 def build(
@@ -308,16 +345,13 @@ def build(
             stderr=log,
             env=process_environment(),
             start_new_session=os.name == "posix",
+            creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0,
         ) as process:
             try:
                 code = process.wait(timeout=timeout)
                 timed_out = False
             except subprocess.TimeoutExpired:
-                if os.name == "posix":
-                    os.killpg(process.pid, signal.SIGKILL)
-                else:
-                    process.kill()
-                process.wait()
+                stop_process(process)
                 code, timed_out = None, True
         log.write(f"\nexit: {code}; timeout: {timed_out}\n")
     outcome = {
@@ -447,7 +481,10 @@ def run_case(
                     len(value) == assertion["count"]
                     if "count" in assertion
                     else value == assertion["value"]
-                ), f"{engine} contract failed at {assertion['path']}; see {phase}"
+                ), (
+                    f"{engine} contract failed at {assertion['path']}; see {phase}\n"
+                    f"Expected: {render(assertion)}\nObserved: {render(value)}"
+                )
             changed = step.get("changed")
             if isinstance(changed, dict):
                 assert (manifest != previous[engine]) == changed[engine], (
@@ -478,7 +515,7 @@ def run_case(
         )
         (phase / "unexpected.diff").write_text(difference, encoding="utf-8")
         assert not difference, (
-            f"compatibility regression; see {phase / 'unexpected.diff'}"
+            f"compatibility regression; see {phase / 'unexpected.diff'}\n{difference}"
         )
         gap = step.get("known_gap", spec.get("known_gap"))
         if gap is not None:
@@ -515,7 +552,7 @@ def run_case(
             if step["name"] == "warm":
                 assert current == snapshots, "card pixels changed on unchanged build"
             assert all(value["accepted"] for value in visuals.values()), (
-                f"card pixels differ; see {phase / 'pixels.json'}"
+                f"card pixels differ; see {phase / 'pixels.json'}\n{render(visuals)}"
             )
             snapshots = current
         previous = manifests

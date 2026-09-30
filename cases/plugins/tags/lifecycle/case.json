@@ -1,0 +1,148 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "search",
+    "publication"
+  ],
+  "purpose": "Tag edits, page addition/rename/deletion and removal of the last mapping update listings, nearest links, TOC and search.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "tag:python",
+          "tag": "Python",
+          "links": [
+            {
+              "title": "Guide",
+              "url": "https://example.test/docs/guide/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "change-tag",
+      "path": "docs/guide.md",
+      "before": "- Python",
+      "after": "- Rust",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/tag-content/index.html/listings",
+          "value": [
+            {
+              "id": "tag:rust",
+              "tag": "Rust",
+              "links": [
+                {
+                  "title": "Guide",
+                  "url": "https://example.test/docs/guide/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "/tag-content/guide~1index.html/references",
+          "value": [
+            {
+              "tag": "Rust",
+              "url": "https://example.test/docs/#tag:rust"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "add-page",
+      "copy": {
+        "inputs/second.md": "docs/second.md"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/routes",
+          "value": [
+            "guide/index.html",
+            "index.html",
+            "second/index.html"
+          ]
+        },
+        {
+          "path": "/tag-content/index.html/listings/0/links",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "name": "rename-page",
+      "copy": {
+        "docs/guide.md": "docs/moved.md"
+      },
+      "remove": [
+        "docs/guide.md"
+      ],
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/routes",
+          "value": [
+            "index.html",
+            "moved/index.html",
+            "second/index.html"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "delete-page",
+      "remove": [
+        "docs/second.md"
+      ],
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/tag-content/index.html/listings",
+          "value": [
+            {
+              "id": "tag:rust",
+              "tag": "Rust",
+              "links": [
+                {
+                  "title": "Guide",
+                  "url": "https://example.test/docs/moved/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "delete-last-tag",
+      "path": "docs/moved.md",
+      "before": "tags:\n- Rust",
+      "after": "tags: []",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/tag-content/index.html/listings",
+          "value": []
+        },
+        {
+          "path": "/tag-content/moved~1index.html/labels",
+          "value": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "search",
+    "publication"
+  ],
+  "purpose": "Real builds with Unicode/spaced source paths and Unicode anchors must publish targets that every encoded search result resolves to.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "café guide/index.html",
+        "index.html"
+      ]
+    },
+    {
+      "path": "/search/sections",
+      "count": 3
+    }
+  ]
+}

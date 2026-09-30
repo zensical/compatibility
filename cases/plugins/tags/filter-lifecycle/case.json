@@ -1,0 +1,72 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "search",
+    "publication"
+  ],
+  "purpose": "Changing a file filter retracts one mapping set and activates another without removing the underlying published/searchable pages.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "tag:public",
+          "tag": "Public",
+          "links": [
+            {
+              "title": "Public",
+              "url": "https://example.test/docs/public/guide/"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "change-filter",
+      "path": "mkdocs.yml",
+      "before": "public/**",
+      "after": "private/**",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/tag-content/index.html/listings",
+          "value": [
+            {
+              "id": "tag:private",
+              "tag": "Private",
+              "links": [
+                {
+                  "title": "Private",
+                  "url": "https://example.test/docs/private/guide/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "/tag-content/public~1guide~1index.html/labels",
+          "value": []
+        },
+        {
+          "path": "/tag-content/private~1guide~1index.html/labels",
+          "value": [
+            "Private"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "restore-filter",
+      "path": "mkdocs.yml",
+      "before": "private/**",
+      "after": "public/**",
+      "changed": true
+    }
+  ]
+}

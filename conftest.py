@@ -25,7 +25,9 @@
 
 from __future__ import annotations
 
+import json
 import os
+import sys
 from pathlib import Path
 from uuid import uuid4
 
@@ -40,7 +42,12 @@ ROOT = Path(__file__).resolve().parent
 def pytest_addoption(parser):
     group = parser.getgroup("compatibility")
     group.addoption(
-        "--mkdocs-python", default=str(ROOT / ".environments/mkdocs/bin/python")
+        "--mkdocs-python",
+        default=str(
+            ROOT
+            / ".environments/mkdocs"
+            / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
+        ),
     )
     group.addoption(
         "--zensical-python",
@@ -116,6 +123,17 @@ def pytest_terminal_summary(terminalreporter, config):
     if root is not None:
         write_json(root / "summary.json", getattr(config, "_compatibility_results", {}))
         terminalreporter.write_line(f"Compatibility artifacts: {root}")
+
+        environments = json.loads((root / "environments.json").read_text("utf-8"))
+        for engine, info in environments.items():
+            packages = info["packages"]
+            names = (
+                ("mkdocs", "mkdocs-material") if engine == "mkdocs" else ("zensical",)
+            )
+            versions = ", ".join(f"{name} {packages[name]}" for name in names)
+            terminalreporter.write_line(
+                f"{versions}; Python {info['python_version'].split()[0]}"
+            )
 
 
 @pytest.hookimpl(hookwrapper=True)

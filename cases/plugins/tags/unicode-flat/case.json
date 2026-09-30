@@ -1,0 +1,36 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "search",
+    "publication"
+  ],
+  "purpose": "Unicode filenames, encoded flat routes and custom tag fragment format/separator must produce working catalog and search targets.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "topic:café_guide",
+          "tag": "Café guide",
+          "links": [
+            {
+              "title": "Café guide",
+              "url": "https://example.test/docs/caf%C3%A9%20guide.html"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/publication/routes",
+      "value": [
+        "café guide.html",
+        "index.html"
+      ]
+    }
+  ]
+}

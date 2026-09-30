@@ -29,9 +29,9 @@ Validated on 2026-09-30 in `../compatibility`.
 
 ## Current scope
 
-The suite contains **74 projects: 57 isolated and 17 opt-in combinations**,
-plus 18 comparator/pixel guards, two font cache guards and one retained HTTP
-lifecycle test.
+The suite contains **105 projects: 84 isolated and 21 opt-in combinations**,
+plus 18 comparator/pixel guards, four search guards, two subprocess guards,
+two font cache guards and two retained HTTP lifecycle tests.
 All 44 original blog/social matrix projects remain included.
 
 The RSS generated social-card attachment case has been removed. The known
@@ -43,9 +43,105 @@ with exact expected differences. This includes API exclusion order, AutoAPI
 navigation/control-file handling, successful native builds where an excluded
 summary link causes MkDocs strict mode to reject, and current RSS feed items
 under a retained server. The unsupported native social `page.file.src_uri`
-context remains the only declared xfail.
+context and visible metadata tags when the tags plugin is disabled are the
+two declared xfails.
 
-## Complete verification against the published release
+## Latest Material coverage verification
+
+The complete run passed **131 tests with two expected xfails** in
+**193.56 seconds** against Zensical 0.0.67 and MkDocs/Material 1.6.1/9.7.1.
+This includes all 105 projects, combinations, both retained HTTP lifecycle
+tests and all comparison/cache/process guards.
+
+- **468 CLI builds across 234 checkpoints**: 437 successful exits, 31 required
+  negative exits and no timeouts.
+- Four retained development servers completed **20 HTTP snapshots** in total
+  and shut down with exit code zero. The new metadata/tags/search test checks
+  six snapshots per engine without restarting: inherited tag changes, search
+  exclusion/restoration and page addition/deletion.
+- The additional 12 projects cover Unicode tag/search routes, tag sorting and
+  deduplication, filter changes, empty-catalog recovery, search title fallbacks
+  and rich content, empty metadata values, BOM/alias handling, type conflicts,
+  reversed plugin order and search with HTML minification.
+- The headingless search title difference is accepted with exact engine-specific
+  values; all remaining search fields are compared. The same two known xfails
+  remain: custom social `page.file.src_uri` context and disabled tag labels.
+- All 105 case contracts validate. Ruff, formatting, whitespace, full 2026
+  license headers on new comment-capable files and local documentation links
+  were checked. Generated output remains ignored.
+
+Command:
+
+```sh
+.venv/bin/python -m pytest --combinations --serve -q --tb=short
+```
+
+Complete evidence: **`artifacts/a095957d11fd4c799500217d53b1ffd1/`**.
+The focused retained HTTP run passed in 5.33 seconds in
+`artifacts/561c657bd7934c969560cbe38929f46a/`.
+This verification ran on macOS ARM64; Linux and Windows await hosted CI.
+
+## First Material coverage verification
+
+The expanded full run passed **118 tests with two expected xfails** in
+**165.22 seconds** against Zensical 0.0.67 and MkDocs/Material 1.6.1/9.7.1.
+This includes all 93 projects, combinations, the retained HTTP lifecycle test
+and all comparison/cache/process guards.
+
+- **400 CLI builds across 200 checkpoints**: 373 successful exits, 27 required
+  negative exits and no timeouts. Both retained development servers completed
+  their four HTTP checkpoints and shut down with exit code zero.
+- The 19 new projects add nine tags controls/lifecycle/diagnostic cases, five
+  search cases, three meta cases and two publishing combinations. The focused
+  run passed 30 tests with one checked xfail before the full run.
+- Search results now require an existing generated page and fragment. Four
+  guards cover missing pages/anchors, percent-encoded targets and retargeting
+  that the earlier page-level token aggregation could miss. Existing blog,
+  RSS, API and publishing projects passed with this additional validation.
+- The disabled-tags xfail checks the exact native label difference on cold and
+  unchanged warm builds. The existing social template-context xfail remains.
+  Native's removal of broken links with disabled tag listings passes with an
+  exact expected difference; disabled search checks UI absence, empty content
+  and the native empty-index output difference separately.
+- Ruff, formatting and whitespace checks passed. All new comment-capable
+  files carry the full 2026 MIT/SPDX/DCO header. Generated sites, fonts,
+  environments and exploration scripts remain ignored.
+
+Command:
+
+```sh
+.venv/bin/python -m pytest --combinations --serve -q --tb=short
+```
+
+Complete evidence: **`artifacts/3074c82804494bee9a36b80b15dd5b65/`**.
+Focused evidence: `artifacts/6fe225e6855b4768984df5430d600b6e/`.
+This verification ran on macOS ARM64; Linux and Windows await hosted CI.
+See [expansion](expansion.md#material-expansion) for the new contracts and limits.
+
+## CI portability verification
+
+The workflow now runs independent Linux, macOS and Windows jobs. Each installs
+Cairo for upstream SVG rendering and selects the platform's virtual environment
+interpreter path. Windows configures Cairo DLL lookup through MSYS2. Builder
+timeouts stop child processes, and server shutdown uses the platform's process
+group signal with forced cleanup as a fallback. Text fixtures check out with LF
+line endings on every platform.
+
+CI no longer uploads generated sites or caches. Package versions, failing build
+log tails, output contract values, unexpected diffs and pixel metrics appear in
+the job output. Local runs continue to retain their full ignored artifacts.
+
+The complete local macOS ARM64 run passed **96 tests with one expected xfail**
+in **128.82 seconds**, including combinations, retained HTTP lifecycle checks
+and two new subprocess guards. The guards verify that a timed-out builder's
+descendant stops and that a failing build's Unicode diagnostic reaches the
+failure report. Evidence is in
+`artifacts/6bcdef82879a4cd78b4c283d0317f690/`.
+
+Ruff, formatting, workflow YAML, embedded Bash syntax and actionlint 1.7.12
+passed. Linux and Windows execution still require the first hosted matrix run.
+
+## Initial verification against the published release
 
 - **94 passed, 1 xfailed**, with no failures: all 74 CLI projects,
   18 comparator/pixel guards, two font cache guards and the retained HTTP
@@ -152,6 +248,7 @@ validated with `--concurrency=1 --timeout=20`, completing all six CLI builds in
 `artifacts/concurrency-31d0296d671a47d99ab7ccffb4901e91/`. That validation does
 not resolve the default-concurrency hang.
 
-This is a local macOS ARM64 run. Browser execution, retained API generators
-under serve, full search behavior, Linux and hosted CI remain unverified.
-Validation ran locally before the initial commit.
+These are local macOS ARM64 runs. Browser execution, retained API generators
+under serve, full search behavior, Linux, Windows and hosted CI remain
+unverified. The initial validation ran before the initial commit; CI portability
+was validated locally afterward.

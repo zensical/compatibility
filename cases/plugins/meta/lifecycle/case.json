@@ -1,0 +1,286 @@
+{
+  "plugins": [
+    "meta"
+  ],
+  "check": [
+    "meta",
+    "publication"
+  ],
+  "purpose": "Defaults file addition/removal/restoration and moving a page update inherited maps/lists without leaking to a similarly named sibling folder.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/meta/pages/guides~1one~1index.html/context",
+      "value": {
+        "owner": "Root",
+        "features": [
+          "root"
+        ],
+        "layer": "page"
+      }
+    },
+    {
+      "path": "/meta/pages/guidelines~1index.html/tags",
+      "value": [
+        "Root"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "add-defaults",
+      "copy": {
+        "inputs/guide-defaults.yml": "docs/guides/defaults.yml"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/meta/pages/guides~1one~1index.html/context",
+          "value": {
+            "owner": "Guides",
+            "features": [
+              "root",
+              "guides"
+            ],
+            "layer": "page"
+          }
+        },
+        {
+          "path": "/meta/pages/guidelines~1index.html/tags",
+          "value": [
+            "Root"
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "path": "/meta/extends/guidelines~1index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/guides~1index.html",
+          "mkdocs": [
+            "defaults.yml",
+            "guides/defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/guides~1one~1index.html",
+          "mkdocs": [
+            "defaults.yml",
+            "guides/defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        }
+      ]
+    },
+    {
+      "name": "remove-defaults",
+      "remove": [
+        "docs/guides/defaults.yml"
+      ],
+      "changed": true,
+      "differences": [
+        {
+          "path": "/meta/extends/guidelines~1index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/guides~1index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/guides~1one~1index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        }
+      ]
+    },
+    {
+      "name": "restore-defaults",
+      "copy": {
+        "inputs/guide-defaults.yml": "docs/guides/defaults.yml"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/meta/pages/guides~1one~1index.html/tags",
+          "value": [
+            "Root",
+            "Guides",
+            "Page"
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "path": "/meta/extends/guidelines~1index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/guides~1index.html",
+          "mkdocs": [
+            "defaults.yml",
+            "guides/defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/guides~1one~1index.html",
+          "mkdocs": [
+            "defaults.yml",
+            "guides/defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        }
+      ]
+    },
+    {
+      "name": "move-page",
+      "copy": {
+        "docs/guides/one.md": "docs/guidelines/one.md"
+      },
+      "remove": [
+        "docs/guides/one.md"
+      ],
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/meta/pages/guidelines~1one~1index.html/context",
+          "value": {
+            "owner": "Root",
+            "features": [
+              "root"
+            ],
+            "layer": "page"
+          }
+        },
+        {
+          "path": "/meta/pages/guidelines~1one~1index.html/tags",
+          "value": [
+            "Root",
+            "Page"
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "path": "/meta/extends/guidelines~1index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/guidelines~1one~1index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/guides~1index.html",
+          "mkdocs": [
+            "defaults.yml",
+            "guides/defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/index.html",
+          "mkdocs": [
+            "defaults.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        }
+      ]
+    }
+  ],
+  "differences": [
+    {
+      "path": "/meta/extends/guidelines~1index.html",
+      "mkdocs": [
+        "defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    },
+    {
+      "path": "/meta/extends/guides~1index.html",
+      "mkdocs": [
+        "defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    },
+    {
+      "path": "/meta/extends/guides~1one~1index.html",
+      "mkdocs": [
+        "defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    },
+    {
+      "path": "/meta/extends/index.html",
+      "mkdocs": [
+        "defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    }
+  ]
+}

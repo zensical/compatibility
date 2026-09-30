@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "search",
+    "publication"
+  ],
+  "purpose": "Keep visible list/code/Markdown-in-HTML text while excluding scripts, styles, objects, comments and marked hidden content.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/search/sections/0/tokens",
+      "value": [
+        "COMPAT_AFTER",
+        "COMPAT_CODE",
+        "COMPAT_INLINE",
+        "COMPAT_LIST",
+        "COMPAT_MARKDOWN",
+        "COMPAT_TEXT"
+      ]
+    }
+  ]
+}

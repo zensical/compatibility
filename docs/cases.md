@@ -168,13 +168,21 @@ cached edits. Tags observes listing hierarchy/membership, filtered targets,
 custom fragments, TOC, nearest tag links, search inclusion and export presence.
 See [observed differences](differences.md) for normalization boundaries.
 
+`search` observes index presence, per-page search UI, section titles, complete
+result locations, tags and explicit fixture tokens. It checks every result's
+page and fragment against the generated HTML, including percent-encoded paths
+and anchors. `search-config` checks the emitted separator expression in cases
+that configure it explicitly. Search scores, tokenization and browser query
+execution are outside these CLI contracts.
+
 `publication` checks canonical URLs, HTML route membership, all sitemap URLs,
 search page membership and explicit fixture tokens, plus exact HTML probes
 and selected comments. `references` checks actual rendered autorefs links,
 object anchors, content tokens, unresolved references and decoded Sphinx
-inventory entries. `tag-content` observes generic catalog headings and links
-in composition cases. Multiple extractors let a combination check all its
-outputs together.
+inventory entries. `tag-content` observes catalog headings, ordered listing
+links, page tag labels/references and TOC links. Multiple extractors let a
+combination check all its outputs together. `publication` validates search
+targets before aggregating page membership and fixture tokens.
 
 Future plugin extractors should read generated output or deterministic fixture
 probes. Do not call private generator APIs. Use real local data files, fixed

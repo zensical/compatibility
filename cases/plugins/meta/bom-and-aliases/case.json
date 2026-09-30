@@ -1,0 +1,47 @@
+{
+  "plugins": [
+    "meta"
+  ],
+  "check": [
+    "meta",
+    "publication"
+  ],
+  "purpose": "A BOM-prefixed custom defaults file resolves YAML anchors/merge keys before page-level overrides.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/meta/pages/index.html/context",
+      "value": {
+        "owner": "Root",
+        "enabled": true,
+        "layer": "page"
+      }
+    },
+    {
+      "path": "/meta/pages/guide~1index.html/context",
+      "value": {
+        "owner": "Root",
+        "enabled": true,
+        "layer": "root"
+      }
+    }
+  ],
+  "differences": [
+    {
+      "path": "/meta/extends/guide~1index.html",
+      "mkdocs": [
+        "defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    },
+    {
+      "path": "/meta/extends/index.html",
+      "mkdocs": [
+        "defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    }
+  ]
+}

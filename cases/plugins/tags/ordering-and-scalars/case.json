@@ -1,0 +1,71 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "publication"
+  ],
+  "purpose": "Repeated tags are deduplicated, scalar tags use Python names and reverse sorts preserve exact tag/page order.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/alpha~1index.html/labels",
+      "value": [
+        "True",
+        "Shared",
+        "Beta",
+        "2"
+      ]
+    },
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "tag:true",
+          "tag": "True",
+          "links": [
+            {
+              "title": "Alpha",
+              "url": "https://example.test/docs/alpha/"
+            }
+          ]
+        },
+        {
+          "id": "tag:shared",
+          "tag": "Shared",
+          "links": [
+            {
+              "title": "Zulu",
+              "url": "https://example.test/docs/zulu/"
+            },
+            {
+              "title": "Alpha",
+              "url": "https://example.test/docs/alpha/"
+            }
+          ]
+        },
+        {
+          "id": "tag:beta",
+          "tag": "Beta",
+          "links": [
+            {
+              "title": "Alpha",
+              "url": "https://example.test/docs/alpha/"
+            }
+          ]
+        },
+        {
+          "id": "tag:2",
+          "tag": "2",
+          "links": [
+            {
+              "title": "Alpha",
+              "url": "https://example.test/docs/alpha/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "search",
+    "publication"
+  ],
+  "purpose": "An initially empty directive gains, loses and regains its first member while preserving adjacent headings and search sections.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": []
+    }
+  ],
+  "steps": [
+    {
+      "name": "first-member",
+      "copy": {
+        "inputs/guide.md": "docs/guide.md"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/tag-content/index.html/listings",
+          "value": [
+            {
+              "id": "tag:python",
+              "tag": "Python",
+              "links": [
+                {
+                  "title": "Guide",
+                  "url": "https://example.test/docs/guide/"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "last-member-deleted",
+      "remove": [
+        "docs/guide.md"
+      ],
+      "clean": true,
+      "changed": true
+    },
+    {
+      "name": "recover-member",
+      "copy": {
+        "inputs/guide.md": "docs/guide.md"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/tag-content/index.html/listings",
+          "value": [
+            {
+              "id": "tag:python",
+              "tag": "Python",
+              "links": [
+                {
+                  "title": "Guide",
+                  "url": "https://example.test/docs/guide/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "/publication/search/guide~1",
+          "value": [
+            "COMPAT_GUIDE"
+          ]
+        }
+      ]
+    }
+  ]
+}

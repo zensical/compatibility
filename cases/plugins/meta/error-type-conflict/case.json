@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "meta"
+  ],
+  "check": "meta",
+  "purpose": "Incompatible scalar/list inheritance fails with the metadata type conflict diagnostic in both engines.",
+  "warm": true,
+  "failure": {
+    "mkdocs": "destination type:.*str.*differs from source type:.*list.*for key:.*owner",
+    "zensical": "metadata types do not match"
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "publication"
+  ],
+  "purpose": "Named and inline directives honor include/exclude selection, per-listing TOC visibility and scope restricted to a nested catalog folder.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "tag:python",
+          "tag": "Python",
+          "links": [
+            {
+              "title": "Nested guide",
+              "url": "https://example.test/docs/guides/one/"
+            },
+            {
+              "title": "Python guide",
+              "url": "https://example.test/docs/python/"
+            }
+          ]
+        },
+        {
+          "id": "tag:rust",
+          "tag": "Rust",
+          "links": [
+            {
+              "title": "Rust guide",
+              "url": "https://example.test/docs/rust/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/tag-content/guides~1index.html/listings",
+      "value": [
+        {
+          "id": "tag:python",
+          "tag": "Python",
+          "links": [
+            {
+              "title": "Nested guide",
+              "url": "https://example.test/docs/guides/one/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/tag-content/index.html/toc",
+      "value": [
+        {
+          "title": "Public",
+          "url": "https://example.test/docs/#public"
+        },
+        {
+          "title": "Guides",
+          "url": "https://example.test/docs/#guides"
+        },
+        {
+          "title": "Rust",
+          "url": "https://example.test/docs/#tag:rust"
+        },
+        {
+          "title": "Public",
+          "url": "https://example.test/docs/#public"
+        },
+        {
+          "title": "Guides",
+          "url": "https://example.test/docs/#guides"
+        },
+        {
+          "title": "Rust",
+          "url": "https://example.test/docs/#tag:rust"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "publication"
+  ],
+  "purpose": "Independently disable the plugin, tag labels or listing rendering while retaining published pages and search.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "tag:python",
+          "tag": "Python",
+          "links": [
+            {
+              "title": "Guide",
+              "url": "https://example.test/docs/guide/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/tag-content/guide~1index.html/labels",
+      "value": []
+    },
+    {
+      "path": "/publication/search/guide~1",
+      "value": [
+        "COMPAT_GUIDE"
+      ]
+    }
+  ]
+}

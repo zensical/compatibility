@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": "tag-content",
+  "purpose": "Reject invalid tag metadata, disallowed tags or unresolved listing names with a specific diagnostic.",
+  "warm": true,
+  "failure": {
+    "mkdocs": "tags? not in allow list: Forbidden",
+    "zensical": "tags? not in allow list: Forbidden"
+  }
+}

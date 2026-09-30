@@ -1,0 +1,37 @@
+{
+  "plugins": [
+    "exclude",
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "search",
+    "publication"
+  ],
+  "purpose": "Excluded source pages must disappear from tag catalog links, search, HTML and sitemap together.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "guide/index.html",
+        "index.html"
+      ]
+    },
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "tag:python",
+          "tag": "Python",
+          "links": [
+            {
+              "title": "Guide",
+              "url": "https://example.test/docs/guide/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

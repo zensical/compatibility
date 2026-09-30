@@ -1,22 +1,18 @@
 # Zensical compatibility
 
-End to end comparisons of MkDocs plugins and Zensical's native replacements.
-Each case builds the same small project through both public CLIs in separate
-environments, then checks the generated website or artifacts. No Zensical
-implementation modules are imported into the test runner.
+End to end tests comparing MkDocs plugins with Zensical's native implementations.
+Each case builds the same project through both public CLIs in separate
+environments and checks the generated output.
 
-The suite contains **57 isolated projects** and **17 opt-in combinations**,
-covering publishing, navigation, API references, exclusion and minification.
-An optional HTTP lifecycle check exercises retained development servers.
-All 44 preserved blog and social matrix projects have been migrated, along
-with their plugin demos. See [migration notes](docs/migration.md) and
-[the latest local validation](docs/validation.md). New combinations, findings
-and the next priorities are in [the expansion analysis](docs/expansion.md).
+The suite covers publishing, navigation, API references, tags, metadata,
+search, exclusion and minification, with isolated plugin cases, opt-in
+combinations and HTTP lifecycle checks.
 
 ## Run locally
 
-Requires uv and Python 3.12 or newer. Set up the runner, MkDocs oracle and
-downloaded fonts once:
+Requires uv and Python 3.12 or newer. Social tests also need the system Cairo
+library (`libcairo2` on Linux, `brew install cairo` on macOS). Set up the
+runner and MkDocs baseline:
 
 ```sh
 cd ../compatibility
@@ -29,85 +25,50 @@ uv pip sync --python .environments/mkdocs/bin/python --require-hashes requiremen
 .venv/bin/python -m pytest
 ```
 
-Each test run installs the **latest stable Zensical release from PyPI** in
-ignored `.environments/zensical/`, together with the locked API handler runtime.
-This requires network access to check the latest release. The runner records
-the resolved version, package location and native extension hash in the
-artifacts. Collection and comparator-only tests do not prepare a candidate.
+On Windows, use `Scripts/python.exe` instead of `bin/python` in these paths.
+Set `PYTHONUTF8=1` and point `CAIROCFFI_DLL_DIRECTORIES` to the folder containing
+your Cairo DLLs. CI installs Cairo through MSYS2 automatically.
 
-Select cases, collect the matrix, or pin a published release:
+Test runs install the **latest stable Zensical release from PyPI** into
+`.environments/zensical/`, together with the locked API runtime. Checking the
+latest release requires network access. Collection and comparator-only tests
+do not prepare a candidate.
+
+Select cases or enable extended checks:
 
 ```sh
 .venv/bin/python -m pytest --collect-only -q
 .venv/bin/python -m pytest -k redirects
 .venv/bin/python -m pytest --case=plugins/rss/multiple-instances
-.venv/bin/python -m pytest --combinations
 .venv/bin/python -m pytest --combinations --serve
-.venv/bin/python -m pytest --zensical-version=0.0.67
-.venv/bin/python -m pytest --zensical-python=/path/to/candidate/bin/python --junitxml=artifacts/junit.xml
 ```
 
-`--zensical-python` uses an explicitly prepared environment and skips the PyPI
-installation. For this override, install Zensical and the API runtime yourself:
-`uv pip install --python /path/to/candidate/bin/python --require-hashes -r requirements/candidate.txt`.
-Use either `--zensical-version` or `--zensical-python`.
+Pin a release with `--zensical-version=VERSION`, or use an existing candidate
+with `--zensical-python=/path/to/candidate/bin/python`. Existing candidates
+need Zensical and the API runtime from `requirements/candidate.txt` installed.
+Choose one of these options.
 
-The oracle uses MkDocs 1.6.1 and Material 9.7.1. RSS is pinned to the exact
-upstream commit used by the preserved reproduction; the published RSS 1.17.9
-package does not support its stylesheet option. Navigation plugin versions
-are pinned from their [PyPI release pages](https://pypi.org/project/mkdocs-awesome-nav/)
-and [literate-nav release page](https://pypi.org/project/mkdocs-literate-nav/).
-
-Social uses Pillow 12.1.1 and CairoSVG 2.8.2. Roboto fonts and their license
-are downloaded from the [upstream 2.138 release](https://github.com/googlefonts/roboto-2/releases/tag/v2.138)
-and unpacked into ignored `.cache/fonts/`. `requirements/fonts.json` pins the
-archive URL and SHA-256 hashes for the archive and required files. The runner
-prepares missing fonts automatically and seeds each builder's cache with the
-same bytes. Subsequent runs reuse the verified cache without network access;
-font binaries are not stored in Git. CairoSVG requires the system Cairo
-library (for example, `libcairo2` on Linux).
-
-`prepare_oracle.py` verifies the RSS archive against the lock and installs
-its unmodified source as editable: that upstream revision's wheel omits its
-integration modules. Dependencies remain locked. Run it again after syncing
-the MkDocs environment. The source and its archive provenance live under
-`.environments/`.
+The MkDocs baseline, API runtime and fonts are pinned under `requirements/`.
+Fonts are downloaded into ignored `.cache/fonts/`, verified and reused by both
+builders. Run `prepare_oracle.py` again after syncing the MkDocs environment
+to restore the pinned RSS source.
 
 ## Results
 
-Every run gets a new `artifacts/<run-id>/` directory. It contains environment
-and package versions, the loaded Zensical native extension hash, input hashes,
-both copied projects and generated sites, per-build logs and exit codes,
-semantic JSON manifests, raw and unexpected diffs, and `summary.json`.
-Pass `--artifacts=/path` to keep runs elsewhere. Results are never overwritten.
+Each run creates `artifacts/<run-id>/` with package versions, native extension
+and input hashes, copied projects, generated sites, logs, manifests, diffs and
+a summary. Use `--artifacts=/path` to choose another location and
+`--junitxml=artifacts/junit.xml` for a JUnit report.
 
-A success case requires both builds to succeed, satisfy its explicit output
-assertions, and match the plugin's semantic manifest. A negative case requires
-both engines to reject it with the expected diagnostic. Warm builds must
-preserve their semantic output; mutation steps can require a visible change.
-Builds time out after 120 seconds unless the case sets another limit.
+Cases assert output contracts and compare semantic manifests. Social cards
+also undergo decoded pixel comparisons. Expected differences must match
+their declared values; unrelated changes and timeouts fail. Known gaps are
+reported as xfail only after their contracts pass. See
+[the documented differences](docs/differences.md) for details.
 
-Expected differences name an exact field, both exact values, and a reason.
-They cannot accept an unrelated difference in that case. A changed or resolved
-exception fails until the declaration is reviewed. Both raw manifests remain
-available. Specific list membership/count differences retain checks on every
-other item. Verified native improvements pass with their exact differences
-checked. Known native output gaps are xfailed only after exact differences, all
-other outputs, pixels and lifecycle contracts pass. Full theme assets and
-HTML bytes are preserved but do not form a universal equality check.
-
-Social also compares decoded card pixels, with a mean RGB error budget of 1.
-The custom typography fixture allows 4 only for its two named cards. Cached
-SVG differences require exact pixel hashes at the two affected checkpoints.
-The unsupported `page.file.src_uri` case is reported as **xfail only after**
-the oracle output and specific native rejection have passed their checks.
-See [the observed differences](docs/differences.md) for the current boundaries.
-
-The `--serve` check starts both public development servers and downloads
-pages, search, feeds and cards through HTTP. It verifies inherited metadata
-edits, page insertion/deletion and excluded-page HTTP 404s. It requires local
-socket access and is skipped by default. Browser execution, redirects in a
-browser and instant navigation remain follow-up work.
+`--serve` checks pages, metadata, tags, search, feeds and cards over HTTP while
+editing, adding and deleting content. It requires local socket access. Browser
+execution and instant navigation are not covered.
 
 ## Add a case
 
@@ -116,20 +77,18 @@ See [the case format](docs/cases.md). Put one plugin under
 cannot add the default search plugin. Search may be included as infrastructure
 when needed; interactions with it still require focused checks.
 
-Combination cases live under `cases/combinations/` and run only with
-`--combinations`. They use the same runner and checks. Keeping a separate
-case tree makes plugin interactions explicit without generating every possible
-combination.
+Put plugin interactions under `cases/combinations/`; these run with
+`--combinations` and use the same runner and checks. See
+[the expansion analysis](docs/expansion.md) for coverage priorities.
 
 ## CI and dependency updates
 
-The included GitHub Actions workflow tests the latest stable PyPI release by
-default and uploads reports, logs, and generated sites even when tests fail.
-The optional `workflow_dispatch` input `ref` builds a commit, tag, or branch
-from `zensical/zensical` in its own environment instead. This workflow has
-been prepared locally; it has not run in a hosted repository.
-Enable the `combinations` and `serve` inputs for the extended checks; pull
-requests and pushes run isolated cases by default.
+The GitHub Actions workflow tests the latest stable PyPI release on Linux,
+macOS and Windows. Versions, failing build logs and unexpected diffs appear
+in the job output. Generated sites and caches are not uploaded.
+Pull requests and pushes run isolated cases. Manual runs can enable
+`combinations` and `serve`, or set `ref` to build a commit, tag or branch from
+`zensical/zensical` instead.
 
 The `.in` files hold reviewed direct pins; the `.txt` files lock transitive
 dependencies and archive hashes. Update the oracle in a dedicated change and

@@ -1,0 +1,143 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "search",
+    "publication"
+  ],
+  "purpose": "Section title/fragment/content edits, exclusion/restoration and page addition/deletion synchronize the real search index.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/search/sections",
+      "value": [
+        {
+          "location": "",
+          "title": "Home",
+          "tokens": [
+            "COMPAT_HOME"
+          ],
+          "tags": []
+        },
+        {
+          "location": "guide/",
+          "title": "Guide",
+          "tokens": [
+            "COMPAT_GUIDE"
+          ],
+          "tags": [
+            "Python"
+          ]
+        },
+        {
+          "location": "guide/#first",
+          "title": "First",
+          "tokens": [
+            "COMPAT_FIRST"
+          ],
+          "tags": [
+            "Python"
+          ]
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "rename-section",
+      "path": "docs/guide.md",
+      "before": "## First { #first }\n\nCOMPAT_FIRST",
+      "after": "## Second { #second }\n\nCOMPAT_SECOND",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/search/sections/2",
+          "value": {
+            "location": "guide/#second",
+            "title": "Second",
+            "tokens": [
+              "COMPAT_SECOND"
+            ],
+            "tags": [
+              "Python"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "exclude-page",
+      "path": "docs/guide.md",
+      "before": "exclude: false",
+      "after": "exclude: true",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/search/sections",
+          "count": 1
+        },
+        {
+          "path": "/publication/routes",
+          "value": [
+            "guide/index.html",
+            "index.html"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "restore-page",
+      "path": "docs/guide.md",
+      "before": "exclude: true",
+      "after": "exclude: false",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/search/sections",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "name": "add-page",
+      "copy": {
+        "inputs/new.md": "docs/new.md"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/search/sections",
+          "count": 4
+        },
+        {
+          "path": "/publication/search/new~1",
+          "value": [
+            "COMPAT_ADDED"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "delete-page",
+      "remove": [
+        "docs/new.md"
+      ],
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/search/sections",
+          "count": 3
+        },
+        {
+          "path": "/publication/routes",
+          "value": [
+            "guide/index.html",
+            "index.html"
+          ]
+        }
+      ]
+    }
+  ]
+}

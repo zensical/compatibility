@@ -1,0 +1,390 @@
+{
+  "plugins": [
+    "meta",
+    "tags"
+  ],
+  "check": [
+    "meta",
+    "tag-content",
+    "search",
+    "publication"
+  ],
+  "purpose": "Inherited tags and search exclusions reach generated tag catalogs and the real section index; excluded search pages remain published and listed.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "tag:python",
+          "tag": "Python",
+          "links": [
+            {
+              "title": "Guide",
+              "url": "https://example.test/docs/guides/one/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/meta/pages/guides~1one~1index.html/tags",
+      "value": [
+        "Python"
+      ]
+    },
+    {
+      "path": "/search/sections",
+      "value": [
+        {
+          "location": "",
+          "title": "Catalog",
+          "tokens": [],
+          "tags": []
+        },
+        {
+          "location": "#tag:python",
+          "title": "Python",
+          "tokens": [],
+          "tags": []
+        },
+        {
+          "location": "guides/one/",
+          "title": "Guide",
+          "tokens": [
+            "COMPAT_GUIDE"
+          ],
+          "tags": [
+            "Python"
+          ]
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "inherited-tag",
+      "path": "docs/guides/.meta.yml",
+      "before": "- Python",
+      "after": "- Rust",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/tag-content/index.html/listings",
+          "value": [
+            {
+              "id": "tag:rust",
+              "tag": "Rust",
+              "links": [
+                {
+                  "title": "Guide",
+                  "url": "https://example.test/docs/guides/one/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "/meta/pages/guides~1one~1index.html/tags",
+          "value": [
+            "Rust"
+          ]
+        },
+        {
+          "path": "/search/sections",
+          "value": [
+            {
+              "location": "",
+              "title": "Catalog",
+              "tokens": [],
+              "tags": []
+            },
+            {
+              "location": "#tag:rust",
+              "title": "Rust",
+              "tokens": [],
+              "tags": []
+            },
+            {
+              "location": "guides/one/",
+              "title": "Guide",
+              "tokens": [
+                "COMPAT_GUIDE"
+              ],
+              "tags": [
+                "Rust"
+              ]
+            }
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "path": "/meta/extends/guides~1one~1index.html",
+          "mkdocs": [
+            "guides/.meta.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        }
+      ]
+    },
+    {
+      "name": "inherited-exclusion",
+      "path": "docs/guides/.meta.yml",
+      "before": "exclude: false",
+      "after": "exclude: true",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/search",
+          "value": {
+            "": []
+          }
+        },
+        {
+          "path": "/tag-content/index.html/listings",
+          "value": [
+            {
+              "id": "tag:rust",
+              "tag": "Rust",
+              "links": [
+                {
+                  "title": "Guide",
+                  "url": "https://example.test/docs/guides/one/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "/search/sections",
+          "value": [
+            {
+              "location": "",
+              "title": "Catalog",
+              "tokens": [],
+              "tags": []
+            },
+            {
+              "location": "#tag:rust",
+              "title": "Rust",
+              "tokens": [],
+              "tags": []
+            }
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "path": "/meta/extends/guides~1one~1index.html",
+          "mkdocs": [
+            "guides/.meta.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        }
+      ]
+    },
+    {
+      "name": "restore-search",
+      "path": "docs/guides/.meta.yml",
+      "before": "exclude: true",
+      "after": "exclude: false",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/search/guides~1one~1",
+          "value": [
+            "COMPAT_GUIDE"
+          ]
+        },
+        {
+          "path": "/search/sections",
+          "value": [
+            {
+              "location": "",
+              "title": "Catalog",
+              "tokens": [],
+              "tags": []
+            },
+            {
+              "location": "#tag:rust",
+              "title": "Rust",
+              "tokens": [],
+              "tags": []
+            },
+            {
+              "location": "guides/one/",
+              "title": "Guide",
+              "tokens": [
+                "COMPAT_GUIDE"
+              ],
+              "tags": [
+                "Rust"
+              ]
+            }
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "path": "/meta/extends/guides~1one~1index.html",
+          "mkdocs": [
+            "guides/.meta.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        }
+      ]
+    },
+    {
+      "name": "add-page",
+      "copy": {
+        "inputs/new.md": "docs/guides/new.md"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/meta/pages/guides~1new~1index.html/tags",
+          "value": [
+            "Rust"
+          ]
+        },
+        {
+          "path": "/publication/search/guides~1new~1",
+          "value": [
+            "COMPAT_ADDED"
+          ]
+        },
+        {
+          "path": "/search/sections",
+          "value": [
+            {
+              "location": "",
+              "title": "Catalog",
+              "tokens": [],
+              "tags": []
+            },
+            {
+              "location": "#tag:rust",
+              "title": "Rust",
+              "tokens": [],
+              "tags": []
+            },
+            {
+              "location": "guides/new/",
+              "title": "Added",
+              "tokens": [
+                "COMPAT_ADDED"
+              ],
+              "tags": [
+                "Rust"
+              ]
+            },
+            {
+              "location": "guides/one/",
+              "title": "Guide",
+              "tokens": [
+                "COMPAT_GUIDE"
+              ],
+              "tags": [
+                "Rust"
+              ]
+            }
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "path": "/meta/extends/guides~1new~1index.html",
+          "mkdocs": [
+            "guides/.meta.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        },
+        {
+          "path": "/meta/extends/guides~1one~1index.html",
+          "mkdocs": [
+            "guides/.meta.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        }
+      ]
+    },
+    {
+      "name": "delete-page",
+      "remove": [
+        "docs/guides/new.md"
+      ],
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/tag-content/index.html/listings",
+          "value": [
+            {
+              "id": "tag:rust",
+              "tag": "Rust",
+              "links": [
+                {
+                  "title": "Guide",
+                  "url": "https://example.test/docs/guides/one/"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "path": "/search/sections",
+          "value": [
+            {
+              "location": "",
+              "title": "Catalog",
+              "tokens": [],
+              "tags": []
+            },
+            {
+              "location": "#tag:rust",
+              "title": "Rust",
+              "tokens": [],
+              "tags": []
+            },
+            {
+              "location": "guides/one/",
+              "title": "Guide",
+              "tokens": [
+                "COMPAT_GUIDE"
+              ],
+              "tags": [
+                "Rust"
+              ]
+            }
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "path": "/meta/extends/guides~1one~1index.html",
+          "mkdocs": [
+            "guides/.meta.yml"
+          ],
+          "zensical": [],
+          "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+        }
+      ]
+    }
+  ],
+  "differences": [
+    {
+      "path": "/meta/extends/guides~1one~1index.html",
+      "mkdocs": [
+        "guides/.meta.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    }
+  ]
+}

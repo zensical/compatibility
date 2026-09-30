@@ -137,7 +137,9 @@ def test_publishing_server_lifecycle(pytestconfig, request):
                 ]
         difference = compare(expected, observations["zensical"][phase], rules)
         (output / f"{phase}.diff").write_text(difference)
-        assert not difference, f"serve compatibility regression; see {output / phase}"
+        assert not difference, (
+            f"serve compatibility regression; see {output / phase}\n{difference}"
+        )
         cards = expected["social"]["cards"]
         metrics = compare_cards(
             output / "mkdocs" / phase / "site",

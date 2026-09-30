@@ -48,8 +48,19 @@ permissions:
 
 jobs:
   plugins:
-    runs-on: ubuntu-latest
+    name: Plugins (${{ matrix.os }})
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    env:
+      PYTHONUTF8: '1'
+      VENV_PYTHON: ${{ matrix.os == 'windows-latest' && 'Scripts/python.exe' || 'bin/python' }}
     steps:
       - uses: actions/checkout@v6
       - uses: actions/checkout@v6
@@ -64,35 +75,58 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
         if: ${{ inputs.ref != '' }}
       - name: Install Cairo for upstream SVG rendering
+        if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install --yes libcairo2
+      - name: Install Cairo on macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install cairo
+          echo "DYLD_FALLBACK_LIBRARY_PATH=$(brew --prefix cairo)/lib" >> "$GITHUB_ENV"
+      - name: Install Cairo on Windows
+        if: runner.os == 'Windows'
+        id: msys2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: UCRT64
+          install: mingw-w64-ucrt-x86_64-cairo
+      - name: Configure Cairo DLL lookup
+        if: runner.os == 'Windows'
+        shell: pwsh
+        env:
+          MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
+        run: |
+          $cairoPath = Join-Path $env:MSYS2_LOCATION 'ucrt64/bin'
+          "CAIROCFFI_DLL_DIRECTORIES=$cairoPath" >> $env:GITHUB_ENV
+          $cairoPath >> $env:GITHUB_PATH
       - name: Install runner and MkDocs oracle
         run: |
           uv venv --python 3.12 .venv
-          uv pip sync --python .venv/bin/python --require-hashes requirements/runner.txt
+          uv pip sync --python ".venv/$VENV_PYTHON" --require-hashes requirements/runner.txt
           uv venv --python 3.12 .environments/mkdocs
-          uv pip sync --python .environments/mkdocs/bin/python --require-hashes requirements/mkdocs.txt
-          .venv/bin/python scripts/prepare_oracle.py
-          .venv/bin/python scripts/prepare_fonts.py
+          uv pip sync --python ".environments/mkdocs/$VENV_PYTHON" --require-hashes requirements/mkdocs.txt
+          ".venv/$VENV_PYTHON" scripts/prepare_oracle.py
+          ".venv/$VENV_PYTHON" scripts/prepare_fonts.py
+      - name: Check Cairo runtime
+        run: |
+          ".environments/mkdocs/$VENV_PYTHON" -c "import cairocffi; print('Cairo', cairocffi.cairo_version_string())"
       - name: Build Zensical candidate
         if: ${{ inputs.ref != '' }}
         run: |
           uv venv --python 3.12 .environments/zensical
           cd .candidate/zensical
-          python scripts/prepare.py
-          uv pip install --python ../../.environments/zensical/bin/python .
+          "../../.environments/zensical/$VENV_PYTHON" scripts/prepare.py
+          uv pip install --python "../../.environments/zensical/$VENV_PYTHON" .
       - name: Record candidate revision
         if: ${{ inputs.ref != '' }}
-        run: |
-          mkdir -p artifacts
-          git -C .candidate/zensical rev-parse HEAD > artifacts/zensical-commit.txt
+        run: git -C .candidate/zensical rev-parse HEAD
       - name: Install API handler runtime dependencies
         if: ${{ inputs.ref != '' }}
-        run: uv pip install --python .environments/zensical/bin/python --require-hashes -r requirements/candidate.txt
+        run: uv pip install --python ".environments/zensical/$VENV_PYTHON" --require-hashes -r requirements/candidate.txt
       - name: Install latest stable Zensical release
         if: ${{ inputs.ref == '' }}
-        run: .venv/bin/python scripts/prepare_candidate.py
+        run: '".venv/$VENV_PYTHON" scripts/prepare_candidate.py'
       - name: Compare plugin projects
         env:
           TEST_COMBINATIONS: ${{ inputs.combinations || false }}
@@ -105,14 +139,6 @@ jobs:
           if [[ "$TEST_SERVE" == "true" ]]; then
             compatibility_args+=(--serve)
           fi
-          .venv/bin/python -m pytest \
-            --zensical-python=.environments/zensical/bin/python \
-            --junitxml=artifacts/junit.xml \
+          ".venv/$VENV_PYTHON" -m pytest \
+            --zensical-python=".environments/zensical/$VENV_PYTHON" \
             "${compatibility_args[@]}"
-      - uses: actions/upload-artifact@v7
-        if: always()
-        with:
-          name: compatibility
-          path: artifacts/
-          retention-days: 14
-          include-hidden-files: true

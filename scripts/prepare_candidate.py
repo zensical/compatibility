@@ -37,7 +37,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def prepare_candidate(version: str | None = None) -> Path:
     candidate = ROOT / ".environments/zensical"
-    python = candidate / "bin/python"
+    python = candidate / (
+        "Scripts/python.exe" if sys.platform == "win32" else "bin/python"
+    )
     if not python.is_file():
         subprocess.run(
             ["uv", "venv", "--clear", "--python", sys.executable, str(candidate)],

@@ -26,6 +26,7 @@
 import argparse
 import json
 import shutil
+import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from uuid import uuid4
@@ -42,7 +43,11 @@ def main():
     parser.add_argument("--concurrency", type=int, default=None)
     parser.add_argument("--timeout", type=int, default=20)
     parser.add_argument(
-        "--mkdocs-python", type=Path, default=root / ".environments/mkdocs/bin/python"
+        "--mkdocs-python",
+        type=Path,
+        default=root
+        / ".environments/mkdocs"
+        / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python"),
     )
     parser.add_argument(
         "--zensical-python",

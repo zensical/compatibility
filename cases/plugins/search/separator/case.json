@@ -1,0 +1,45 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "search",
+    "search-config",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "Configured separators reach the generated search runtime and change after a configuration edit; query execution is outside this CLI contract.",
+  "assertions": [
+    {
+      "path": "/search-config/separator",
+      "value": "[\\s:/]+"
+    },
+    {
+      "path": "/search/sections/0/tokens",
+      "value": [
+        "COMPAT_SETTING"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-separator",
+      "path": "mkdocs.yml",
+      "before": "[\\s:/]+",
+      "after": "[\\s:/.]+",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/search-config/separator",
+          "value": "[\\s:/.]+"
+        },
+        {
+          "path": "/search/sections/0/tokens",
+          "value": [
+            "COMPAT_SETTING"
+          ]
+        }
+      ]
+    }
+  ]
+}

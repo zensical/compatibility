@@ -1,0 +1,46 @@
+{
+  "plugins": [
+    "tags"
+  ],
+  "check": [
+    "tag-content",
+    "publication"
+  ],
+  "purpose": "Independently disable the plugin, tag labels or listing rendering while retaining published pages and search.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": []
+    },
+    {
+      "path": "/tag-content/guide~1index.html/labels",
+      "value": [],
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/publication/search/guide~1",
+      "value": [
+        "COMPAT_GUIDE"
+      ]
+    },
+    {
+      "path": "/tag-content/guide~1index.html/labels",
+      "engine": "zensical",
+      "value": [
+        "Python"
+      ]
+    }
+  ],
+  "differences": [
+    {
+      "path": "/tag-content/guide~1index.html/labels",
+      "mkdocs": [],
+      "zensical": [
+        "Python"
+      ],
+      "reason": "The published native implementation still supplies fallback metadata tag labels when the tags plugin is explicitly disabled."
+    }
+  ],
+  "known_gap": "Explicitly disabling the tags plugin still renders page metadata tag labels in Zensical 0.0.67; MkDocs removes them."
+}

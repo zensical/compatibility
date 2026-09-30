@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "meta"
+  ],
+  "check": "meta",
+  "purpose": "Invalid metadata YAML fails with a metadata parsing diagnostic rather than a timeout or unrelated error.",
+  "warm": true,
+  "failure": {
+    "mkdocs": "Error reading meta file",
+    "zensical": "error reading meta file '.meta.yml': while parsing a flow sequence"
+  }
+}

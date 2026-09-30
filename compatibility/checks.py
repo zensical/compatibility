@@ -162,7 +162,9 @@ def meta(site: Path) -> dict:
         value = json.loads(marker.get_text())
         # Observe the private marker separately so its exact intentional omission
         # cannot hide a difference in public page metadata.
-        extends[route] = value.pop("__extends", [])
+        extends[route] = [
+            path.replace("\\", "/") for path in value.pop("__extends", [])
+        ]
         pages[route] = value
     return {"pages": pages, "extends": extends}
 

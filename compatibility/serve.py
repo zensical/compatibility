@@ -27,7 +27,6 @@ from __future__ import annotations
 
 import os
 import shutil
-import signal
 import socket
 import subprocess
 import time
@@ -42,7 +41,7 @@ import yaml
 from PIL import Image
 
 from compatibility.checks import html
-from compatibility.runner import observe, process_environment, write_json
+from compatibility.runner import observe, process_environment, stop_process, write_json
 from compatibility.social import pixels
 
 
@@ -73,7 +72,8 @@ def server(python: Path, engine: str, project: Path, output: Path):
             stdout=log,
             stderr=subprocess.STDOUT,
             env=process_environment(),
-            start_new_session=True,
+            start_new_session=os.name == "posix",
+            creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0,
         )
         write_json(
             output / "server.json",
@@ -82,14 +82,7 @@ def server(python: Path, engine: str, project: Path, output: Path):
         try:
             yield base, process
         finally:
-            if process.poll() is None:
-                process.send_signal(signal.SIGINT)
-                try:
-                    process.wait(timeout=5)
-                except subprocess.TimeoutExpired:
-                    # Both builders can own worker processes; close the group.
-                    os.killpg(process.pid, signal.SIGKILL)
-                    process.wait(timeout=5)
+            stop_process(process, interrupt=True)
             write_json(output / "server-exit.json", {"exit_code": process.returncode})
 
 

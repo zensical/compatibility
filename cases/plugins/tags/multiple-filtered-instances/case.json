@@ -1,0 +1,59 @@
+{
+  "plugins": [
+    "material/tags"
+  ],
+  "check": [
+    "tag-content",
+    "publication"
+  ],
+  "purpose": "Namespaced instances use independent file filters, metadata properties, template variables and directives; filtered pages still publish.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "tag:python",
+          "tag": "Python",
+          "links": [
+            {
+              "title": "Guide",
+              "url": "https://example.test/docs/guides/one/"
+            }
+          ]
+        },
+        {
+          "id": "tag:expert",
+          "tag": "Expert",
+          "links": [
+            {
+              "title": "Reference",
+              "url": "https://example.test/docs/reference/one/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/publication/probes/guides~1one~1index.html",
+      "value": {
+        "topics": "Python",
+        "audiences": ""
+      }
+    },
+    {
+      "path": "/publication/probes/reference~1one~1index.html",
+      "value": {
+        "topics": "",
+        "audiences": "Expert"
+      }
+    },
+    {
+      "path": "/publication/probes/guides~1private~1index.html",
+      "value": {
+        "topics": "",
+        "audiences": ""
+      }
+    }
+  ]
+}

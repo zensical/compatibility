@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "meta"
+  ],
+  "check": "meta",
+  "purpose": "Disabled metadata leaves page-local values intact and suppresses inheritance.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/pages/index.html/tags",
+      "value": [
+        "Local"
+      ]
+    },
+    {
+      "path": "/pages/index.html/title",
+      "value": "Local title"
+    },
+    {
+      "path": "/extends/index.html",
+      "value": []
+    }
+  ]
+}

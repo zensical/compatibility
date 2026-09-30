@@ -1,0 +1,118 @@
+# Copyright (c) 2026 Zensical and contributors
+
+# SPDX-License-Identifier: MIT
+# All contributions are certified under the DCO
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+# IN THE SOFTWARE.
+
+name: Compatibility
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Optional Git ref; leave empty for latest stable PyPI release
+        default: ''
+        required: false
+        type: string
+      combinations:
+        description: Include the plugin combination cases
+        default: false
+        type: boolean
+      serve:
+        description: Include retained HTTP server lifecycle checks
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  plugins:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/checkout@v6
+        if: ${{ inputs.ref != '' }}
+        with:
+          repository: zensical/zensical
+          ref: ${{ inputs.ref || 'master' }}
+          path: .candidate/zensical
+      - uses: astral-sh/setup-uv@v7
+        with:
+          python-version: '3.12'
+      - uses: dtolnay/rust-toolchain@stable
+        if: ${{ inputs.ref != '' }}
+      - name: Install Cairo for upstream SVG rendering
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libcairo2
+      - name: Install runner and MkDocs oracle
+        run: |
+          uv venv --python 3.12 .venv
+          uv pip sync --python .venv/bin/python --require-hashes requirements/runner.txt
+          uv venv --python 3.12 .environments/mkdocs
+          uv pip sync --python .environments/mkdocs/bin/python --require-hashes requirements/mkdocs.txt
+          .venv/bin/python scripts/prepare_oracle.py
+          .venv/bin/python scripts/prepare_fonts.py
+      - name: Build Zensical candidate
+        if: ${{ inputs.ref != '' }}
+        run: |
+          uv venv --python 3.12 .environments/zensical
+          cd .candidate/zensical
+          python scripts/prepare.py
+          uv pip install --python ../../.environments/zensical/bin/python .
+      - name: Record candidate revision
+        if: ${{ inputs.ref != '' }}
+        run: |
+          mkdir -p artifacts
+          git -C .candidate/zensical rev-parse HEAD > artifacts/zensical-commit.txt
+      - name: Install API handler runtime dependencies
+        if: ${{ inputs.ref != '' }}
+        run: uv pip install --python .environments/zensical/bin/python --require-hashes -r requirements/candidate.txt
+      - name: Install latest stable Zensical release
+        if: ${{ inputs.ref == '' }}
+        run: .venv/bin/python scripts/prepare_candidate.py
+      - name: Compare plugin projects
+        env:
+          TEST_COMBINATIONS: ${{ inputs.combinations || false }}
+          TEST_SERVE: ${{ inputs.serve || false }}
+        run: |
+          compatibility_args=()
+          if [[ "$TEST_COMBINATIONS" == "true" ]]; then
+            compatibility_args+=(--combinations)
+          fi
+          if [[ "$TEST_SERVE" == "true" ]]; then
+            compatibility_args+=(--serve)
+          fi
+          .venv/bin/python -m pytest \
+            --zensical-python=.environments/zensical/bin/python \
+            --junitxml=artifacts/junit.xml \
+            "${compatibility_args[@]}"
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: compatibility
+          path: artifacts/
+          retention-days: 14
+          include-hidden-files: true

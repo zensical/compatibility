@@ -1,0 +1,287 @@
+{
+  "check": "tags",
+  "source": "plugin-tags",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 9
+    },
+    {
+      "path": "/catalog_search_contains_guide",
+      "value": true
+    }
+  ],
+  "differences": [
+    {
+      "path": "/export",
+      "mkdocs": true,
+      "zensical": false,
+      "reason": "Native tags accepts export/export_file but deliberately omits the legacy JSON export."
+    },
+    {
+      "path": "/pages/archive~1legacy~1index.html/diagnostics/Legacy! (shadow)/0/links",
+      "mkdocs": [
+        {
+          "title": "Catalog",
+          "url": "https://example.com/#tag:legacy"
+        },
+        {
+          "title": "Reference audit",
+          "url": "https://example.com/reference/#tag:legacy"
+        }
+      ],
+      "zensical": [
+        {
+          "title": "Reference audit",
+          "url": "https://example.com/reference/#tag:legacy"
+        }
+      ],
+      "reason": "Observed tags baseline: native omits hidden tag targets outside the explicit shadow listing; nearest target ties are canonicalized separately."
+    },
+    {
+      "path": "/pages/archive~1legacy~1index.html/references/1/nearest_targets",
+      "mkdocs": [
+        "https://example.com/#tag:legacy",
+        "https://example.com/reference/#tag:legacy"
+      ],
+      "zensical": [
+        "https://example.com/reference/#tag:legacy"
+      ],
+      "reason": "Observed tags baseline: native omits hidden tag targets outside the explicit shadow listing; nearest target ties are canonicalized separately."
+    },
+    {
+      "path": "/pages/guides~1index.html/listings/tag:platform~1python:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/guides~1index.html/listings/tag:platform~1rust:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/guides~1rust~1index.html/diagnostics/Status~1Draft (shadow)/0/links",
+      "mkdocs": [
+        {
+          "title": "Catalog",
+          "url": "https://example.com/#tag:status/draft"
+        },
+        {
+          "title": "Reference audit",
+          "url": "https://example.com/reference/#tag:status/draft"
+        }
+      ],
+      "zensical": [
+        {
+          "title": "Reference audit",
+          "url": "https://example.com/reference/#tag:status/draft"
+        }
+      ],
+      "reason": "Observed tags baseline: native omits hidden tag targets outside the explicit shadow listing; nearest target ties are canonicalized separately."
+    },
+    {
+      "path": "/pages/guides~1rust~1index.html/diagnostics/_Unlisted (shadow)/0/links",
+      "mkdocs": [
+        {
+          "title": "Catalog",
+          "url": "https://example.com/#tag:_unlisted"
+        },
+        {
+          "title": "Reference audit",
+          "url": "https://example.com/reference/#tag:_unlisted"
+        }
+      ],
+      "zensical": [
+        {
+          "title": "Reference audit",
+          "url": "https://example.com/reference/#tag:_unlisted"
+        }
+      ],
+      "reason": "Observed tags baseline: native omits hidden tag targets outside the explicit shadow listing; nearest target ties are canonicalized separately."
+    },
+    {
+      "path": "/pages/guides~1rust~1index.html/references/2/nearest_targets",
+      "mkdocs": [
+        "https://example.com/#tag:status/draft",
+        "https://example.com/reference/#tag:status/draft"
+      ],
+      "zensical": [
+        "https://example.com/reference/#tag:status/draft"
+      ],
+      "reason": "Observed tags baseline: native omits hidden tag targets outside the explicit shadow listing; nearest target ties are canonicalized separately."
+    },
+    {
+      "path": "/pages/guides~1rust~1index.html/references/3/nearest_targets",
+      "mkdocs": [
+        "https://example.com/#tag:_unlisted",
+        "https://example.com/reference/#tag:_unlisted"
+      ],
+      "zensical": [
+        "https://example.com/reference/#tag:_unlisted"
+      ],
+      "reason": "Observed tags baseline: native omits hidden tag targets outside the explicit shadow listing; nearest target ties are canonicalized separately."
+    },
+    {
+      "path": "/pages/index.html/listings/tag:docs~1guide:0/level",
+      "mkdocs": 3,
+      "zensical": 4,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/index.html/listings/tag:platform~1python:0/level",
+      "mkdocs": 3,
+      "zensical": 4,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/index.html/listings/tag:platform~1python:1/level",
+      "mkdocs": 3,
+      "zensical": 4,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/index.html/listings/tag:platform~1rust:0/level",
+      "mkdocs": 3,
+      "zensical": 4,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/index.html/listings/tag:reference~1api:0/level",
+      "mkdocs": 3,
+      "zensical": 4,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/index.html/listings/tag:reference~1cli:0/level",
+      "mkdocs": 3,
+      "zensical": 4,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/index.html/listings/tag:status~1stable:0/level",
+      "mkdocs": 3,
+      "zensical": 4,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/internal~1ops~1index.html/diagnostics/_Unlisted (shadow)/0/links",
+      "mkdocs": [
+        {
+          "title": "Catalog",
+          "url": "https://example.com/#tag:_unlisted"
+        },
+        {
+          "title": "Reference audit",
+          "url": "https://example.com/reference/#tag:_unlisted"
+        }
+      ],
+      "zensical": [
+        {
+          "title": "Reference audit",
+          "url": "https://example.com/reference/#tag:_unlisted"
+        }
+      ],
+      "reason": "Observed tags baseline: native omits hidden tag targets outside the explicit shadow listing; nearest target ties are canonicalized separately."
+    },
+    {
+      "path": "/pages/internal~1ops~1index.html/references/2/nearest_targets",
+      "mkdocs": [
+        "https://example.com/#tag:_unlisted",
+        "https://example.com/reference/#tag:_unlisted"
+      ],
+      "zensical": [
+        "https://example.com/reference/#tag:_unlisted"
+      ],
+      "reason": "Observed tags baseline: native omits hidden tag targets outside the explicit shadow listing; nearest target ties are canonicalized separately."
+    },
+    {
+      "path": "/pages/reference~1cli~1index.html/diagnostics/Legacy! (shadow)",
+      "mkdocs": [
+        {
+          "rank": 10,
+          "links": [
+            {
+              "title": "Reference audit",
+              "url": "https://example.com/reference/#tag:legacy"
+            }
+          ]
+        },
+        {
+          "rank": 1,
+          "links": [
+            {
+              "title": "Catalog",
+              "url": "https://example.com/#tag:legacy"
+            }
+          ]
+        }
+      ],
+      "zensical": [
+        {
+          "rank": 10,
+          "links": [
+            {
+              "title": "Reference audit",
+              "url": "https://example.com/reference/#tag:legacy"
+            }
+          ]
+        }
+      ],
+      "reason": "Observed tags baseline: native omits hidden tag targets outside the explicit shadow listing; nearest target ties are canonicalized separately."
+    },
+    {
+      "path": "/pages/reference~1index.html/listings/tag:docs~1guide:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/reference~1index.html/listings/tag:docs~1home:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/reference~1index.html/listings/tag:platform~1python:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/reference~1index.html/listings/tag:platform~1rust:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/reference~1index.html/listings/tag:reference~1api:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/reference~1index.html/listings/tag:reference~1cli:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/reference~1index.html/listings/tag:status~1draft:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    },
+    {
+      "path": "/pages/reference~1index.html/listings/tag:status~1stable:0/level",
+      "mkdocs": 2,
+      "zensical": 3,
+      "reason": "Observed tags baseline: native increases child heading depth and filters shadow tags from default listings; the explicit shadow listing still includes them."
+    }
+  ],
+  "plugins": [
+    "material/tags"
+  ]
+}

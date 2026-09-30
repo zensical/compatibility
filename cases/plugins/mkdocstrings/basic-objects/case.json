@@ -1,0 +1,28 @@
+{
+  "plugins": [
+    "mkdocstrings"
+  ],
+  "check": [
+    "publication",
+    "references"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/references/pages/index.html/unresolved",
+      "value": 0
+    },
+    {
+      "path": "/publication/search/",
+      "value": [
+        "COMPAT_CLASS",
+        "COMPAT_METHOD"
+      ]
+    }
+  ],
+  "purpose": "Handler rendering, ordinary object references, inventory publication and unchanged warm output."
+}

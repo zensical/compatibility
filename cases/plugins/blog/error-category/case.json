@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/error-category",
+  "failure": {
+    "mkdocs": "category 'Forbidden' not in allow list",
+    "zensical": "uses category 'Forbidden' outside categories_allowed"
+  },
+  "reason": "category outside categories_allowed"
+}

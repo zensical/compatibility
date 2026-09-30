@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/error-required-excerpt",
+  "failure": {
+    "mkdocs": "Couldn't find '<!-- more -->'",
+    "zensical": "requires the excerpt separator '<!-- more -->'"
+  },
+  "reason": "missing required excerpt separator"
+}

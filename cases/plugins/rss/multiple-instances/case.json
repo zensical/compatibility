@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "rss"
+  ],
+  "check": "rss",
+  "warm": true,
+  "source": "plugin-rss; remove blog integration",
+  "assertions": [
+    {
+      "path": "/files",
+      "value": [
+        "feed_json_created.json",
+        "feed_json_updated.json",
+        "feed_rss_created.xml",
+        "feed_rss_updated.xml",
+        "news-created.json",
+        "news-created.xml",
+        "news-updated.json",
+        "news-updated.xml",
+        "rss.xsl"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-date",
+      "path": "docs/news/release.md",
+      "before": "date: 2024-07-10",
+      "after": "date: 2024-04-10",
+      "changed": true
+    }
+  ]
+}

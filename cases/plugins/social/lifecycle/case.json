@@ -1,0 +1,92 @@
+{
+  "plugins": [
+    "social"
+  ],
+  "check": "social",
+  "source": "zensical-social-parity/regression/cases/lifecycle",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 1
+    },
+    {
+      "path": "/cards",
+      "value": {
+        "assets/images/social/index.png": [
+          320,
+          168
+        ]
+      }
+    }
+  ],
+  "strict": true,
+  "seed": [
+    {
+      "source": ".cache/fonts",
+      "destination": "social-cache/fonts"
+    }
+  ],
+  "steps": [
+    {
+      "path": "docs/background.svg",
+      "before": "fill=\"red\"",
+      "after": "fill=\"blue\"",
+      "name": "svg-edit",
+      "clean": true,
+      "changes": {
+        "mkdocs": {
+          "cards": false
+        },
+        "zensical": {
+          "cards": true
+        }
+      },
+      "pixel_differences": [
+        {
+          "path": "assets/images/social/index.png",
+          "mkdocs": "9b015cdec80221c86bf97d005a12c5708e08dfc1cdcf8db893fda2ed3914c72a",
+          "zensical": "9539ecffc4f6c1d71256ef950e9cc77db8eeb58ce45efad0d4ae879d4503f277",
+          "reason": "After editing the cached SVG, upstream retains its red rendering while native invalidation renders the blue source."
+        }
+      ]
+    },
+    {
+      "path": "docs/index.md",
+      "before": "Before title",
+      "after": "After title",
+      "name": "title-edit",
+      "clean": true,
+      "changes": {
+        "mkdocs": {
+          "pages": true
+        },
+        "zensical": {
+          "pages": true
+        }
+      },
+      "pixel_differences": [
+        {
+          "path": "assets/images/social/index.png",
+          "mkdocs": "9b015cdec80221c86bf97d005a12c5708e08dfc1cdcf8db893fda2ed3914c72a",
+          "zensical": "9539ecffc4f6c1d71256ef950e9cc77db8eeb58ce45efad0d4ae879d4503f277",
+          "reason": "After editing the cached SVG, upstream retains its red rendering while native invalidation renders the blue source."
+        }
+      ]
+    },
+    {
+      "path": "layouts/flat.yml",
+      "before": "color: transparent",
+      "after": "color: '#73628a'",
+      "name": "layout-edit",
+      "clean": true,
+      "changes": {
+        "mkdocs": {
+          "cards": true
+        },
+        "zensical": {
+          "cards": true
+        }
+      }
+    }
+  ]
+}

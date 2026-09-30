@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "api-autonav",
+    "awesome-nav",
+    "exclude",
+    "mkdocstrings"
+  ],
+  "check": [
+    "publication",
+    "references",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "reference/fixture_pkg/index.html",
+        "reference/fixture_pkg/public/index.html"
+      ]
+    },
+    {
+      "path": "/navigation/navigation",
+      "value": [
+        {
+          "title": "Home",
+          "url": "https://example.test/docs/"
+        }
+      ]
+    }
+  ],
+  "purpose": "Generated-file exclusion and hidden navigation must preserve public API publication and remove private API artifacts; ordinary plugin order."
+}

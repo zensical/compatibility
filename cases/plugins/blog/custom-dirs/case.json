@@ -1,0 +1,26 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/custom-dirs",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 3
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/docs/index.html"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Custom blog directory parity",
+      "zensical": "Home - Custom blog directory parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

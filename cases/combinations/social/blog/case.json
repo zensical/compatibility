@@ -1,0 +1,46 @@
+{
+  "plugins": [
+    "blog",
+    "social"
+  ],
+  "check": "social",
+  "source": "zensical-social-parity/regression/cases/blog",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 5
+    },
+    {
+      "path": "/cards",
+      "value": {
+        "assets/images/social/blog/2026/09/20/first-post.png": [
+          320,
+          168
+        ],
+        "assets/images/social/blog/2026/09/21/second-post.png": [
+          320,
+          168
+        ],
+        "assets/images/social/blog/archive/2026.png": [
+          320,
+          168
+        ],
+        "assets/images/social/blog/index.png": [
+          320,
+          168
+        ],
+        "assets/images/social/index.png": [
+          320,
+          168
+        ]
+      }
+    }
+  ],
+  "strict": true,
+  "seed": [
+    {
+      "source": ".cache/fonts",
+      "destination": ".cache/plugin/social/fonts"
+    }
+  ]
+}

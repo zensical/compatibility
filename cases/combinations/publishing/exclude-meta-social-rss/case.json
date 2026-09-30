@@ -1,0 +1,52 @@
+{
+  "plugins": [
+    "meta",
+    "rss",
+    "social",
+    "exclude"
+  ],
+  "check": [
+    "publication",
+    "social",
+    "rss"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/social/cards",
+      "count": 2
+    },
+    {
+      "path": "/rss/files",
+      "count": 4
+    },
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "news/index.html"
+      ]
+    }
+  ],
+  "purpose": "Excluded inherited-metadata pages must disappear from routes, search, sitemap, feeds and social cards.",
+  "steps": [
+    {
+      "name": "inherited-color",
+      "path": "docs/news/.meta.yml",
+      "before": "#123456",
+      "after": "#654321",
+      "changes": {
+        "mkdocs": {
+          "cards": true
+        },
+        "zensical": {
+          "cards": true
+        }
+      }
+    }
+  ]
+}

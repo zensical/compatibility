@@ -1,0 +1,80 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/root-flat",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 8
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/docs/index.html"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/navigation/0/title",
+      "mkdocs": "Root journal",
+      "zensical": "Journal",
+      "reason": "For this root blog, upstream uses the configured Root journal label while native uses the Journal heading."
+    },
+    {
+      "path": "/pages/2026~108~101~1first-root-post.html/active_ancestors/0",
+      "mkdocs": "Root journal",
+      "zensical": "Journal",
+      "reason": "For this root blog, upstream uses the configured Root journal label while native uses the Journal heading."
+    },
+    {
+      "path": "/pages/2026~108~102~1second-root-post.html/active_ancestors/0",
+      "mkdocs": "Root journal",
+      "zensical": "Journal",
+      "reason": "For this root blog, upstream uses the configured Root journal label while native uses the Journal heading."
+    },
+    {
+      "path": "/pages/history~12026~1page~12.html/active_ancestors",
+      "mkdocs": [
+        "Archive"
+      ],
+      "zensical": [
+        "Archive",
+        "2026"
+      ],
+      "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+    },
+    {
+      "path": "/pages/index.html/active_ancestors/0",
+      "mkdocs": "Root journal",
+      "zensical": "Journal",
+      "reason": "For this root blog, upstream uses the configured Root journal label while native uses the Journal heading."
+    },
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Root flat blog parity",
+      "zensical": "Journal - Root flat blog parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    },
+    {
+      "path": "/pages/page~12~1index.html/active_ancestors",
+      "mkdocs": [],
+      "zensical": [
+        "Journal"
+      ],
+      "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+    },
+    {
+      "path": "/pages/topics~1unicode-caf\u00e9~1page~12.html/active_ancestors",
+      "mkdocs": [
+        "Categories"
+      ],
+      "zensical": [
+        "Categories",
+        "Unicode Caf\u00e9"
+      ],
+      "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+    }
+  ]
+}

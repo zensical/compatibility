@@ -1,0 +1,71 @@
+{
+  "plugins": [
+    "meta"
+  ],
+  "check": "meta",
+  "warm": true,
+  "source": "plugin-meta; replace macros with template probe",
+  "assertions": [
+    {
+      "path": "/pages/index.html/tags",
+      "value": [
+        "root"
+      ]
+    },
+    {
+      "path": "/pages/guides~1index.html/tags",
+      "value": [
+        "root",
+        "guides"
+      ]
+    },
+    {
+      "path": "/pages/guidelines~1index.html/tags",
+      "value": [
+        "root",
+        "sibling"
+      ]
+    },
+    {
+      "path": "/pages/guides~1deep~1index.html/layer",
+      "value": "page"
+    }
+  ],
+  "differences": [
+    {
+      "path": "/extends/index.html",
+      "mkdocs": [
+        "defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    },
+    {
+      "path": "/extends/guides~1index.html",
+      "mkdocs": [
+        "defaults.yml",
+        "guides/defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    },
+    {
+      "path": "/extends/guides~1deep~1index.html",
+      "mkdocs": [
+        "defaults.yml",
+        "guides/defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    },
+    {
+      "path": "/extends/guidelines~1index.html",
+      "mkdocs": [
+        "defaults.yml",
+        "guidelines/defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Material exposes its private __extends bookkeeping; Zensical keeps it internal."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "plugins": [
+    "redirects"
+  ],
+  "check": "redirects",
+  "warm": true,
+  "source": "plugin-redirects",
+  "assertions": [
+    {
+      "path": "/redirects/legacy~1index.html/canonical",
+      "value": "../"
+    },
+    {
+      "path": "/redirects/old~1details~1index.html/canonical",
+      "value": "../../guide/topic/#details"
+    },
+    {
+      "path": "/redirects/outbound~1index.html/canonical",
+      "value": "https://example.com/archive?from=docs"
+    },
+    {
+      "path": "/redirects/100%~1index.html/canonical",
+      "value": "../guide/topic/"
+    },
+    {
+      "path": "/redirects/old~1details~1index.html/forwards_fragment",
+      "value": true
+    }
+  ]
+}

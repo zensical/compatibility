@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    "redirects"
+  ],
+  "check": "redirects",
+  "source": "plugin-redirects; use_directory_urls=false",
+  "assertions": [
+    {
+      "path": "/redirects/legacy.html/canonical",
+      "value": "index.html"
+    },
+    {
+      "path": "/redirects/old~1details.html/canonical",
+      "value": "../guide/topic.html#details"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "plugins": [
+    "social"
+  ],
+  "check": "social",
+  "source": "zensical-social-parity/regression/cases/template-context",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 2
+    },
+    {
+      "path": "/cards",
+      "value": {
+        "assets/images/social/guides/advanced.png": [
+          320,
+          168
+        ],
+        "assets/images/social/index.png": [
+          320,
+          168
+        ]
+      }
+    },
+    {
+      "path": "/pages/index.html/1",
+      "value": [
+        "x:source",
+        "index.md"
+      ]
+    },
+    {
+      "path": "/pages/guides~1advanced~1index.html/1",
+      "value": [
+        "x:source",
+        "guides/advanced.md"
+      ]
+    }
+  ],
+  "strict": true,
+  "seed": [
+    {
+      "source": ".cache/fonts",
+      "destination": ".cache/plugin/social/fonts"
+    }
+  ],
+  "failure": {
+    "zensical": "RuntimeError: failed to render social layout expression: undefined value"
+  },
+  "reason": "Custom page.file.src_uri template context is unavailable in the native renderer; upstream must still build and render its card."
+}

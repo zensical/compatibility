@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/category-order",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 7
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/"
+    }
+  ],
+  "warm": true,
+  "adaptations": [
+    "The local sorting callable preserves upstream post-count semantics and canonical identity; both builders receive the same YAML and module."
+  ],
+  "differences": [
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Category ordering parity",
+      "zensical": "Home - Category ordering parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

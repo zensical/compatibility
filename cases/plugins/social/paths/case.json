@@ -1,0 +1,37 @@
+{
+  "plugins": [
+    "social"
+  ],
+  "check": "social",
+  "source": "zensical-social-parity/regression/cases/paths",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 3
+    },
+    {
+      "path": "/cards",
+      "value": {
+        "assets/cards/guides.png": [
+          320,
+          168
+        ],
+        "assets/cards/index.png": [
+          320,
+          168
+        ],
+        "assets/cards/nested/index.png": [
+          320,
+          168
+        ]
+      }
+    }
+  ],
+  "strict": true,
+  "seed": [
+    {
+      "source": ".cache/fonts",
+      "destination": ".cache/plugin/social/fonts"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/error-date",
+  "failure": {
+    "mkdocs": "Expected type:.*datetime",
+    "zensical": "invalid date.created value"
+  },
+  "reason": "invalid post date"
+}

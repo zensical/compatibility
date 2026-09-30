@@ -1,0 +1,64 @@
+{
+  "check": "meta",
+  "source": "plugin-meta",
+  "warm": true,
+  "adaptations": [
+    "Converted TOML to shared MkDocs YAML; replaced display-only macros with a JSON template probe; removed the saved nav entry whose source file was absent."
+  ],
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 5
+    }
+  ],
+  "plugins": [
+    "material/meta"
+  ],
+  "differences": [
+    {
+      "path": "/extends/guidelines~1index.html",
+      "mkdocs": [
+        "defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Native metadata omits the private Material __extends bookkeeping marker."
+    },
+    {
+      "path": "/extends/guides~1advanced~1private~1index.html",
+      "mkdocs": [
+        "defaults.yml",
+        "guides/defaults.yml",
+        "guides/advanced/defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Native metadata omits the private Material __extends bookkeeping marker."
+    },
+    {
+      "path": "/extends/guides~1advanced~1setup~1index.html",
+      "mkdocs": [
+        "defaults.yml",
+        "guides/defaults.yml",
+        "guides/advanced/defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Native metadata omits the private Material __extends bookkeeping marker."
+    },
+    {
+      "path": "/extends/guides~1index.html",
+      "mkdocs": [
+        "defaults.yml",
+        "guides/defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Native metadata omits the private Material __extends bookkeeping marker."
+    },
+    {
+      "path": "/extends/index.html",
+      "mkdocs": [
+        "defaults.yml"
+      ],
+      "zensical": [],
+      "reason": "Native metadata omits the private Material __extends bookkeeping marker."
+    }
+  ]
+}

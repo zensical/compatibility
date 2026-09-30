@@ -1,0 +1,240 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/mutations",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 9
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/"
+    }
+  ],
+  "warm": true,
+  "steps": [
+    {
+      "name": "insert",
+      "copy": {
+        "changes/insert.md": "docs/blog/posts/gamma.md"
+      },
+      "clean": true,
+      "changed": true,
+      "differences": [
+        {
+          "path": "/pages/blog~1archive~12026~1page~12~1index.html/active_ancestors",
+          "mkdocs": [
+            "Archive"
+          ],
+          "zensical": [
+            "Archive",
+            "2026"
+          ],
+          "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+        },
+        {
+          "path": "/pages/blog~1archive~12026~1page~13~1index.html/active_ancestors",
+          "mkdocs": [
+            "Archive"
+          ],
+          "zensical": [
+            "Archive",
+            "2026"
+          ],
+          "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+        },
+        {
+          "path": "/pages/blog~1category~1alpha~1page~12~1index.html/active_ancestors",
+          "mkdocs": [
+            "Categories"
+          ],
+          "zensical": [
+            "Categories",
+            "Alpha"
+          ],
+          "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+        },
+        {
+          "path": "/pages/blog~1category~1beta~1index.html/pagination",
+          "mkdocs": {
+            "current": 1,
+            "links": []
+          },
+          "zensical": null,
+          "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+        },
+        {
+          "path": "/pages/index.html/document_title",
+          "mkdocs": "Blog mutation parity",
+          "zensical": "Home - Blog mutation parity",
+          "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+        }
+      ],
+      "assertions": [
+        {
+          "path": "/pages",
+          "count": 13
+        },
+        {
+          "path": "/pages/index.html/canonical",
+          "value": "/"
+        }
+      ]
+    },
+    {
+      "name": "route-and-category",
+      "copy": {
+        "changes/route.md": "docs/blog/posts/alpha.md"
+      },
+      "clean": true,
+      "changed": true,
+      "differences": [
+        {
+          "path": "/pages/blog~1archive~12026~1page~12~1index.html/active_ancestors",
+          "mkdocs": [
+            "Archive"
+          ],
+          "zensical": [
+            "Archive",
+            "2026"
+          ],
+          "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+        },
+        {
+          "path": "/pages/blog~1archive~12026~1page~13~1index.html/active_ancestors",
+          "mkdocs": [
+            "Archive"
+          ],
+          "zensical": [
+            "Archive",
+            "2026"
+          ],
+          "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+        },
+        {
+          "path": "/pages/blog~1category~1alpha~1index.html/pagination",
+          "mkdocs": {
+            "current": 1,
+            "links": []
+          },
+          "zensical": null,
+          "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+        },
+        {
+          "path": "/pages/blog~1category~1beta~1page~12~1index.html/active_ancestors",
+          "mkdocs": [
+            "Categories"
+          ],
+          "zensical": [
+            "Categories",
+            "Beta"
+          ],
+          "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+        },
+        {
+          "path": "/pages/index.html/document_title",
+          "mkdocs": "Blog mutation parity",
+          "zensical": "Home - Blog mutation parity",
+          "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+        }
+      ],
+      "assertions": [
+        {
+          "path": "/pages",
+          "count": 13
+        },
+        {
+          "path": "/pages/index.html/canonical",
+          "value": "/"
+        }
+      ]
+    },
+    {
+      "name": "delete-and-shrink",
+      "remove": [
+        "docs/blog/posts/beta.md",
+        "docs/blog/posts/gamma.md"
+      ],
+      "clean": true,
+      "changed": true,
+      "differences": [
+        {
+          "path": "/pages/blog~1archive~12026~1index.html/pagination",
+          "mkdocs": {
+            "current": 1,
+            "links": []
+          },
+          "zensical": null,
+          "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+        },
+        {
+          "path": "/pages/blog~1category~1beta~1index.html/pagination",
+          "mkdocs": {
+            "current": 1,
+            "links": []
+          },
+          "zensical": null,
+          "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+        },
+        {
+          "path": "/pages/blog~1index.html/pagination",
+          "mkdocs": {
+            "current": 1,
+            "links": []
+          },
+          "zensical": null,
+          "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+        },
+        {
+          "path": "/pages/index.html/document_title",
+          "mkdocs": "Blog mutation parity",
+          "zensical": "Home - Blog mutation parity",
+          "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+        }
+      ],
+      "assertions": [
+        {
+          "path": "/pages",
+          "count": 5
+        },
+        {
+          "path": "/pages/index.html/canonical",
+          "value": "/"
+        }
+      ]
+    }
+  ],
+  "differences": [
+    {
+      "path": "/pages/blog~1archive~12026~1page~12~1index.html/active_ancestors",
+      "mkdocs": [
+        "Archive"
+      ],
+      "zensical": [
+        "Archive",
+        "2026"
+      ],
+      "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+    },
+    {
+      "path": "/pages/blog~1category~1alpha~1page~12~1index.html/active_ancestors",
+      "mkdocs": [
+        "Categories"
+      ],
+      "zensical": [
+        "Categories",
+        "Alpha"
+      ],
+      "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+    },
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Blog mutation parity",
+      "zensical": "Home - Blog mutation parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "plugins": [
+    "mkdocs-autoapi",
+    "mkdocstrings"
+  ],
+  "check": [
+    "publication",
+    "references",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/references/pages/index.html/unresolved",
+      "value": 0
+    },
+    {
+      "path": "/references/pages/index.html/links/0/url",
+      "value": "https://example.test/docs/autoapi/fixture_pkg/public/#fixture_pkg.public.Widget"
+    }
+  ],
+  "purpose": "Generated API pages publish handler output, references, inventory, navigation, search and sitemap.",
+  "steps": [
+    {
+      "name": "source-docstring",
+      "path": "src/fixture_pkg/public.py",
+      "before": "COMPAT_CLASS",
+      "after": "COMPAT_REVISED",
+      "changed": true
+    }
+  ],
+  "differences": [
+    {
+      "path": "/navigation/navigation/0/title",
+      "mkdocs": "API Reference",
+      "zensical": "Home",
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/navigation/navigation/0/url",
+      "mkdocs": "https://example.test/docs/autoapi/fixture_pkg/",
+      "zensical": "https://example.test/docs/",
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/navigation/navigation",
+      "zensical_only": {
+        "children": [
+          {
+            "children": [
+              {
+                "title": "public",
+                "url": "https://example.test/docs/autoapi/fixture_pkg/public/"
+              },
+              {
+                "title": "secret",
+                "url": "https://example.test/docs/autoapi/fixture_pkg/secret/"
+              }
+            ],
+            "title": "fixture_pkg",
+            "url": "https://example.test/docs/autoapi/fixture_pkg/"
+          }
+        ],
+        "title": "API Reference"
+      },
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/navigation/routes",
+      "mkdocs_only": "autoapi/summary/index.html",
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/publication/canonicals/autoapi~1summary~1index.html",
+      "mkdocs": "https://example.test/docs/autoapi/summary/",
+      "zensical_missing": true,
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/publication/probe_comments/autoapi~1summary~1index.html",
+      "mkdocs": [],
+      "zensical_missing": true,
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/publication/probes/autoapi~1summary~1index.html",
+      "mkdocs": {},
+      "zensical_missing": true,
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/publication/routes",
+      "mkdocs_only": "autoapi/summary/index.html",
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/publication/search/autoapi~1summary~1",
+      "mkdocs": [],
+      "zensical_missing": true,
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/publication/sitemap",
+      "mkdocs_only": "https://example.test/docs/autoapi/summary/",
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    },
+    {
+      "path": "/references/pages/autoapi~1summary~1index.html",
+      "mkdocs": {
+        "links": [],
+        "objects": [],
+        "unresolved": 0,
+        "content_tokens": []
+      },
+      "zensical_missing": true,
+      "reason": "AutoAPI default navigation omits Home and collapses its package children upstream; native retains Home and the API hierarchy. Upstream also publishes autoapi/summary.md as a page, native treats it as a control file."
+    }
+  ]
+}

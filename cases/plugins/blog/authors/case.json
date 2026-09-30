@@ -1,0 +1,46 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/authors",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 9
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/pages/blog~1team~1ada~1index.html/pagination",
+      "mkdocs": {
+        "current": 1,
+        "links": []
+      },
+      "zensical": null,
+      "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+    },
+    {
+      "path": "/pages/blog~1team~1grace~1page~12~1index.html/active_ancestors",
+      "mkdocs": [
+        "Team"
+      ],
+      "zensical": [
+        "Team",
+        "Grace Hopper"
+      ],
+      "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+    },
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Blog author and excerpt parity",
+      "zensical": "Home - Blog author and excerpt parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

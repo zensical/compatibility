@@ -1,0 +1,10 @@
+{
+  "plugins": [
+    "redirects"
+  ],
+  "check": "redirects",
+  "failure": {
+    "mkdocs": "(target|destination).*missing|missing.*(exist|found|file)",
+    "zensical": "(target|destination).*missing|missing.*(exist|found|file)"
+  }
+}

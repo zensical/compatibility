@@ -1,0 +1,26 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/dates",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 7
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Blog date parity",
+      "zensical": "Home - Blog date parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

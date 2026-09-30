@@ -1,0 +1,50 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/navigation-title",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 3
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/navigation/1/title",
+      "mkdocs": "Heading-derived journal label",
+      "zensical": "Configured journal label",
+      "reason": "Native preserves the configured blog navigation title; upstream replaces it with the Markdown heading."
+    },
+    {
+      "path": "/pages/blog~12026~108~101~1one~1index.html/active_ancestors/0",
+      "mkdocs": "Heading-derived journal label",
+      "zensical": "Configured journal label",
+      "reason": "Native preserves the configured blog navigation title; upstream replaces it with the Markdown heading."
+    },
+    {
+      "path": "/pages/blog~1index.html/active_ancestors/0",
+      "mkdocs": "Heading-derived journal label",
+      "zensical": "Configured journal label",
+      "reason": "Native preserves the configured blog navigation title; upstream replaces it with the Markdown heading."
+    },
+    {
+      "path": "/pages/blog~1index.html/document_title",
+      "mkdocs": "Heading-derived journal label - Blog navigation title parity",
+      "zensical": "Configured journal label - Blog navigation title parity",
+      "reason": "Native preserves the configured blog navigation title; upstream replaces it with the Markdown heading."
+    },
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Blog navigation title parity",
+      "zensical": "Home - Blog navigation title parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

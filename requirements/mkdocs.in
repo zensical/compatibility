@@ -1,0 +1,45 @@
+# Copyright (c) 2026 Zensical and contributors
+
+# SPDX-License-Identifier: MIT
+# All contributions are certified under the DCO
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to
+# deal in the Software without restriction, including without limitation the
+# rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+# IN THE SOFTWARE.
+
+# Reviewed oracle versions. Update independently of the Zensical candidate.
+mkdocs==1.6.1
+mkdocs-material==9.7.1
+# Match the preserved social matrix rather than Material's optional extra,
+# which currently constrains Pillow to <12.
+Pillow==12.1.1
+CairoSVG==2.8.2
+mkdocs-redirects==1.2.2
+# The preserved RSS comparison used this revision, which adds stylesheet support.
+mkdocs-rss-plugin @ https://github.com/Guts/mkdocs-rss-plugin/archive/1b5e630ed5121ef6f5f8261275dbaa77d10000ae.tar.gz
+mkdocs-awesome-nav==3.3.0
+mkdocs-literate-nav==0.6.3
+# API generation and cross-reference interactions. Handler versions match the
+# current candidate's development environment; candidate runtime pins are separate.
+mkdocs-autorefs==1.4.4
+mkdocstrings[python]==1.0.6
+mkdocstrings-python==2.0.9
+griffelib==2.3.0
+mkdocs-api-autonav==0.4.0
+mkdocs-autoapi==0.4.1
+mkdocs-exclude==1.0.2
+mkdocs-minify-plugin==0.8.0

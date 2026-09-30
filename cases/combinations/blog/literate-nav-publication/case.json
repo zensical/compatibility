@@ -1,0 +1,52 @@
+{
+  "plugins": [
+    "blog",
+    "literate-nav"
+  ],
+  "check": [
+    "publication",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/SUMMARY/",
+        "https://example.test/docs/blog/",
+        "https://example.test/docs/blog/2024/01/02/launch/"
+      ]
+    }
+  ],
+  "purpose": "Posts omitted from primary navigation must still be published, indexed and present in the sitemap.",
+  "steps": [
+    {
+      "name": "route-edit",
+      "path": "docs/blog/posts/post.md",
+      "before": "slug: launch",
+      "after": "slug: revised",
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/canonicals/index.html",
+          "value": "https://example.test/docs/"
+        },
+        {
+          "path": "/publication/sitemap",
+          "value": [
+            "https://example.test/docs/",
+            "https://example.test/docs/SUMMARY/",
+            "https://example.test/docs/blog/",
+            "https://example.test/docs/blog/2024/01/02/revised/"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "plugins": [
+    "material/blog",
+    "material/meta",
+    "material/tags"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/integrations",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 4
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/outputs/tags.json",
+      "mkdocs": true,
+      "zensical_missing": true,
+      "reason": "The upstream tags plugin exports tags.json; native tags accepts the option but deliberately omits this export."
+    },
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Blog tags and metadata parity",
+      "zensical": "Home - Blog tags and metadata parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

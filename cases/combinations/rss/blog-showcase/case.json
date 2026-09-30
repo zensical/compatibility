@@ -1,0 +1,44 @@
+{
+  "check": "rss",
+  "source": "plugin-rss",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/files",
+      "count": 13
+    }
+  ],
+  "adaptations": [
+    "Set an explicit channel image URL to avoid upstream emitting the literal string None."
+  ],
+  "plugins": [
+    "blog",
+    "rss"
+  ],
+  "differences": [
+    {
+      "path": "/feeds/blog-created.xml/document/children/0/children/2/children/1/text",
+      "mkdocs": "<h1>A note from Jane</h1> <p>This post exercises Material blog author metadata in RSS and JSON Feed.</p>",
+      "zensical": "<h1>A note from Jane</h1>\n<p>This post exercises Material blog author metadata in RSS and JSON Feed.</p>",
+      "reason": "RSS blog summary HTML uses different whitespace between its heading and paragraph; the exact content is retained."
+    },
+    {
+      "path": "/feeds/blog-updated.xml/document/children/0/children/2/children/1/text",
+      "mkdocs": "<h1>A note from Jane</h1> <p>This post exercises Material blog author metadata in RSS and JSON Feed.</p>",
+      "zensical": "<h1>A note from Jane</h1>\n<p>This post exercises Material blog author metadata in RSS and JSON Feed.</p>",
+      "reason": "RSS blog summary HTML uses different whitespace between its heading and paragraph; the exact content is retained."
+    },
+    {
+      "path": "/feeds/feed_rss_created.xml/document/children/0/children/4/children/3/text",
+      "mkdocs": "<h1>A note from Jane</h1> <p>This post exercises Material blog author metadata in RSS and JSON Feed.</p>",
+      "zensical": "<h1>A note from Jane</h1>\n<p>This post exercises Material blog author metadata in RSS and JSON Feed.</p>",
+      "reason": "RSS blog summary HTML uses different whitespace between its heading and paragraph; the exact content is retained."
+    },
+    {
+      "path": "/feeds/feed_rss_updated.xml/document/children/0/children/4/children/3/text",
+      "mkdocs": "<h1>A note from Jane</h1> <p>This post exercises Material blog author metadata in RSS and JSON Feed.</p>",
+      "zensical": "<h1>A note from Jane</h1>\n<p>This post exercises Material blog author metadata in RSS and JSON Feed.</p>",
+      "reason": "RSS blog summary HTML uses different whitespace between its heading and paragraph; the exact content is retained."
+    }
+  ]
+}

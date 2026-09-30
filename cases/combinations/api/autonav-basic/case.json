@@ -1,0 +1,94 @@
+{
+  "plugins": [
+    "api-autonav",
+    "mkdocstrings"
+  ],
+  "check": [
+    "publication",
+    "references",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/references/pages/index.html/unresolved",
+      "value": 0
+    },
+    {
+      "path": "/references/pages/index.html/links/0/url",
+      "value": "https://example.test/docs/reference/fixture_pkg/public/#fixture_pkg.public.Widget"
+    }
+  ],
+  "purpose": "Generated API pages publish handler output, references, inventory, navigation, search and sitemap.",
+  "steps": [
+    {
+      "name": "source-docstring",
+      "path": "src/fixture_pkg/public.py",
+      "before": "COMPAT_CLASS",
+      "after": "COMPAT_REVISED",
+      "changed": true
+    },
+    {
+      "name": "source-added",
+      "copy": {
+        "changes/added.py": "src/fixture_pkg/added.py"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/canonicals/index.html",
+          "value": "https://example.test/docs/"
+        },
+        {
+          "path": "/references/pages/index.html/unresolved",
+          "value": 0
+        },
+        {
+          "path": "/references/pages/index.html/links/0/url",
+          "value": "https://example.test/docs/reference/fixture_pkg/public/#fixture_pkg.public.Widget"
+        },
+        {
+          "path": "/publication/search/reference~1fixture_pkg~1added~1",
+          "value": [
+            "COMPAT_ADDED"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "source-deleted",
+      "remove": [
+        "src/fixture_pkg/secret.py"
+      ],
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/canonicals/index.html",
+          "value": "https://example.test/docs/"
+        },
+        {
+          "path": "/references/pages/index.html/unresolved",
+          "value": 0
+        },
+        {
+          "path": "/references/pages/index.html/links/0/url",
+          "value": "https://example.test/docs/reference/fixture_pkg/public/#fixture_pkg.public.Widget"
+        },
+        {
+          "path": "/publication/routes",
+          "value": [
+            "index.html",
+            "reference/fixture_pkg/added/index.html",
+            "reference/fixture_pkg/index.html",
+            "reference/fixture_pkg/public/index.html"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/multiple",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 5
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Multiple blog parity",
+      "zensical": "Home - Multiple blog parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

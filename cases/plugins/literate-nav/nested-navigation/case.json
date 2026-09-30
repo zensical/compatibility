@@ -1,0 +1,22 @@
+{
+  "plugins": [
+    "literate-nav"
+  ],
+  "check": "navigation",
+  "warm": true,
+  "source": "plugin-literate-nav",
+  "assertions": [
+    {
+      "path": "/navigation/0/title",
+      "value": "Home"
+    },
+    {
+      "path": "/navigation/1/title",
+      "value": "Guides"
+    },
+    {
+      "path": "/navigation/1/children/1/title",
+      "value": "Start here"
+    }
+  ]
+}

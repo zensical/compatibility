@@ -1,0 +1,43 @@
+{
+  "plugins": [
+    "social"
+  ],
+  "check": "social",
+  "source": "zensical-social-parity/regression/cases/custom-typography",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 2
+    },
+    {
+      "path": "/cards",
+      "value": {
+        "assets/images/social/index.png": [
+          600,
+          315
+        ],
+        "assets/images/social/long.png": [
+          600,
+          315
+        ]
+      }
+    }
+  ],
+  "strict": true,
+  "seed": [
+    {
+      "source": ".cache/fonts",
+      "destination": "social-cache/fonts"
+    }
+  ],
+  "pixel_budgets": {
+    "assets/images/social/index.png": {
+      "mean_rgb": 4,
+      "reason": "Preserved custom-typography matrix: equivalent text placement differs between Pillow and native rasterization (previous maximum mean 3.636)."
+    },
+    "assets/images/social/long.png": {
+      "mean_rgb": 4,
+      "reason": "Preserved custom-typography matrix: equivalent text placement differs between Pillow and native rasterization (previous maximum mean 3.636)."
+    }
+  }
+}

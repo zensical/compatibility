@@ -1,0 +1,114 @@
+{
+  "check": "blog",
+  "source": "plugin-blog",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 18
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "https://example.com/"
+    }
+  ],
+  "plugins": [
+    "material/blog"
+  ],
+  "adaptations": [
+    "Corrected the saved related-link path to index.md: both plugins resolve this metadata path from docs_dir, rather than the post source directory."
+  ],
+  "differences": [
+    {
+      "path": "/pages/blog~1archive~12024~101~1index.html/pagination",
+      "mkdocs": {
+        "current": 1,
+        "links": []
+      },
+      "zensical": null,
+      "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+    },
+    {
+      "path": "/pages/blog~1archive~12024~102~1index.html/pagination",
+      "mkdocs": {
+        "current": 1,
+        "links": []
+      },
+      "zensical": null,
+      "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+    },
+    {
+      "path": "/pages/blog~1archive~12024~103~1index.html/pagination",
+      "mkdocs": {
+        "current": 1,
+        "links": []
+      },
+      "zensical": null,
+      "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+    },
+    {
+      "path": "/pages/blog~1archive~12024~104~1index.html/pagination",
+      "mkdocs": {
+        "current": 1,
+        "links": []
+      },
+      "zensical": null,
+      "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+    },
+    {
+      "path": "/pages/blog~1author~1ada-lovelace~1page~12~1index.html/active_ancestors",
+      "mkdocs": [
+        "Authors"
+      ],
+      "zensical": [
+        "Authors",
+        "Ada Lovelace"
+      ],
+      "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+    },
+    {
+      "path": "/pages/blog~1author~1grace-hopper~1index.html/pagination",
+      "mkdocs": {
+        "current": 1,
+        "links": []
+      },
+      "zensical": null,
+      "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+    },
+    {
+      "path": "/pages/blog~1category~1engineering~1page~12~1index.html/active_ancestors",
+      "mkdocs": [
+        "Categories"
+      ],
+      "zensical": [
+        "Categories",
+        "Engineering"
+      ],
+      "reason": "Native continuation pages retain the view label as an active ancestor; upstream shows only its parent section."
+    },
+    {
+      "path": "/pages/blog~1category~1notes~1index.html/pagination",
+      "mkdocs": {
+        "current": 1,
+        "links": []
+      },
+      "zensical": null,
+      "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+    },
+    {
+      "path": "/pages/blog~1category~1release-notes~1index.html/pagination",
+      "mkdocs": {
+        "current": 1,
+        "links": []
+      },
+      "zensical": null,
+      "reason": "Upstream renders a pager with no links for this single-page view; native omits the empty control."
+    },
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Material blog compatibility",
+      "zensical": "Home - Material blog compatibility",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

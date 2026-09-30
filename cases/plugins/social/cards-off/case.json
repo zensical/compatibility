@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "social"
+  ],
+  "check": "social",
+  "source": "zensical-social-parity/regression/cases/cards-off",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 2
+    },
+    {
+      "path": "/cards",
+      "value": {
+        "assets/images/social/opt-in.png": [
+          320,
+          168
+        ]
+      }
+    }
+  ],
+  "strict": true,
+  "seed": [
+    {
+      "source": ".cache/fonts",
+      "destination": ".cache/plugin/social/fonts"
+    }
+  ]
+}

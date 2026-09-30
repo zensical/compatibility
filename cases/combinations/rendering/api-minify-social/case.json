@@ -1,0 +1,44 @@
+{
+  "plugins": [
+    "autorefs",
+    "minify",
+    "mkdocstrings",
+    "social"
+  ],
+  "check": [
+    "publication",
+    "references",
+    "social"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/references/pages/index.html/unresolved",
+      "value": 0
+    },
+    {
+      "path": "/publication/search/",
+      "value": [
+        "COMPAT_CLASS",
+        "COMPAT_METHOD"
+      ]
+    },
+    {
+      "path": "/publication/probes/index.html/COMPAT_PRE",
+      "value": "  first\n    second\n"
+    },
+    {
+      "path": "/publication/probe_comments/index.html",
+      "value": []
+    },
+    {
+      "path": "/social/cards",
+      "count": 1
+    }
+  ],
+  "purpose": "Final HTML minification preserves generated API anchors, autorefs, code whitespace and social metadata."
+}

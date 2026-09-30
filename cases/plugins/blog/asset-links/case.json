@@ -1,0 +1,44 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/asset-links",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 3
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/docs/"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/pages/blog~12026~108~101~1asset-edge-post~1index.html/images/1/src",
+      "mkdocs": "/docs/blog/2026/08/01/asset-edge-post/media/raw.svg?plain=1#raw-image",
+      "zensical": "/docs/blog/nested/media/raw.svg?plain=1#raw-image",
+      "reason": "Native resolves raw HTML assets relative to the post source directory; upstream uses the generated post or view route."
+    },
+    {
+      "path": "/pages/blog~12026~108~101~1asset-edge-post~1index.html/links/4/url",
+      "mkdocs": "/docs/blog/2026/08/01/asset-edge-post/media/raw.txt?plain=1#raw",
+      "zensical": "/docs/blog/nested/media/raw.txt?plain=1#raw",
+      "reason": "Native resolves raw HTML assets relative to the post source directory; upstream uses the generated post or view route."
+    },
+    {
+      "path": "/pages/blog~1index.html/posts/0/content",
+      "mkdocs": "<div class=\"md-post__content md-typeset\"><h2 id=\"asset-edge-post\"><a class=\"toclink\" href=\"/docs/blog/2026/08/01/asset-edge-post/\">Asset edge post</a></h2><p><a href=\"/docs/blog/nested/media/reference.txt?download=1#part\">Local query and fragment</a>.</p><p><img alt=\"Local image\" src=\"/docs/blog/nested/media/image.svg?version=2#icon\"/></p><p><a href=\"/shared/file.txt\">Root relative</a>, <a href=\"https://example.org/file.txt\">external</a>, and <a href=\"/docs/blog/2026/08/01/asset-edge-post/#details\">fragment only</a>.</p><p><a href=\"/docs/blog/media/raw.txt?plain=1#raw\">Raw HTML link</a><img alt=\"Raw HTML image\" src=\"/docs/blog/media/raw.svg?plain=1#raw-image\"/></p><nav class=\"md-post__action\"><a href=\"/docs/blog/2026/08/01/asset-edge-post/\"> Continue reading </a></nav></div>",
+      "zensical": "<div class=\"md-post__content md-typeset\"><h2 id=\"asset-edge-post\"><a class=\"toclink\" href=\"/docs/blog/2026/08/01/asset-edge-post/\">Asset edge post</a></h2><p><a href=\"/docs/blog/nested/media/reference.txt?download=1#part\">Local query and fragment</a>.</p><p><img alt=\"Local image\" src=\"/docs/blog/nested/media/image.svg?version=2#icon\"/></p><p><a href=\"/shared/file.txt\">Root relative</a>, <a href=\"https://example.org/file.txt\">external</a>, and <a href=\"/docs/blog/2026/08/01/asset-edge-post/#details\">fragment only</a>.</p><p><a href=\"/docs/blog/nested/media/raw.txt?plain=1#raw\">Raw HTML link</a><img alt=\"Raw HTML image\" src=\"/docs/blog/nested/media/raw.svg?plain=1#raw-image\"/></p><nav class=\"md-post__action\"><a href=\"/docs/blog/2026/08/01/asset-edge-post/\"> Continue reading </a></nav></div>",
+      "reason": "Native resolves raw HTML excerpt assets relative to the post source directory; upstream resolves them from the blog view."
+    },
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Blog asset link edge parity",
+      "zensical": "Home - Blog asset link edge parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "plugins": [
+    "meta",
+    "rss",
+    "social"
+  ],
+  "check": [
+    "publication",
+    "social",
+    "rss"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/social/cards",
+      "count": 2
+    },
+    {
+      "path": "/rss/files",
+      "count": 4
+    }
+  ],
+  "purpose": "Inherited titles/dates/colors affect social output and feeds; verify shared metadata and cached changes.",
+  "steps": [
+    {
+      "name": "inherited-color",
+      "path": "docs/news/.meta.yml",
+      "before": "#123456",
+      "after": "#654321",
+      "changes": {
+        "mkdocs": {
+          "cards": true
+        },
+        "zensical": {
+          "cards": true
+        }
+      }
+    }
+  ]
+}

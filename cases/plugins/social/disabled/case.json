@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "social"
+  ],
+  "check": "social",
+  "source": "zensical-social-parity/regression/cases/disabled",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 2
+    },
+    {
+      "path": "/cards",
+      "value": {}
+    }
+  ],
+  "strict": true,
+  "seed": [
+    {
+      "source": ".cache/fonts",
+      "destination": ".cache/plugin/social/fonts"
+    }
+  ]
+}

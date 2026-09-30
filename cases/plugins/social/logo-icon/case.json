@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "social"
+  ],
+  "check": "social",
+  "source": "zensical-social-parity/regression/cases/logo-icon",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 1
+    },
+    {
+      "path": "/cards",
+      "value": {
+        "assets/images/social/index.png": [
+          1200,
+          630
+        ]
+      }
+    }
+  ],
+  "strict": true,
+  "seed": [
+    {
+      "source": ".cache/fonts",
+      "destination": "social-cache/fonts"
+    }
+  ]
+}

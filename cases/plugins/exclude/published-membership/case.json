@@ -1,0 +1,34 @@
+{
+  "plugins": [
+    "exclude"
+  ],
+  "check": [
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/publication/routes",
+      "value": [
+        "guide/index.html",
+        "index.html"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "guide/": [
+          "COMPAT_VISIBLE"
+        ]
+      }
+    }
+  ],
+  "purpose": "Excluded content must stay out of the website, navigation-independent sitemap and search index."
+}

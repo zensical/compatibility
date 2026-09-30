@@ -1,0 +1,1 @@
+Reference asset from the custom post directory.

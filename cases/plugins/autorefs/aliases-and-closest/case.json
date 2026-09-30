@@ -1,0 +1,34 @@
+{
+  "plugins": [
+    "autorefs"
+  ],
+  "check": [
+    "publication",
+    "references"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/references/pages/index.html/links/0/url",
+      "value": "https://example.test/docs/guides/install/#install"
+    },
+    {
+      "path": "/references/pages/guides~1index.html/links/0/url",
+      "value": "https://example.test/docs/guides/install/#install"
+    }
+  ],
+  "purpose": "Alias resolution and closest duplicate heading selection survive an ordinary cached rebuild.",
+  "steps": [
+    {
+      "name": "target-content",
+      "path": "docs/guides/install.md",
+      "before": "COMPAT_GUIDE",
+      "after": "COMPAT_REVISED",
+      "changed": true
+    }
+  ]
+}

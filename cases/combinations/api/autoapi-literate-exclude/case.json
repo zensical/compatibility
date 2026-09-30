@@ -1,0 +1,34 @@
+{
+  "plugins": [
+    "exclude",
+    "literate-nav",
+    "mkdocs-autoapi",
+    "mkdocstrings"
+  ],
+  "check": [
+    "publication",
+    "references",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/publication/routes",
+      "value": [
+        "SUMMARY/index.html",
+        "autoapi/fixture_pkg/index.html",
+        "autoapi/fixture_pkg/public/index.html",
+        "index.html"
+      ]
+    }
+  ],
+  "purpose": "Generated summary navigation and file exclusion must agree on current API page membership.",
+  "failure": {
+    "mkdocs": "Doc file 'autoapi/summary.md' contains a link 'fixture_pkg/secret.md'.*not found"
+  },
+  "reason": "Upstream generated AutoAPI summary retains the excluded module link and aborts in strict mode; native removes the excluded API page and builds successfully."
+}

@@ -1,0 +1,513 @@
+{
+  "observed_on": "2026-09-30",
+  "source_root": "~/Desktop/Reproductions",
+  "matrices": {
+    "blog": {
+      "path": "zensical-blog-parity/cases",
+      "count": 22,
+      "cases": [
+        {
+          "name": "asset-links",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 8,
+          "destination": "cases/plugins/blog/asset-links",
+          "migration": "active"
+        },
+        {
+          "name": "author-custom-file",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 5,
+          "destination": "cases/plugins/blog/author-custom-file",
+          "migration": "active"
+        },
+        {
+          "name": "authors",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 6,
+          "destination": "cases/plugins/blog/authors",
+          "migration": "active"
+        },
+        {
+          "name": "category-order",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 6,
+          "destination": "cases/plugins/blog/category-order",
+          "migration": "active"
+        },
+        {
+          "name": "custom-dirs",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 5,
+          "destination": "cases/plugins/blog/custom-dirs",
+          "migration": "active"
+        },
+        {
+          "name": "dates",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 6,
+          "destination": "cases/plugins/blog/dates",
+          "migration": "active"
+        },
+        {
+          "name": "drafts",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 6,
+          "destination": "cases/plugins/blog/drafts",
+          "migration": "active"
+        },
+        {
+          "name": "empty-blog",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 3,
+          "destination": "cases/plugins/blog/empty-blog",
+          "migration": "active"
+        },
+        {
+          "name": "error-category",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/blog/error-category",
+          "migration": "active"
+        },
+        {
+          "name": "error-date",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/blog/error-date",
+          "migration": "active"
+        },
+        {
+          "name": "error-required-excerpt",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/blog/error-required-excerpt",
+          "migration": "active"
+        },
+        {
+          "name": "excerpts-links",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 7,
+          "destination": "cases/plugins/blog/excerpts-links",
+          "migration": "active"
+        },
+        {
+          "name": "integrations",
+          "plugins": [
+            "material/blog",
+            "material/meta",
+            "material/tags"
+          ],
+          "combination": true,
+          "files": 6,
+          "destination": "cases/combinations/blog/integrations",
+          "migration": "active"
+        },
+        {
+          "name": "metadata",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 6,
+          "destination": "cases/plugins/blog/metadata",
+          "migration": "active"
+        },
+        {
+          "name": "multiple",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 6,
+          "destination": "cases/plugins/blog/multiple",
+          "migration": "active"
+        },
+        {
+          "name": "mutations",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 8,
+          "destination": "cases/plugins/blog/mutations",
+          "migration": "active"
+        },
+        {
+          "name": "navigation-title",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/blog/navigation-title",
+          "migration": "active"
+        },
+        {
+          "name": "pagination",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 6,
+          "destination": "cases/plugins/blog/pagination",
+          "migration": "active"
+        },
+        {
+          "name": "pagination-single",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/blog/pagination-single",
+          "migration": "active"
+        },
+        {
+          "name": "root-flat",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/blog/root-flat",
+          "migration": "active"
+        },
+        {
+          "name": "routing",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 5,
+          "destination": "cases/plugins/blog/routing",
+          "migration": "active"
+        },
+        {
+          "name": "views",
+          "plugins": [
+            "material/blog"
+          ],
+          "combination": false,
+          "files": 6,
+          "destination": "cases/plugins/blog/views",
+          "migration": "active"
+        }
+      ]
+    },
+    "social": {
+      "path": "zensical-social-parity/regression/cases",
+      "count": 22,
+      "cases": [
+        {
+          "name": "basic",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 5,
+          "destination": "cases/plugins/social/basic",
+          "migration": "active"
+        },
+        {
+          "name": "blog",
+          "plugins": [
+            "blog",
+            "social"
+          ],
+          "combination": true,
+          "files": 6,
+          "destination": "cases/combinations/social/blog",
+          "migration": "active"
+        },
+        {
+          "name": "bundled",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 5,
+          "destination": "cases/plugins/social/bundled",
+          "migration": "active"
+        },
+        {
+          "name": "cards-off",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/social/cards-off",
+          "migration": "active"
+        },
+        {
+          "name": "custom-typography",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/social/custom-typography",
+          "migration": "active"
+        },
+        {
+          "name": "debug",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 3,
+          "destination": "cases/plugins/social/debug",
+          "migration": "active"
+        },
+        {
+          "name": "debug-no-grid",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 3,
+          "destination": "cases/plugins/social/debug-no-grid",
+          "migration": "active"
+        },
+        {
+          "name": "deprecated",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 3,
+          "destination": "cases/plugins/social/deprecated",
+          "migration": "active"
+        },
+        {
+          "name": "disabled",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 3,
+          "destination": "cases/plugins/social/disabled",
+          "migration": "active"
+        },
+        {
+          "name": "filters",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 6,
+          "destination": "cases/plugins/social/filters",
+          "migration": "active"
+        },
+        {
+          "name": "image-only",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 3,
+          "destination": "cases/plugins/social/image-only",
+          "migration": "active"
+        },
+        {
+          "name": "layer-composition",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/social/layer-composition",
+          "migration": "active"
+        },
+        {
+          "name": "layout-options",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 5,
+          "destination": "cases/plugins/social/layout-options",
+          "migration": "active"
+        },
+        {
+          "name": "lifecycle",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 5,
+          "destination": "cases/plugins/social/lifecycle",
+          "migration": "active"
+        },
+        {
+          "name": "logo-icon",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 2,
+          "destination": "cases/plugins/social/logo-icon",
+          "migration": "active"
+        },
+        {
+          "name": "metadata",
+          "plugins": [
+            "meta",
+            "social"
+          ],
+          "combination": true,
+          "files": 6,
+          "destination": "cases/combinations/social/metadata",
+          "migration": "active"
+        },
+        {
+          "name": "multiple",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/social/multiple",
+          "migration": "active"
+        },
+        {
+          "name": "no-site-url",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 3,
+          "destination": "cases/plugins/social/no-site-url",
+          "migration": "active"
+        },
+        {
+          "name": "paths",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 5,
+          "destination": "cases/plugins/social/paths",
+          "migration": "active"
+        },
+        {
+          "name": "recoverable-error",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 3,
+          "destination": "cases/plugins/social/recoverable-error",
+          "migration": "active"
+        },
+        {
+          "name": "template-context",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 4,
+          "destination": "cases/plugins/social/template-context",
+          "migration": "active"
+        },
+        {
+          "name": "theme-defaults",
+          "plugins": [
+            "social"
+          ],
+          "combination": false,
+          "files": 8,
+          "destination": "cases/plugins/social/theme-defaults",
+          "migration": "active"
+        }
+      ]
+    }
+  },
+  "dedicated_projects": [
+    "plugin-awesome-nav",
+    "plugin-blog",
+    "plugin-literate-nav",
+    "plugin-media",
+    "plugin-meta",
+    "plugin-redirects",
+    "plugin-rss",
+    "plugin-social",
+    "plugin-tags"
+  ],
+  "dedicated_migration": {
+    "plugin-awesome-nav": [
+      "cases/plugins/awesome-nav/nested-navigation"
+    ],
+    "plugin-blog": [
+      "cases/plugins/blog/showcase"
+    ],
+    "plugin-literate-nav": [
+      "cases/plugins/literate-nav/nested-navigation"
+    ],
+    "plugin-meta": [
+      "cases/plugins/meta/deep-inheritance"
+    ],
+    "plugin-redirects": [
+      "cases/plugins/redirects/directory-urls"
+    ],
+    "plugin-rss": [
+      "cases/combinations/rss/blog-showcase"
+    ],
+    "plugin-social": [
+      "cases/plugins/social/showcase"
+    ],
+    "plugin-tags": [
+      "cases/plugins/tags/hierarchical-listings"
+    ]
+  },
+  "repository": {
+    "isolated_cases": 57,
+    "combination_cases": 17,
+    "initial_candidate_commit": "969d9f6a8ddafb2bf854fdfb0d8683fe1a32857c",
+    "default_candidate": "latest stable Zensical release from PyPI"
+  },
+  "assets": {
+    "social_fonts": {
+      "original_source": "zensical-social-parity/originals/social-cache/fonts",
+      "destination": ".cache/fonts",
+      "download_lock": "requirements/fonts.json",
+      "license": ".cache/fonts/Roboto/LICENSE.txt"
+    }
+  }
+}

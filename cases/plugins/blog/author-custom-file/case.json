@@ -1,0 +1,32 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/author-custom-file",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 4
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/outputs/blog~1people.yml",
+      "mkdocs": true,
+      "zensical_missing": true,
+      "reason": "Upstream copies the custom authors YAML as a static file; native treats it as internal blog configuration."
+    },
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Custom author file parity",
+      "zensical": "Home - Custom author file parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

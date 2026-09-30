@@ -1,0 +1,117 @@
+{
+  "plugins": [
+    "api-autonav",
+    "awesome-nav",
+    "exclude",
+    "mkdocstrings"
+  ],
+  "check": [
+    "publication",
+    "references",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "reference/fixture_pkg/index.html",
+        "reference/fixture_pkg/public/index.html"
+      ],
+      "engine": "zensical"
+    },
+    {
+      "path": "/navigation/navigation",
+      "value": [
+        {
+          "title": "Home",
+          "url": "https://example.test/docs/"
+        }
+      ]
+    },
+    {
+      "path": "/publication/routes",
+      "engine": "mkdocs",
+      "value": [
+        "index.html",
+        "reference/fixture_pkg/index.html",
+        "reference/fixture_pkg/public/index.html",
+        "reference/fixture_pkg/secret/index.html"
+      ]
+    }
+  ],
+  "purpose": "Generated-file exclusion and hidden navigation must preserve public API publication and remove private API artifacts; reversed plugin configuration order.",
+  "differences": [
+    {
+      "path": "/navigation/routes",
+      "mkdocs_only": "reference/fixture_pkg/secret/index.html",
+      "reason": "Upstream exclude runs before API generation and publishes the excluded secret module; native exclusion also applies to generated API pages regardless of configuration order."
+    },
+    {
+      "path": "/publication/canonicals/reference~1fixture_pkg~1secret~1index.html",
+      "mkdocs": "https://example.test/docs/reference/fixture_pkg/secret/",
+      "zensical_missing": true,
+      "reason": "Upstream exclude runs before API generation and publishes the excluded secret module; native exclusion also applies to generated API pages regardless of configuration order."
+    },
+    {
+      "path": "/publication/probe_comments/reference~1fixture_pkg~1secret~1index.html",
+      "mkdocs": [],
+      "zensical_missing": true,
+      "reason": "Upstream exclude runs before API generation and publishes the excluded secret module; native exclusion also applies to generated API pages regardless of configuration order."
+    },
+    {
+      "path": "/publication/probes/reference~1fixture_pkg~1secret~1index.html",
+      "mkdocs": {},
+      "zensical_missing": true,
+      "reason": "Upstream exclude runs before API generation and publishes the excluded secret module; native exclusion also applies to generated API pages regardless of configuration order."
+    },
+    {
+      "path": "/publication/routes",
+      "mkdocs_only": "reference/fixture_pkg/secret/index.html",
+      "reason": "Upstream exclude runs before API generation and publishes the excluded secret module; native exclusion also applies to generated API pages regardless of configuration order."
+    },
+    {
+      "path": "/publication/search/reference~1fixture_pkg~1secret~1",
+      "mkdocs": [
+        "COMPAT_SECRET"
+      ],
+      "zensical_missing": true,
+      "reason": "Upstream exclude runs before API generation and publishes the excluded secret module; native exclusion also applies to generated API pages regardless of configuration order."
+    },
+    {
+      "path": "/publication/sitemap",
+      "mkdocs_only": "https://example.test/docs/reference/fixture_pkg/secret/",
+      "reason": "Upstream exclude runs before API generation and publishes the excluded secret module; native exclusion also applies to generated API pages regardless of configuration order."
+    },
+    {
+      "path": "/references/inventory/fixture_pkg.secret",
+      "mkdocs": {
+        "display": "-",
+        "domain": "py:module",
+        "uri": "reference/fixture_pkg/secret/#fixture_pkg.secret"
+      },
+      "zensical_missing": true,
+      "reason": "Upstream exclude runs before API generation and publishes the excluded secret module; native exclusion also applies to generated API pages regardless of configuration order."
+    },
+    {
+      "path": "/references/pages/reference~1fixture_pkg~1secret~1index.html",
+      "mkdocs": {
+        "links": [],
+        "objects": [
+          "fixture_pkg.secret"
+        ],
+        "unresolved": 0,
+        "content_tokens": [
+          "COMPAT_SECRET"
+        ]
+      },
+      "zensical_missing": true,
+      "reason": "Upstream exclude runs before API generation and publishes the excluded secret module; native exclusion also applies to generated API pages regardless of configuration order."
+    }
+  ]
+}

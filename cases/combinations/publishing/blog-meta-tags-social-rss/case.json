@@ -1,0 +1,98 @@
+{
+  "plugins": [
+    "blog",
+    "meta",
+    "rss",
+    "social",
+    "tags"
+  ],
+  "check": [
+    "publication",
+    "social",
+    "rss",
+    "tag-content"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/social/cards",
+      "count": 5
+    },
+    {
+      "path": "/rss/files",
+      "count": 4
+    }
+  ],
+  "purpose": "Inherited metadata must drive classification, routes, tag catalog, cards and feeds together.",
+  "steps": [
+    {
+      "name": "inherited-color",
+      "path": "docs/blog/posts/.meta.yml",
+      "before": "#123456",
+      "after": "#654321",
+      "changes": {
+        "mkdocs": {
+          "cards": true
+        },
+        "zensical": {
+          "cards": true
+        }
+      }
+    },
+    {
+      "name": "route-edit",
+      "path": "docs/blog/posts/post.md",
+      "before": "slug: launch",
+      "after": "slug: revised",
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/canonicals/index.html",
+          "value": "https://example.test/docs/"
+        },
+        {
+          "path": "/social/cards",
+          "count": 5
+        },
+        {
+          "path": "/rss/files",
+          "count": 4
+        }
+      ]
+    },
+    {
+      "name": "tag-change",
+      "path": "docs/blog/posts/.meta.yml",
+      "before": "tags: [Release]",
+      "after": "tags: [Platform]",
+      "changed": true
+    },
+    {
+      "name": "delete-post",
+      "remove": [
+        "docs/blog/posts/second.md"
+      ],
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/canonicals/index.html",
+          "value": "https://example.test/docs/"
+        },
+        {
+          "path": "/social/cards",
+          "count": 4
+        },
+        {
+          "path": "/rss/files",
+          "count": 4
+        }
+      ]
+    }
+  ]
+}

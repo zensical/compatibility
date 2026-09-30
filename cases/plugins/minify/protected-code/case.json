@@ -1,0 +1,24 @@
+{
+  "plugins": [
+    "minify"
+  ],
+  "check": [
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/publication/probes/index.html/COMPAT_PRE",
+      "value": "  first\n    second\n"
+    },
+    {
+      "path": "/publication/probe_comments/index.html",
+      "value": []
+    }
+  ],
+  "purpose": "HTML minification preserves significant preformatted whitespace while removing configured comments."
+}

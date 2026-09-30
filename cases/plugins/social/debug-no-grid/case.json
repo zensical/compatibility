@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "social"
+  ],
+  "check": "social",
+  "source": "zensical-social-parity/regression/cases/debug-no-grid",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 1
+    },
+    {
+      "path": "/cards",
+      "value": {
+        "assets/images/social/index.png": [
+          320,
+          168
+        ]
+      }
+    }
+  ],
+  "strict": false,
+  "seed": [
+    {
+      "source": ".cache/fonts",
+      "destination": "social-cache/fonts"
+    }
+  ]
+}

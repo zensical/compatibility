@@ -1,0 +1,26 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": "blog",
+  "source": "zensical-blog-parity/cases/excerpts-links",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 5
+    },
+    {
+      "path": "/pages/index.html/canonical",
+      "value": "/docs/"
+    }
+  ],
+  "warm": true,
+  "differences": [
+    {
+      "path": "/pages/index.html/document_title",
+      "mkdocs": "Excerpt and link parity",
+      "zensical": "Home - Excerpt and link parity",
+      "reason": "Native HTML retains the configured home navigation label in the browser title; upstream uses only the site title."
+    }
+  ]
+}

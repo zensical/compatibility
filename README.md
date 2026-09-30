@@ -10,9 +10,16 @@ combinations and HTTP lifecycle checks.
 
 ## Run locally
 
-Requires uv and Python 3.12 or newer. Social tests also need the system Cairo
-library (`libcairo2` on Linux, `brew install cairo` on macOS). Set up the
-runner and MkDocs baseline:
+Requires uv and Python 3.12 or newer. Social tests need Cairo and FriBiDi
+(`sudo apt-get install libcairo2 libfribidi0` on Linux, `brew install cairo fribidi`
+on macOS). FriBiDi enables Pillow's Raqm text layout; its basic fallback renders
+different typography. On macOS, expose both libraries before running:
+
+```sh
+export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix cairo)/lib:$(brew --prefix fribidi)/lib"
+```
+
+Set up the runner and MkDocs baseline:
 
 ```sh
 cd ../compatibility
@@ -27,11 +34,14 @@ uv pip sync --python .environments/mkdocs/bin/python --require-hashes requiremen
 
 On Windows, use `Scripts/python.exe` instead of `bin/python` in these paths.
 Set `PYTHONUTF8=1` and point `CAIROCFFI_DLL_DIRECTORIES` to the folder containing
-your Cairo DLLs. CI installs Cairo through MSYS2 automatically.
+your Cairo DLLs. Install `mingw-w64-ucrt-x86_64-cairo` and
+`mingw-w64-ucrt-x86_64-fribidi` through MSYS2, and add its `ucrt64/bin` directory
+to `PATH`. CI installs these automatically and verifies Raqm is available.
 
 Test runs install the **latest stable Zensical release from PyPI** into
-`.environments/zensical/`, together with the locked API runtime. Checking the
-latest release requires network access. Collection and comparator-only tests
+`.environments/zensical/`, together with the locked API runtime and Windows
+timezone data. Checking the latest release requires network access.
+Collection and comparator-only tests
 do not prepare a candidate.
 
 Select cases or enable extended checks:
@@ -48,7 +58,7 @@ with `--zensical-python=/path/to/candidate/bin/python`. Existing candidates
 need Zensical and the API runtime from `requirements/candidate.txt` installed.
 Choose one of these options.
 
-The MkDocs baseline, API runtime and fonts are pinned under `requirements/`.
+The MkDocs baseline, candidate runtime and fonts are pinned under `requirements/`.
 Fonts are downloaded into ignored `.cache/fonts/`, verified and reused by both
 builders. Run `prepare_oracle.py` again after syncing the MkDocs environment
 to restore the pinned RSS source.

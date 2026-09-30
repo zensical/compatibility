@@ -46,6 +46,36 @@ under a retained server. The unsupported native social `page.file.src_uri`
 context and visible metadata tags when the tags plugin is disabled are the
 two declared xfails.
 
+## Hosted CI runtime correction
+
+The [first hosted matrix run](https://github.com/zensical/compatibility/actions/runs/36770819142)
+at `05ac0c47b494876039c7fb43adad35d92af8534b` passed on Linux. Windows had
+seven failures; macOS had six. Five social pixel failures were identical on
+both platforms, two Windows RSS cases lacked UTC timezone data, and the macOS
+custom-context oracle timed out.
+
+Forcing Pillow's basic text layout locally reproduced every reported social
+pixel metric exactly. With Raqm, the existing budgets pass. Pillow's wheels
+[require a separate FriBiDi library](https://pillow.readthedocs.io/en/stable/installation/basic-installation.html)
+for Raqm. CI now installs FriBiDi on all platforms, configures library lookup
+and checks Raqm availability and versions before testing. Pixel budgets and
+exact pixel exceptions are unchanged.
+
+The candidate runtime now includes the same pinned Windows `tzdata==2025.3`
+as the oracle, and CI checks UTC availability. Setting `PYTHONTZPATH` to an
+empty value reproduced both RSS errors with the released candidate locally;
+adding the pinned timezone data made both builds succeed. The custom-context
+fixture uses `concurrency: 1` to keep its diagnostic check deterministic.
+
+The focused run of all eight affected projects and the comparison/cache/process
+guards passed **33 tests with one expected xfail** in **15.47 seconds**. Both
+HTTP tests were skipped because `--serve` was omitted. Evidence is in
+`artifacts/9e0eb468ce0f4deeb242c610736ef30e/`. Diagnostic reproductions remain in
+ignored `.cache/windows-pixels/`. The candidate lock matches a constrained
+universal resolution with all previous pins preserved. Actionlint 1.7.12,
+workflow syntax and whitespace checks passed. The corrected workflow awaits
+a new hosted matrix run.
+
 ## Latest Material coverage verification
 
 The complete run passed **131 tests with two expected xfails** in
@@ -248,7 +278,8 @@ validated with `--concurrency=1 --timeout=20`, completing all six CLI builds in
 `artifacts/concurrency-31d0296d671a47d99ab7ccffb4901e91/`. That validation does
 not resolve the default-concurrency hang.
 
-These are local macOS ARM64 runs. Browser execution, retained API generators
-under serve, full search behavior, Linux, Windows and hosted CI remain
-unverified. The initial validation ran before the initial commit; CI portability
-was validated locally afterward.
+The complete runs above are local macOS ARM64 runs. Browser execution,
+retained API generators under serve and full search behavior remain unverified.
+The first hosted matrix and its runtime corrections are documented above;
+the corrected workflow still needs a hosted run. The initial validation ran
+before the initial commit; CI portability was validated locally afterward.

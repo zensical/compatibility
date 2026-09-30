@@ -74,32 +74,34 @@ jobs:
           python-version: '3.12'
       - uses: dtolnay/rust-toolchain@stable
         if: ${{ inputs.ref != '' }}
-      - name: Install Cairo for upstream SVG rendering
+      - name: Install upstream image libraries on Linux
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install --yes libcairo2
-      - name: Install Cairo on macOS
+          sudo apt-get install --yes libcairo2 libfribidi0
+      - name: Install upstream image libraries on macOS
         if: runner.os == 'macOS'
         run: |
-          brew install cairo
-          echo "DYLD_FALLBACK_LIBRARY_PATH=$(brew --prefix cairo)/lib" >> "$GITHUB_ENV"
-      - name: Install Cairo on Windows
+          brew install cairo fribidi
+          echo "DYLD_FALLBACK_LIBRARY_PATH=$(brew --prefix cairo)/lib:$(brew --prefix fribidi)/lib" >> "$GITHUB_ENV"
+      - name: Install upstream image libraries on Windows
         if: runner.os == 'Windows'
         id: msys2
         uses: msys2/setup-msys2@v2
         with:
           msystem: UCRT64
-          install: mingw-w64-ucrt-x86_64-cairo
-      - name: Configure Cairo DLL lookup
+          install: >-
+            mingw-w64-ucrt-x86_64-cairo
+            mingw-w64-ucrt-x86_64-fribidi
+      - name: Configure image library lookup
         if: runner.os == 'Windows'
         shell: pwsh
         env:
           MSYS2_LOCATION: ${{ steps.msys2.outputs.msys2-location }}
         run: |
-          $cairoPath = Join-Path $env:MSYS2_LOCATION 'ucrt64/bin'
-          "CAIROCFFI_DLL_DIRECTORIES=$cairoPath" >> $env:GITHUB_ENV
-          $cairoPath >> $env:GITHUB_PATH
+          $imagePath = Join-Path $env:MSYS2_LOCATION 'ucrt64/bin'
+          "CAIROCFFI_DLL_DIRECTORIES=$imagePath" >> $env:GITHUB_ENV
+          $imagePath >> $env:GITHUB_PATH
       - name: Install runner and MkDocs oracle
         run: |
           uv venv --python 3.12 .venv
@@ -108,9 +110,19 @@ jobs:
           uv pip sync --python ".environments/mkdocs/$VENV_PYTHON" --require-hashes requirements/mkdocs.txt
           ".venv/$VENV_PYTHON" scripts/prepare_oracle.py
           ".venv/$VENV_PYTHON" scripts/prepare_fonts.py
-      - name: Check Cairo runtime
+      - name: Check oracle image runtime
         run: |
-          ".environments/mkdocs/$VENV_PYTHON" -c "import cairocffi; print('Cairo', cairocffi.cairo_version_string())"
+          ".environments/mkdocs/$VENV_PYTHON" - <<'PY'
+          import cairocffi
+          from PIL import features
+
+          print('Cairo', cairocffi.cairo_version_string())
+          for name in ('raqm', 'fribidi', 'harfbuzz'):
+              print(name, features.check_feature(name), features.version_feature(name))
+          assert features.check_feature('raqm'), (
+              'Pillow Raqm is unavailable; check FriBiDi installation and library lookup'
+          )
+          PY
       - name: Build Zensical candidate
         if: ${{ inputs.ref != '' }}
         run: |
@@ -121,12 +133,15 @@ jobs:
       - name: Record candidate revision
         if: ${{ inputs.ref != '' }}
         run: git -C .candidate/zensical rev-parse HEAD
-      - name: Install API handler runtime dependencies
+      - name: Install candidate runtime dependencies
         if: ${{ inputs.ref != '' }}
         run: uv pip install --python ".environments/zensical/$VENV_PYTHON" --require-hashes -r requirements/candidate.txt
       - name: Install latest stable Zensical release
         if: ${{ inputs.ref == '' }}
         run: '".venv/$VENV_PYTHON" scripts/prepare_candidate.py'
+      - name: Check candidate timezone data
+        run: |
+          ".environments/zensical/$VENV_PYTHON" -c "from zoneinfo import ZoneInfo; print('Timezone', ZoneInfo('UTC'))"
       - name: Compare plugin projects
         env:
           TEST_COMBINATIONS: ${{ inputs.combinations || false }}

@@ -28,4 +28,5 @@ theme: { name: material }
 plugins:
   - social:
       cache: false
+      concurrency: 1
       cards_layout: context

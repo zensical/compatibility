@@ -1,0 +1,54 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/INCLUDE",
+      "value": "First fragment Ada"
+    },
+    {
+      "path": "/probes/index.html/IMPORT",
+      "value": "First greeting Ada"
+    }
+  ],
+  "purpose": "Includes and imports are loaded from the default or configured directory and refreshed after template edits.",
+  "steps": [
+    {
+      "name": "edit-include",
+      "path": "docs/nested/fragment.j2",
+      "before": "First fragment",
+      "after": "Updated fragment",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/probes/index.html/INCLUDE",
+          "value": "Updated fragment Ada"
+        },
+        {
+          "path": "/probes/index.html/IMPORT",
+          "value": "First greeting Ada"
+        }
+      ]
+    },
+    {
+      "name": "edit-import",
+      "path": "docs/helpers.j2",
+      "before": "First greeting",
+      "after": "Updated greeting",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/probes/index.html/INCLUDE",
+          "value": "Updated fragment Ada"
+        },
+        {
+          "path": "/probes/index.html/IMPORT",
+          "value": "Updated greeting Ada"
+        }
+      ]
+    }
+  ]
+}

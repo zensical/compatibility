@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/VALUE",
+      "value": "Value: {{ 1 + 1 }}"
+    },
+    {
+      "path": "/probes/guides~1index.html/VALUE",
+      "value": "Value: 2"
+    },
+    {
+      "path": "/probes/guides~1disabled~1index.html/VALUE",
+      "value": "Value: {{ 1 + 1 }}"
+    },
+    {
+      "path": "/probes/guides~1drafts~1page~1index.html/VALUE",
+      "value": "Value: {{ 1 + 1 }}"
+    },
+    {
+      "path": "/probes/guides~1drafts~1keep~1index.html/VALUE",
+      "value": "Value: 2"
+    },
+    {
+      "path": "/probes/outside~1index.html/VALUE",
+      "value": "Value: 2"
+    },
+    {
+      "path": "/probes/nested~1guides~1page~1index.html/VALUE",
+      "value": "Value: {{ 1 + 1 }}"
+    }
+  ],
+  "purpose": "Documentation paths are matched with ordered include and exclude patterns; page metadata takes precedence."
+}

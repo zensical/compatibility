@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": false,
+  "assertions": [],
+  "purpose": "Import errors in configured modules are rejected regardless of the rendering error policy.",
+  "failure": {
+    "mkdocs": "compat_broken_dependency",
+    "zensical": "compat_broken_dependency"
+  }
+}

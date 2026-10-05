@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/YAML",
+      "value": "missing/two/second/extra/yaml context",
+      "engine": "zensical"
+    },
+    {
+      "path": "/probes/index.html/YAML",
+      "engine": "mkdocs",
+      "value": "one/two/second/extra/yaml context"
+    }
+  ],
+  "purpose": "Nested YAML merge behavior and precedence over macro globals are compared with explicit contracts.",
+  "differences": [
+    {
+      "path": "/probes/index.html/YAML",
+      "mkdocs": "one/two/second/extra/yaml context",
+      "zensical": "missing/two/second/extra/yaml context",
+      "reason": "Nested YAML mappings are merged by MkDocs Macros but replaced by Zensical."
+    }
+  ],
+  "known_gap": "Earlier nested YAML keys are retained by MkDocs Macros; those keys are lost by Zensical."
+}

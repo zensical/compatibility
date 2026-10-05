@@ -1,0 +1,34 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/PAGE_CONTEXT",
+      "value": "Home"
+    },
+    {
+      "path": "/probes/metadata~1index.html/PAGE_CONTEXT",
+      "value": "Metadata title"
+    },
+    {
+      "path": "/probes/heading~1index.html/PAGE_CONTEXT",
+      "value": "Heading title"
+    },
+    {
+      "path": "/probes/file-name~1index.html/PAGE_CONTEXT",
+      "value": "File name"
+    },
+    {
+      "path": "/probes/templated~1index.html/PAGE_CONTEXT",
+      "value": "Title {{ 2 + 3 }}"
+    },
+    {
+      "path": "/probes/templated-heading~1index.html/PAGE_CONTEXT",
+      "value": "Heading {{ 2 + 3 }}"
+    }
+  ],
+  "purpose": "Project settings and each effective page title are available to macros before the title rendering pass."
+}

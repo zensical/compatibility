@@ -1,0 +1,25 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": [
+    "publication",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/PAGE_TITLE",
+      "value": "Title {{ missing }}"
+    },
+    {
+      "path": "/publication/probes/index.html/BODY",
+      "value": "Body"
+    },
+    {
+      "path": "/navigation/navigation/0/title",
+      "value": "Title {{ missing }}"
+    }
+  ],
+  "purpose": "A metadata change in a body macro can disable the subsequent title rendering pass."
+}

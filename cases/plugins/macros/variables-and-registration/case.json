@@ -1,0 +1,30 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/REGISTRATION",
+      "value": "extra/yaml"
+    },
+    {
+      "path": "/probes/index.html/PRECEDENCE",
+      "value": "metadata/variable/metadata macro/module plugin"
+    },
+    {
+      "path": "/probes/index.html/NESTED",
+      "value": "changed/extra/retained"
+    },
+    {
+      "path": "/probes/index.html/FILTER",
+      "value": "HELLO"
+    },
+    {
+      "path": "/probes/index.html/BUILTINS",
+      "value": "custom context/custom now/custom diagnostics"
+    }
+  ],
+  "purpose": "YAML and extra variables are available during registration; module variables, macros, and filters are overridden by page metadata."
+}

@@ -1,0 +1,47 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": [
+    "publication",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/PAGE_TITLE",
+      "value": "Collected 2 examples"
+    },
+    {
+      "path": "/publication/probes/index.html/META_TITLE",
+      "value": "Collected 2 examples",
+      "engine": "zensical"
+    },
+    {
+      "path": "/publication/probes/index.html/FIRST",
+      "value": "First"
+    },
+    {
+      "path": "/publication/probes/index.html/SECOND",
+      "value": "Second"
+    },
+    {
+      "path": "/publication/probes/index.html/META_TITLE",
+      "engine": "mkdocs",
+      "value": "{{ generated }} {{ count_examples() }} {{ description }}"
+    },
+    {
+      "path": "/navigation/navigation/0/title",
+      "value": "Collected 2 examples"
+    }
+  ],
+  "purpose": "Variables and metadata changed by body macros are used in the later title rendering pass.",
+  "differences": [
+    {
+      "path": "/publication/probes/index.html/META_TITLE",
+      "mkdocs": "{{ generated }} {{ count_examples() }} {{ description }}",
+      "zensical": "Collected 2 examples",
+      "reason": "The rendered metadata title is supplied to theme templates by Zensical; the source metadata is retained by MkDocs Macros."
+    }
+  ]
+}

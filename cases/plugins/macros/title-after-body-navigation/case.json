@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": [
+    "publication",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/PAGE_TITLE",
+      "value": "Title 2"
+    },
+    {
+      "path": "/publication/probes/index.html/BODY",
+      "value": "Title {{ next_number() }}"
+    },
+    {
+      "path": "/publication/probes/index.html/META_TITLE",
+      "value": ""
+    },
+    {
+      "path": "/navigation/navigation/0/title",
+      "value": "Title 2"
+    }
+  ],
+  "purpose": "The body is rendered before the effective title; rendered titles are retained on warm builds."
+}

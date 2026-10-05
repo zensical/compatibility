@@ -383,6 +383,12 @@ griffelib==2.3.0 \
     # via
     #   -r requirements/mkdocs.in
     #   mkdocstrings-python
+hjson==3.1.0 \
+    --hash=sha256:55af475a27cf83a7969c808399d7bccdec8fb836a07ddbd574587593b9cdcf75 \
+    --hash=sha256:65713cdcf13214fb554eb8b4ef803419733f4f5e551047c9b711098ab7186b89
+    # via
+    #   mkdocs-macros-plugin
+    #   super-collections
 htmlmin2==0.1.13 \
     --hash=sha256:75609f2a42e64f7ce57dbff28a39890363bde9e7e5885db633317efbdf8c79a2
     # via mkdocs-minify-plugin
@@ -395,6 +401,7 @@ jinja2==3.1.6 \
     --hash=sha256:85ece4451f492d0c13c5dd7c13a64681a86afae63a5f347908daf103ce6d2f67
     # via
     #   mkdocs
+    #   mkdocs-macros-plugin
     #   mkdocs-material
     #   mkdocstrings
     #   properdocs
@@ -524,6 +531,7 @@ mkdocs==1.6.1 \
     #   mkdocs-awesome-nav
     #   mkdocs-exclude
     #   mkdocs-literate-nav
+    #   mkdocs-macros-plugin
     #   mkdocs-material
     #   mkdocs-minify-plugin
     #   mkdocs-redirects
@@ -558,6 +566,10 @@ mkdocs-get-deps==0.2.2 \
 mkdocs-literate-nav==0.6.3 \
     --hash=sha256:2c421561280fa9184f88cbf399bebbd4cc17ee507e978a31ce11fd6f3aabf233 \
     --hash=sha256:edbaca22343f861fe4e34aac47d55a0c9955c640dbf02eea99fe631e914cf9ee
+    # via -r requirements/mkdocs.in
+mkdocs-macros-plugin==1.5.0 \
+    --hash=sha256:12aa45ce7ecb7a445c66b9f649f3dd05e9b92e8af6bc65e4acd91d26f878c01f \
+    --hash=sha256:c10fabd812bf50f9170609d0ed518e54f1f0e12c334ac29141723a83c881dd6f
     # via -r requirements/mkdocs.in
 mkdocs-material==9.7.1 \
     --hash=sha256:3f6100937d7d731f87f1e3e3b021c97f7239666b9ba1151ab476cabb96c60d5c \
@@ -694,6 +706,7 @@ packaging==26.3 \
     --hash=sha256:d7193f7c8e4e93f444fde0262bf90af30e16fa0ad0ad44cb553c87339b23cd1c
     # via
     #   mkdocs
+    #   mkdocs-macros-plugin
     #   properdocs
 paginate==0.5.7 \
     --hash=sha256:22bd083ab41e1a8b4f3690544afb2c60c25e5c9a63a30fa2f483f6c60c8e5945 \
@@ -704,6 +717,7 @@ pathspec==1.1.1 \
     --hash=sha256:a00ce642f577bf7f473932318056212bc4f8bfdf53128c78bbd5af0b9b20b189
     # via
     #   mkdocs
+    #   mkdocs-macros-plugin
     #   properdocs
 pillow==12.1.1 \
     --hash=sha256:02f84dfad02693676692746df05b89cf25597560db2857363a208e393429f5e9 \
@@ -955,7 +969,9 @@ pymdown-extensions==12.1 \
 python-dateutil==2.9.0.post0 \
     --hash=sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3 \
     --hash=sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427
-    # via ghp-import
+    # via
+    #   ghp-import
+    #   mkdocs-macros-plugin
 pyyaml==6.0.3 \
     --hash=sha256:00c4bdeba853cc34e7dd471f16b4114f4162dc03e6b7afcc2128711f0eca823c \
     --hash=sha256:0150219816b6a1fa26fb4699fb7daa9caf09eb1999f3b70fb6e786805e80375a \
@@ -1034,6 +1050,7 @@ pyyaml==6.0.3 \
     #   mkdocs
     #   mkdocs-api-autonav
     #   mkdocs-get-deps
+    #   mkdocs-macros-plugin
     #   properdocs
     #   pymdown-extensions
     #   pyyaml-env-tag
@@ -1048,6 +1065,7 @@ requests==2.34.2 \
     --hash=sha256:f288924cae4e29463698d6d60bc6a4da69c89185ad1e0bcc4104f584e960b9ed
     # via
     #   cachecontrol
+    #   mkdocs-macros-plugin
     #   mkdocs-material
     #   mkdocs-rss-plugin
 six==1.17.0 \
@@ -1058,6 +1076,14 @@ smmap==5.0.3 \
     --hash=sha256:4d9debb8b99007ae47165abc08670bd74cb74b5227dda7f643eccc4e9eb5642c \
     --hash=sha256:c106e05d5a61449cf6ba9a1e650227ecfb141590d2a98412103ff35d89fc7b2f
     # via gitdb
+super-collections==0.6.2 \
+    --hash=sha256:0c8d8abacd9fad2c7c1c715f036c29f5db213f8cac65f24d45ecba12b4da187a \
+    --hash=sha256:291b74d26299e9051d69ad9d89e61b07b6646f86a57a2f5ab3063d206eee9c56
+    # via mkdocs-macros-plugin
+termcolor==3.3.0 \
+    --hash=sha256:348871ca648ec6a9a983a13ab626c0acce02f515b9e1983332b17af7979521c5 \
+    --hash=sha256:cf642efadaf0a8ebbbf4bc7a31cec2f9b5f21a9f726f4ccbb08192c9c26f43a5
+    # via mkdocs-macros-plugin
 tinycss2==1.5.1 \
     --hash=sha256:3415ba0f5839c062696996998176c4a3751d18b7edaaeeb658c9ce21ec150661 \
     --hash=sha256:d339d2b616ba90ccce58da8495a78f46e55d4d25f9fd71dfd526f07e7d53f957

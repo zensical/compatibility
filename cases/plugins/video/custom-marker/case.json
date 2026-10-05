@@ -1,0 +1,118 @@
+{
+  "plugins": [
+    "mkdocs-video"
+  ],
+  "check": [
+    "media",
+    "publication"
+  ],
+  "warm": true,
+  "seed": [
+    {
+      "source": "fixtures/media",
+      "destination": "docs/assets/media"
+    }
+  ],
+  "assertions": [
+    {
+      "path": "/media/pages/index.html/embeds",
+      "count": 2
+    },
+    {
+      "path": "/media/pages/index.html/images",
+      "count": 2
+    },
+    {
+      "path": "/media/pages/index.html/embeds/0/kind",
+      "value": "iframe"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/1/kind",
+      "value": "iframe"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/1/attributes/title",
+      "value": "entities & attributes"
+    },
+    {
+      "path": "/media/assets/assets~1media~1beep.wav",
+      "value": {
+        "size": 4844,
+        "sha256": "5f6a31252d58077322382af6467c5ce19e14f71ab5dd9145dbc6860e9aa4d464"
+      }
+    },
+    {
+      "path": "/media/assets/assets~1media~1clip.webm",
+      "value": {
+        "size": 1255,
+        "sha256": "1b8e31fba71eb8a413d508999f3a78ba6a778cdd351715177f6d330613754b08"
+      }
+    },
+    {
+      "path": "/media/assets/assets~1media~1pixel.png",
+      "value": {
+        "size": 68,
+        "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec"
+      }
+    },
+    {
+      "path": "/media/pages/index.html/tokens",
+      "engine": "mkdocs",
+      "value": [
+        "COMPAT_BEFORE",
+        "COMPAT_RAW_BEFORE"
+      ]
+    },
+    {
+      "path": "/media/pages/index.html/tokens",
+      "engine": "zensical",
+      "value": [
+        "COMPAT_BEFORE",
+        "COMPAT_AFTER",
+        "COMPAT_RAW_BEFORE",
+        "COMPAT_RAW_AFTER"
+      ]
+    },
+    {
+      "path": "/publication/search/",
+      "engine": "mkdocs",
+      "value": [
+        "COMPAT_BEFORE",
+        "COMPAT_RAW_BEFORE"
+      ]
+    },
+    {
+      "path": "/publication/search/",
+      "engine": "zensical",
+      "value": [
+        "COMPAT_AFTER",
+        "COMPAT_BEFORE",
+        "COMPAT_RAW_AFTER",
+        "COMPAT_RAW_BEFORE"
+      ]
+    }
+  ],
+  "purpose": "Custom markers, raw HTML entity decoding, missing sources, unmatched markers, and preserved trailing inline text.",
+  "differences": [
+    {
+      "path": "/media/pages/index.html/tokens",
+      "zensical_only": "COMPAT_AFTER",
+      "reason": "The upstream media replacement discards trailing inline text; native preserves it."
+    },
+    {
+      "path": "/media/pages/index.html/tokens",
+      "zensical_only": "COMPAT_RAW_AFTER",
+      "reason": "The upstream media replacement discards trailing inline text; native preserves it."
+    },
+    {
+      "path": "/publication/search/",
+      "zensical_only": "COMPAT_AFTER",
+      "reason": "Upstream drops text after media replacement before search indexing; native preserves and indexes it."
+    },
+    {
+      "path": "/publication/search/",
+      "zensical_only": "COMPAT_RAW_AFTER",
+      "reason": "Upstream drops text after media replacement before search indexing; native preserves and indexes it."
+    }
+  ]
+}

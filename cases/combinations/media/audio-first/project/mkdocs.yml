@@ -1,0 +1,17 @@
+site_name: Media compatibility
+site_url: https://example.test/docs/
+theme:
+  name: material
+plugins:
+- mkdocs-audio:
+    mark: shared
+    audio_type: wav
+- mkdocs-video:
+    mark: shared
+    is_video: true
+    video_type: webm
+- search
+markdown_extensions:
+- attr_list
+nav:
+- Home: index.md

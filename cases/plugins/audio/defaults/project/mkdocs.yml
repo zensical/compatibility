@@ -1,0 +1,12 @@
+site_name: Media compatibility
+site_url: https://example.test/docs/
+theme:
+  name: material
+plugins:
+- mkdocs-audio
+- search
+markdown_extensions:
+- attr_list
+nav:
+- Home: index.md
+- Nested: guide/page.md

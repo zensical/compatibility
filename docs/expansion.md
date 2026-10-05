@@ -35,7 +35,7 @@ larger projects; an exhaustive power set would mostly duplicate coverage.
 The first expansion added **17 projects: four isolated controls and 13
 combinations**, plus one opt-in retained HTTP server lifecycle check. The
 Material expansions below add another 31 projects. The full suite now has
-105 projects: 84 isolated and 21 combinations.
+116 projects: 92 isolated and 24 combinations.
 All original migration projects remain included.
 
 New cases use multiple output extractors together. Publication checks include

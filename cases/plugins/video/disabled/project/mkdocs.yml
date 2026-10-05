@@ -1,0 +1,14 @@
+site_name: Media compatibility
+site_url: https://example.test/docs/
+theme:
+  name: material
+plugins:
+- mkdocs-video:
+    enabled: false
+    video_type: webm
+    is_video: true
+- search
+markdown_extensions:
+- attr_list
+nav:
+- Home: index.md

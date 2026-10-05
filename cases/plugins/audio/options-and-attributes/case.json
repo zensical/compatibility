@@ -1,0 +1,230 @@
+{
+  "plugins": [
+    "mkdocs-audio"
+  ],
+  "check": [
+    "media",
+    "publication"
+  ],
+  "warm": true,
+  "seed": [
+    {
+      "source": "fixtures/media",
+      "destination": "docs/assets/media"
+    }
+  ],
+  "assertions": [
+    {
+      "path": "/media/pages/index.html/embeds",
+      "count": 3
+    },
+    {
+      "path": "/media/pages/index.html/images",
+      "count": 0
+    },
+    {
+      "path": "/media/pages/index.html/embeds/0/kind",
+      "value": "audio"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/0/sources/0/type",
+      "value": "audio/wav"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/0/flags/autoplay",
+      "value": true
+    },
+    {
+      "path": "/media/pages/index.html/embeds/0/flags/loop",
+      "value": true
+    },
+    {
+      "path": "/media/pages/index.html/embeds/1/flags/controls",
+      "value": true
+    },
+    {
+      "path": "/media/pages/index.html/embeds/1/attributes/style/width",
+      "value": "80%"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/1/sources/0/src",
+      "value": "https://example.test/docs/assets/media/beep.wav?download=1"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/2/flags/autoplay",
+      "value": false
+    },
+    {
+      "path": "/media/pages/index.html/embeds/2/flags/loop",
+      "value": false
+    },
+    {
+      "path": "/media/pages/index.html/embeds/2/attributes/style/width",
+      "value": "90%"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/0/flags/controls",
+      "value": true,
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/0/flags/controls",
+      "value": false,
+      "engine": "zensical"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/2/flags/controls",
+      "value": true,
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/2/flags/controls",
+      "value": false,
+      "engine": "zensical"
+    },
+    {
+      "path": "/media/pages/index.html/embeds/0/attributes/style/width",
+      "value": "50%"
+    },
+    {
+      "path": "/media/assets/assets~1media~1beep.wav",
+      "value": {
+        "size": 4844,
+        "sha256": "5f6a31252d58077322382af6467c5ce19e14f71ab5dd9145dbc6860e9aa4d464"
+      }
+    },
+    {
+      "path": "/media/assets/assets~1media~1clip.webm",
+      "value": {
+        "size": 1255,
+        "sha256": "1b8e31fba71eb8a413d508999f3a78ba6a778cdd351715177f6d330613754b08"
+      }
+    },
+    {
+      "path": "/media/assets/assets~1media~1pixel.png",
+      "value": {
+        "size": 68,
+        "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec"
+      }
+    }
+  ],
+  "purpose": "MIME type, playback flags, attribute precedence, per-element global opt-out, and option edits without a clean build.",
+  "differences": [
+    {
+      "path": "/media/pages/index.html/embeds/0/flags/controls",
+      "mkdocs": true,
+      "zensical": false,
+      "reason": "The upstream audio plugin always adds controls; native honors audio_controls: false."
+    },
+    {
+      "path": "/media/pages/index.html/embeds/2/flags/controls",
+      "mkdocs": true,
+      "zensical": false,
+      "reason": "The upstream audio plugin always adds controls; native honors audio_controls: false."
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-global-style",
+      "path": "mkdocs.yml",
+      "before": "width: 50%",
+      "after": "width: 60%",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/media/pages/index.html/embeds",
+          "count": 3
+        },
+        {
+          "path": "/media/pages/index.html/images",
+          "count": 0
+        },
+        {
+          "path": "/media/pages/index.html/embeds/0/kind",
+          "value": "audio"
+        },
+        {
+          "path": "/media/pages/index.html/embeds/0/sources/0/type",
+          "value": "audio/wav"
+        },
+        {
+          "path": "/media/pages/index.html/embeds/0/flags/autoplay",
+          "value": true
+        },
+        {
+          "path": "/media/pages/index.html/embeds/0/flags/loop",
+          "value": true
+        },
+        {
+          "path": "/media/pages/index.html/embeds/1/flags/controls",
+          "value": true
+        },
+        {
+          "path": "/media/pages/index.html/embeds/1/attributes/style/width",
+          "value": "80%"
+        },
+        {
+          "path": "/media/pages/index.html/embeds/1/sources/0/src",
+          "value": "https://example.test/docs/assets/media/beep.wav?download=1"
+        },
+        {
+          "path": "/media/pages/index.html/embeds/2/flags/autoplay",
+          "value": false
+        },
+        {
+          "path": "/media/pages/index.html/embeds/2/flags/loop",
+          "value": false
+        },
+        {
+          "path": "/media/pages/index.html/embeds/2/attributes/style/width",
+          "value": "90%"
+        },
+        {
+          "path": "/media/pages/index.html/embeds/0/flags/controls",
+          "value": true,
+          "engine": "mkdocs"
+        },
+        {
+          "path": "/media/pages/index.html/embeds/0/flags/controls",
+          "value": false,
+          "engine": "zensical"
+        },
+        {
+          "path": "/media/pages/index.html/embeds/2/flags/controls",
+          "value": true,
+          "engine": "mkdocs"
+        },
+        {
+          "path": "/media/pages/index.html/embeds/2/flags/controls",
+          "value": false,
+          "engine": "zensical"
+        },
+        {
+          "path": "/media/pages/index.html/embeds/0/attributes/style/width",
+          "value": "60%"
+        },
+        {
+          "path": "/media/assets/assets~1media~1beep.wav",
+          "value": {
+            "size": 4844,
+            "sha256": "5f6a31252d58077322382af6467c5ce19e14f71ab5dd9145dbc6860e9aa4d464"
+          }
+        },
+        {
+          "path": "/media/assets/assets~1media~1clip.webm",
+          "value": {
+            "size": 1255,
+            "sha256": "1b8e31fba71eb8a413d508999f3a78ba6a778cdd351715177f6d330613754b08"
+          }
+        },
+        {
+          "path": "/media/assets/assets~1media~1pixel.png",
+          "value": {
+            "size": 68,
+            "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec"
+          }
+        }
+      ]
+    }
+  ]
+}

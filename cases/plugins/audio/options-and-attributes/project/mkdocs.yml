@@ -1,0 +1,17 @@
+site_name: Media compatibility
+site_url: https://example.test/docs/
+theme:
+  name: material
+plugins:
+- mkdocs-audio:
+    audio_type: wav
+    audio_controls: false
+    audio_autoplay: true
+    audio_loop: true
+    css_style:
+      width: 50%
+- search
+markdown_extensions:
+- attr_list
+nav:
+- Home: index.md

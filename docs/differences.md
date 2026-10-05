@@ -42,6 +42,8 @@ pairs live in `case.json`; changed or resolved pairs fail until reviewed.
 | Disabled tags | In Zensical 0.0.67, `tags.enabled: false` still renders metadata tag labels. The isolated control checks the exact visible label difference on cold/warm builds before reporting xfail. |
 | Disabled search | Native emits an empty search index; MkDocs emits no index. Both remove the UI and all indexed sections. Exact index presence remains checked. |
 | Headingless search titles | Native uses the explicit navigation label for the root search result; Material uses the front matter title. The exact title pair is checked; section content and targets remain compared. |
+| Audio controls | Upstream adds controls even when disabled. Native honors `audio_controls: false`; only the exact controls flags are accepted differences. |
+| Inline media text | Upstream replacement drops following text from Markdown and raw HTML, including the search index. Native preserves and indexes it; only the named trailing tokens may differ. |
 | RSS blog summaries | Four description fields differ only in whitespace between heading and paragraph. |
 | Social typography | Only two named cards allow mean RGB error 4 instead of 1; measured maximum is about 3.636. Metadata, paths and sizes must match. |
 | Social cached SVG | Upstream retains red pixels after the SVG edit; native renders blue. SVG/title checkpoints require one exact decoded pixel pair plus separate lifecycle expectations. Layout editing returns to normal comparison. |

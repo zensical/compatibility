@@ -38,7 +38,7 @@ from pathlib import Path
 
 import yaml
 
-from compatibility import blog, media, search, social, tags
+from compatibility import blog, macros, media, search, social, tags
 from compatibility.checks import CHECKS
 from compatibility.publication import publication, references, tag_content
 from scripts.prepare_fonts import prepare_fonts
@@ -54,6 +54,7 @@ EXTRACTORS = {
     "publication": publication,
     "references": references,
     "tag-content": tag_content,
+    "macros-diagnostics": macros.diagnostics,
 }
 
 

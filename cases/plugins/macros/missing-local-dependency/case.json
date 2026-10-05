@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": false,
+  "assertions": [
+    {
+      "path": "/probes/index.html/BODY",
+      "value": "5"
+    }
+  ],
+  "purpose": "A broken dependency in the default local module is ignored upstream but rejected by the native builder.",
+  "failure": {
+    "zensical": "compat_missing_dependency"
+  },
+  "reason": "Import errors in the default local main module are ignored by MkDocs Macros and rejected by Zensical."
+}

@@ -43,6 +43,7 @@ mkdocs-api-autonav==0.4.0
 mkdocs-autoapi==0.4.1
 mkdocs-exclude==1.0.2
 mkdocs-minify-plugin==0.8.0
+mkdocs-macros-plugin==1.5.0
 
 # Audio/video rendering compatibility.
 mkdocs-video==1.5.0

@@ -1,0 +1,47 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "macros-diagnostics",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/pages/index.html/heading",
+      "value": "Macro Syntax Error"
+    },
+    {
+      "path": "/pages/index.html/code",
+      "value": [
+        {
+          "source": "{% if %}"
+        }
+      ]
+    },
+    {
+      "path": "/pages/index.html/paragraphs",
+      "engine": "mkdocs",
+      "value": [
+        "File: index.md",
+        "Line 1 in Markdown file: Expected an expression, got 'end of statement block'"
+      ]
+    },
+    {
+      "path": "/pages/index.html/paragraphs",
+      "engine": "zensical",
+      "value": [
+        "File: index.md",
+        "Line 1: Expected an expression, got 'end of statement block'"
+      ]
+    }
+  ],
+  "purpose": "Syntax errors are replaced with a page diagnostic containing the source line and error message.",
+  "strict": false,
+  "differences": [
+    {
+      "path": "/pages/index.html/paragraphs/1",
+      "mkdocs": "Line 1 in Markdown file: Expected an expression, got 'end of statement block'",
+      "zensical": "Line 1: Expected an expression, got 'end of statement block'",
+      "reason": "The source line label is worded differently; the line number and syntax message are retained."
+    }
+  ]
+}

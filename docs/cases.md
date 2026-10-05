@@ -189,3 +189,5 @@ probes. Do not call private generator APIs. Use real local data files, fixed
 dates, and local image/font assets. A browser check is required to establish
 browser execution, widget behavior, redirect execution, or live navigation;
 the generated HTML checks alone cannot establish those behaviors.
+
+Macros output is checked with `publication` probes and paired cold/warm builds. Template edits are applied without a clean build. Diagnostic headings, source files, exception messages, and syntax-error source lines are checked by `macros-diagnostics`. Traceback presence and the final exception are retained; builder paths and stack frames are excluded.

@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/UNDEFINED",
+      "value": "Before  after"
+    },
+    {
+      "path": "/probes/index.html/ATTRIBUTE",
+      "value": "Before  after"
+    }
+  ],
+  "purpose": "Undefined variables are rendered according to the configured policy."
+}

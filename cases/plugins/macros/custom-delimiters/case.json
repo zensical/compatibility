@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": [
+    "publication",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/PAGE_TITLE",
+      "value": "Title 5"
+    },
+    {
+      "path": "/publication/probes/index.html/BODY",
+      "value": "01 {{ literal }}"
+    },
+    {
+      "path": "/publication/probes/index.html/META_TITLE",
+      "engine": "mkdocs",
+      "value": "Title [[ 2 + 3 ]]"
+    },
+    {
+      "path": "/navigation/navigation/0/title",
+      "value": "Title 5"
+    }
+  ],
+  "purpose": "Configured Jinja delimiters are used for body and title rendering.",
+  "differences": [
+    {
+      "path": "/publication/probes/index.html/META_TITLE",
+      "mkdocs": "Title [[ 2 + 3 ]]",
+      "zensical": "Title 5",
+      "reason": "The rendered metadata title is supplied to theme templates by Zensical; the source metadata is retained by MkDocs Macros."
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": [
+    "publication",
+    "navigation"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/BODY",
+      "value": "Get started"
+    },
+    {
+      "path": "/navigation/navigation/0/children/0/title",
+      "value": "Get started"
+    }
+  ],
+  "purpose": "The first navigation reference supplies the effective title even when the same page is referenced twice.",
+  "differences": [
+    {
+      "path": "/navigation/navigation/1/title",
+      "mkdocs": "Get started",
+      "zensical": "Duplicate",
+      "reason": "The explicit label on the duplicate navigation reference is retained by Zensical; the first page title is reused by MkDocs."
+    }
+  ]
+}

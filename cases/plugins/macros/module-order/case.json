@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/ORDER",
+      "value": "first,second,local/local/local/local"
+    }
+  ],
+  "purpose": "Configured modules are loaded in order before the optional local module."
+}

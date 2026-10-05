@@ -1,0 +1,51 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "macros-diagnostics",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/pages/index.html/heading",
+      "value": "Macro Rendering Error"
+    },
+    {
+      "path": "/pages/index.html/paragraphs",
+      "value": [
+        "File: index.md",
+        "UndefinedError: 'missing' is undefined"
+      ]
+    },
+    {
+      "path": "/pages/index.html/code",
+      "value": [
+        {
+          "traceback": true,
+          "exception": "jinja2.exceptions.UndefinedError: 'missing' is undefined"
+        }
+      ]
+    },
+    {
+      "path": "/pages/division~1index.html/heading",
+      "value": "Macro Rendering Error"
+    },
+    {
+      "path": "/pages/division~1index.html/paragraphs",
+      "value": [
+        "File: division.md",
+        "ZeroDivisionError: division by zero"
+      ]
+    },
+    {
+      "path": "/pages/division~1index.html/code",
+      "value": [
+        {
+          "traceback": true,
+          "exception": "ZeroDivisionError: division by zero"
+        }
+      ]
+    }
+  ],
+  "purpose": "Failed renders are replaced with a page diagnostic containing the source file, exception, and traceback.",
+  "strict": false
+}

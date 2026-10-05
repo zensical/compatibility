@@ -46,6 +46,11 @@ pairs live in `case.json`; changed or resolved pairs fail until reviewed.
 | Social typography | Only two named cards allow mean RGB error 4 instead of 1; measured maximum is about 3.636. Metadata, paths and sizes must match. |
 | Social cached SVG | Upstream retains red pixels after the SVG edit; native renders blue. SVG/title checkpoints require one exact decoded pixel pair plus separate lifecycle expectations. Layout editing returns to normal comparison. |
 | Social custom context | Oracle must emit both cards and `page.file.src_uri` metadata; native must reject with its layout-expression undefined-value diagnostic. Only then is this case xfailed. Other diagnostics, timeouts, native success and oracle failures fail normally. |
+| Macros metadata titles | Rendered metadata titles are supplied to theme templates by native; source metadata titles are retained by MkDocs Macros. Exact source/rendered pairs are checked. |
+| Macros duplicate navigation | The explicit label on a duplicate page reference is retained by native. The first page title is reused by MkDocs. The exact duplicate label pair is checked. |
+| Macros syntax diagnostics | The source line label is worded differently. The exact label pair, line number, error message, and source code are checked. |
+| Macros nested YAML | Earlier nested mapping keys are retained by MkDocs Macros and replaced by native. The exact missing-key difference is checked before xfail is reported. |
+| Macros local import errors | Import errors inside the default `main.py` are ignored by MkDocs Macros and rejected by native. Oracle output and the native dependency diagnostic are checked before xfail is reported. |
 
 ## Expansion findings
 

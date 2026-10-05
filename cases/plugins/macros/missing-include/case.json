@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": false,
+  "assertions": [],
+  "purpose": "The build is rejected with the expected diagnostic through the public CLI.",
+  "failure": {
+    "mkdocs": "missing.j2",
+    "zensical": "missing.j2"
+  }
+}

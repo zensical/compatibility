@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "macros"
+  ],
+  "check": "publication",
+  "warm": false,
+  "assertions": [],
+  "purpose": "The build is rejected with the expected diagnostic through the public CLI.",
+  "failure": {
+    "mkdocs": "'missing' is undefined",
+    "zensical": "'missing' is undefined"
+  }
+}

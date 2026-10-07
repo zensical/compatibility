@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    "mkdocs-nav-weight"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/navigation/navigation/0/title",
+      "value": "Index alias"
+    },
+    {
+      "path": "/navigation/navigation/1/title",
+      "value": "Second alias"
+    }
+  ],
+  "purpose": "Equal weights, boolean weights, external links, configured labels, section renaming, reverse sorting, and flat URLs are compared."
+}

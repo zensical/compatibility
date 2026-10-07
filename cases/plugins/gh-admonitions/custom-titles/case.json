@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    "gh-admonitions"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/alerts/0/title",
+      "value": "Custom title"
+    },
+    {
+      "path": "/index.html/quotes",
+      "value": [
+        "Ordinary quotation."
+      ]
+    }
+  ],
+  "purpose": "Custom titles, formatted bodies, lists, and ordinary quotations are preserved."
+}

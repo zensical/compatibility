@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    "markdown-exec"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/code",
+      "value": [
+        "COMPAT_RED\n"
+      ]
+    },
+    {
+      "path": "/index.html/text",
+      "value": "ANSI COMPAT_RED"
+    }
+  ],
+  "purpose": "Required ANSI support removes escape sequences while rendered output is retained."
+}

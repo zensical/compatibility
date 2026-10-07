@@ -91,6 +91,8 @@ Put plugin interactions under `cases/combinations/`; these run with
 `--combinations` and use the same runner and checks. See
 [the expansion analysis](docs/expansion.md) for coverage priorities.
 See [media coverage](docs/media.md) for the audio/video cases and playback checks.
+Coverage of all documented plugins and the two new branch additions is listed in
+[plugin coverage](docs/plugin-coverage.md), including settings and observation boundaries.
 
 ## CI and dependency updates
 
@@ -109,5 +111,5 @@ the files using [uv's documented compile workflow](https://docs.astral.sh/uv/pip
 ```sh
 uv pip compile requirements/runner.in --universal --python-version 3.12 --generate-hashes -o requirements/runner.txt
 uv pip compile requirements/mkdocs.in --universal --python-version 3.12 --generate-hashes -o requirements/mkdocs.txt
-uv pip compile requirements/candidate.in --universal --python-version 3.10 --generate-hashes -o requirements/candidate.txt
+uv pip compile requirements/candidate.in --universal --python-version 3.11 --generate-hashes -o requirements/candidate.txt
 ```

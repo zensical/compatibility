@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "literate-nav"
+  ],
+  "check": "navigation",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/navigation/1/title",
+      "value": "Zeta label"
+    },
+    {
+      "path": "/navigation/2/title",
+      "value": "Alpha label"
+    }
+  ],
+  "purpose": "A custom Markdown navigation filename, explicit indexes, and tab length are exercised.",
+  "steps": [
+    {
+      "name": "rename-label",
+      "path": "docs/CONTENTS.md",
+      "before": "Zeta label",
+      "after": "Revised label",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/navigation/1/title",
+          "value": "Revised label"
+        }
+      ]
+    }
+  ]
+}

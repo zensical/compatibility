@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    "mkdocs-nav-weight"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|b/|z/|a/"
+    }
+  ],
+  "purpose": "Adjacent integer weights above floating-point precision are kept distinct."
+}

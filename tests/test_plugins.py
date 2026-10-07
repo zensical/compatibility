@@ -23,13 +23,35 @@
 
 """Every case is a complete pair of builds, followed by observable contracts."""
 
+import json
 from pathlib import Path
 
 import pytest
 
-from compatibility.runner import run_case, validate_case
+from compatibility.runner import discover, run_case, validate_case
 
 ROOT = Path(__file__).resolve().parents[1]
+
+# The published list is supplemented by the two requested branch additions.
+SUPPORTED_PLUGINS = {
+    "api-autonav", "autorefs", "awesome-nav", "blog", "callouts", "exclude",
+    "gh-admonitions", "glightbox", "literate-nav", "llmstxt", "macros",
+    "markdown-exec", "markdownextradata", "meta", "mike", "minify",
+    "mkdocs-audio", "mkdocs-autoapi", "mkdocs-nav-weight", "mkdocs-video",
+    "mkdocstrings", "offline", "redirects", "rss", "search", "section-index",
+    "social", "table-reader", "tags",
+}
+
+
+def test_supported_plugins_have_successful_output_contracts():
+    # API generators are covered with their required mkdocstrings renderer.
+    covered = set()
+    for case in discover(ROOT / "cases", combinations=True):
+        spec = json.loads((case / "case.json").read_text(encoding="utf-8"))
+        if spec.get("assertions") and not spec.get("failure"):
+            covered.update(plugin.removeprefix("material/") for plugin in spec["plugins"])
+
+    assert SUPPORTED_PLUGINS <= covered, f"plugins without output contracts: {sorted(SUPPORTED_PLUGINS - covered)}"
 
 
 def test_compatibility(case, builders, artifacts):

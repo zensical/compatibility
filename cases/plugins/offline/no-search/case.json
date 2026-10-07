@@ -1,0 +1,48 @@
+{
+  "plugins": [
+    "offline"
+  ],
+  "check": [
+    "publication",
+    "offline"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "guide.html",
+        "index.html"
+      ]
+    },
+    {
+      "path": "/offline/shims/index.html",
+      "value": [
+        "https://unpkg.com/iframe-worker/shim"
+      ]
+    },
+    {
+      "path": "/offline/inline_search",
+      "engine": "mkdocs",
+      "value": false
+    },
+    {
+      "path": "/offline/inline_search",
+      "engine": "zensical",
+      "value": true
+    },
+    {
+      "path": "/publication/search",
+      "value": {}
+    }
+  ],
+  "purpose": "Flat output routes, worker shims, and inline search data are checked with search enabled, absent, or offline disabled.",
+  "differences": [
+    {
+      "path": "/offline/inline_search",
+      "mkdocs": false,
+      "zensical": true,
+      "reason": "An empty inline index is emitted by native offline builds even when search is disabled."
+    }
+  ]
+}

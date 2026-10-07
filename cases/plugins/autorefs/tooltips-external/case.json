@@ -1,0 +1,22 @@
+{
+  "plugins": [
+    "autorefs"
+  ],
+  "check": "references",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/pages/index.html/links/0/title",
+      "value": null
+    },
+    {
+      "path": "/pages/index.html/links/0/url",
+      "value": "https://example.com/docs/guide/#target"
+    },
+    {
+      "path": "/pages/index.html/unresolved",
+      "value": 0
+    }
+  ],
+  "purpose": "Internal reference tooltips are compared with link titles enabled or restricted to external targets."
+}

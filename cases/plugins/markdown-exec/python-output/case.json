@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "markdown-exec"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "value": "Execution COMPAT_EXECUTED"
+    }
+  ],
+  "purpose": "Executed Python output, Markdown results, ANSI options, and language selection are compared."
+}

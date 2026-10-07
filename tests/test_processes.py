@@ -23,6 +23,7 @@
 
 """Check bounded process cleanup and useful diagnostics on every platform."""
 
+import os
 import sys
 import time
 from pathlib import Path
@@ -87,3 +88,21 @@ def test_failed_build_reports_unicode_diagnostic(tmp_path):
         check_build(outcome, "probe", tmp_path, {})
     assert "exit 2" in str(failure.value)
     assert diagnostic in str(failure.value)
+
+
+def test_version_environment_is_explicit_and_recorded(tmp_path, monkeypatch):
+    # Unrelated cases must not be altered by an inherited Mike version.
+    monkeypatch.setenv("MIKE_DOCS_VERSION", "inherited")
+    (tmp_path / "probe.py").write_text("import os\nprint(os.environ.get('MIKE_DOCS_VERSION', 'unset'))\n")
+
+    ordinary = build(Path(sys.executable), "probe", tmp_path, tmp_path, clean=True, strict=True, timeout=5)
+
+    assert ordinary["exit_code"] == 0
+    assert (tmp_path / "probe.log").read_text().startswith("unset\n")
+
+    versioned = build(Path(sys.executable), "probe", tmp_path, tmp_path, clean=True, strict=True, timeout=5, environment={"MIKE_DOCS_VERSION": "2.1"})
+
+    assert versioned["exit_code"] == 0
+    assert versioned["environment"] == {"MIKE_DOCS_VERSION": "2.1"}
+    assert (tmp_path / "probe.log").read_text().startswith("2.1\n")
+    assert os.environ["MIKE_DOCS_VERSION"] == "inherited"

@@ -1,0 +1,25 @@
+{
+  "plugins": [
+    "table-reader"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/guide~1index.html/tables",
+      "value": [
+        [
+          [
+            "Name",
+            "Score"
+          ],
+          [
+            "Local",
+            "15"
+          ]
+        ]
+      ]
+    }
+  ],
+  "purpose": "Table files are resolved relative to the current page when project and docs paths do not match."
+}

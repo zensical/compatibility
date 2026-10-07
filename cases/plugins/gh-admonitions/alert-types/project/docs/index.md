@@ -1,0 +1,21 @@
+# Alerts
+
+> [!NOTE]
+> COMPAT_NOTE
+
+> [!TIP]
+> COMPAT_TIP
+
+> [!IMPORTANT]
+> COMPAT_IMPORTANT
+
+> [!WARNING]
+> COMPAT_WARNING
+
+> [!CAUTION]
+> COMPAT_CAUTION
+
+```text
+> [!NOTE]
+> COMPAT_LITERAL
+```

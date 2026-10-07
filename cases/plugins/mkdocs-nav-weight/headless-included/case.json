@@ -1,0 +1,47 @@
+{
+  "plugins": [
+    "mkdocs-nav-weight"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/navigation/navigation",
+      "value": [
+        {
+          "title": "Home",
+          "url": "https://example.com/docs/"
+        },
+        {
+          "title": "Visible",
+          "url": "https://example.com/docs/a/"
+        }
+      ]
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|a/|hidden/|secret/|secret/next/|secret/hidden/"
+    },
+    {
+      "path": "/publication/probes/secret~1index.html/NEXT",
+      "value": "secret/next/"
+    },
+    {
+      "path": "/publication/probes/secret~1hidden~1index.html/ANCESTORS",
+      "value": "Secret"
+    }
+  ],
+  "purpose": "Hidden pages remain published; nav.pages inclusion and independent previous/next sequences are checked.",
+  "differences": [
+    {
+      "path": "/publication/probes/secret~1next~1index.html/PREVIOUS",
+      "mkdocs": "",
+      "zensical": "secret/",
+      "reason": "A previous-page link to a hidden section index is emitted only by Zensical."
+    }
+  ],
+  "known_gap": "Hidden section children have different previous-page links to their section index."
+}

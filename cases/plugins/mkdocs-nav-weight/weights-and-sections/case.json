@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "mkdocs-nav-weight"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/navigation/navigation/1/title",
+      "value": "Early"
+    },
+    {
+      "path": "/navigation/navigation/2/title",
+      "value": "Handbook"
+    },
+    {
+      "path": "/navigation/navigation/2/children/0/title",
+      "value": "First"
+    },
+    {
+      "path": "/publication/probes/guide~1z~1index.html/NEXT",
+      "value": "guide/a/"
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|z/|guide/z/|guide/a/|unindexed/topic/|a/|b/|reference/|reference/topic/"
+    }
+  ],
+  "purpose": "Numeric weights, defaults, README indexes, empty section indexes, and section titles are compared."
+}

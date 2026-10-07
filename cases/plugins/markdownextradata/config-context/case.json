@@ -1,0 +1,39 @@
+{
+  "plugins": [
+    "markdownextradata"
+  ],
+  "check": [
+    "publication",
+    "content"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/CONTEXT",
+      "value": "Plugin compatibility / Author / Alice / Alice"
+    },
+    {
+      "path": "/publication/probes/index.html/MISSING",
+      "value": "{{ missing }}"
+    },
+    {
+      "path": "/publication/probes/index.html/LOOP",
+      "value": "ONE|TWO"
+    },
+    {
+      "path": "/publication/probes/index.html/TITLE",
+      "value": "Hello Alice"
+    },
+    {
+      "path": "/publication/probes/index.html/THEME",
+      "value": "Alice"
+    },
+    {
+      "path": "/content/index.html/code",
+      "value": [
+        "Alice\n"
+      ]
+    }
+  ],
+  "purpose": "Configuration variables, nested extra data, titles, undefined values, loops, theme context, and fenced code are rendered."
+}

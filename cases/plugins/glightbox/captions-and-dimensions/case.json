@@ -1,0 +1,26 @@
+{
+  "plugins": [
+    "glightbox"
+  ],
+  "check": "lightbox",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/0/link/data-type",
+      "value": "image"
+    },
+    {
+      "path": "/index.html/1/link",
+      "value": null
+    },
+    {
+      "path": "/index.html/0/link/data-width",
+      "value": "80%"
+    },
+    {
+      "path": "/index.html/3/link",
+      "value": null
+    }
+  ],
+  "purpose": "Image wrapping, opt-in/out classes, captions, dimensions, and page metadata are compared."
+}

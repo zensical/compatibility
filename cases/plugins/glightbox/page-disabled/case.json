@@ -1,0 +1,63 @@
+{
+  "plugins": [
+    "glightbox"
+  ],
+  "check": "lightbox",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/0/link",
+      "engine": "mkdocs",
+      "value": null
+    },
+    {
+      "path": "/index.html/0/link/data-type",
+      "engine": "zensical",
+      "value": "image"
+    },
+    {
+      "path": "/index.html/1/link",
+      "value": null
+    }
+  ],
+  "purpose": "Image wrapping, opt-in/out classes, captions, dimensions, and page metadata are compared.",
+  "differences": [
+    {
+      "path": "/index.html/0/link",
+      "mkdocs": null,
+      "zensical": {
+        "class": [
+          "glightbox"
+        ],
+        "data-type": "image",
+        "href": "image.svg"
+      },
+      "reason": "Page-level glightbox: false is ignored by Zensical."
+    },
+    {
+      "path": "/index.html/2/link",
+      "mkdocs": null,
+      "zensical": {
+        "class": [
+          "glightbox"
+        ],
+        "data-type": "image",
+        "href": "image.svg"
+      },
+      "reason": "Page-level glightbox: false is ignored by Zensical."
+    },
+    {
+      "path": "/index.html/3/link",
+      "mkdocs": null,
+      "zensical": {
+        "class": [
+          "glightbox"
+        ],
+        "data-type": "image",
+        "href": "image.svg"
+      },
+      "reason": "Page-level glightbox: false is ignored by Zensical."
+    }
+  ],
+  "known_gap": "Page-level lightbox opt-out is ignored by Zensical."
+}

@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "mkdocs-nav-weight"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [],
+  "failure": {
+    "mkdocs": "(?s)(weight|headless).*Aborted",
+    "zensical": "mkdocs-nav-weight reported warnings"
+  },
+  "purpose": "Invalid metadata is rejected by strict builds when warnings are enabled."
+}

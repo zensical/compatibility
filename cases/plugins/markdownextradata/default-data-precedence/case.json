@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "markdownextradata"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/DATA",
+      "value": "Docs data / Widget|Gadget / 2026 / None / True"
+    },
+    {
+      "path": "/probes/index.html/THEME",
+      "value": "Docs data"
+    }
+  ],
+  "purpose": "Default directories, suffix precedence, nested namespaces, JSON lists, and YAML scalar types are compared."
+}

@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "llmstxt"
+  ],
+  "check": "llmstxt",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/guide~1start~1index.md/text",
+      "value": "Start COMPAT_GUIDE"
+    },
+    {
+      "path": "",
+      "count": 4
+    }
+  ],
+  "purpose": "Ordered sections, glob selection, descriptions, export hosts, full output, autoclean, and URL modes are compared.",
+  "steps": [
+    {
+      "name": "edit-export",
+      "path": "docs/guide/start.md",
+      "before": "COMPAT_GUIDE",
+      "after": "COMPAT_REVISED",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/guide~1start~1index.md/text",
+          "value": "Start COMPAT_REVISED"
+        }
+      ]
+    }
+  ]
+}

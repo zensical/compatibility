@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "awesome-nav"
+  ],
+  "check": "navigation",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/navigation/1/title",
+      "value": "First"
+    }
+  ],
+  "purpose": "A custom control filename and control-file edits are checked.",
+  "steps": [
+    {
+      "name": "reorder",
+      "path": "docs/navigation.yml",
+      "before": "  - z.md\n  - a.md",
+      "after": "  - a.md\n  - z.md",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/navigation/1/title",
+          "value": "Last"
+        }
+      ]
+    }
+  ]
+}

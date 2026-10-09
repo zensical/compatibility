@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    "mike"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/canonicals/index.html",
+      "value": "https://example.com/docs/"
+    },
+    {
+      "path": "/canonicals/guide~1index.html",
+      "value": "https://example.com/docs/guide/"
+    }
+  ],
+  "environment": {},
+  "purpose": "Versioned canonical URLs and explicit canonical aliases are compared through the build environment."
+}

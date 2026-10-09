@@ -1,0 +1,59 @@
+{
+  "plugins": [
+    "mkdocs-nav-weight",
+    "literate-nav"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|a/|z/"
+    }
+  ],
+  "steps": [
+    {
+      "name": "reorder",
+      "path": "docs/z.md",
+      "before": "weight: 2",
+      "after": "weight: -1",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/probes/index.html/PAGES",
+          "value": "|z/|a/"
+        }
+      ]
+    },
+    {
+      "name": "hide",
+      "path": "docs/a.md",
+      "before": "weight: 1",
+      "after": "weight: 1\nheadless: true",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/probes/index.html/PAGES",
+          "value": "|z/"
+        }
+      ]
+    },
+    {
+      "name": "show",
+      "path": "docs/a.md",
+      "before": "headless: true",
+      "after": "headless: false",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/probes/index.html/PAGES",
+          "value": "|z/|a/"
+        }
+      ]
+    }
+  ],
+  "purpose": "Weights and visibility are applied after generated navigation, including metadata changes."
+}

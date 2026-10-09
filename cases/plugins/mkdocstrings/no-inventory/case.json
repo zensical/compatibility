@@ -1,0 +1,32 @@
+{
+  "plugins": [
+    "mkdocstrings"
+  ],
+  "check": [
+    "publication",
+    "references"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/canonicals/index.html",
+      "value": "https://example.test/docs/"
+    },
+    {
+      "path": "/references/pages/index.html/unresolved",
+      "value": 0
+    },
+    {
+      "path": "/publication/search/",
+      "value": [
+        "COMPAT_CLASS",
+        "COMPAT_METHOD"
+      ]
+    },
+    {
+      "path": "/references/inventory",
+      "value": {}
+    }
+  ],
+  "purpose": "Inventory suppression, source display, and alphabetical member ordering are exercised."
+}

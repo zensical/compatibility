@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "markdownextradata"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/DATA",
+      "value": "{{ customer.name }}"
+    }
+  ],
+  "purpose": "Expressions are left literal when interpolation is disabled, even if external data files are present.",
+  "steps": [
+    {
+      "name": "enable",
+      "path": "mkdocs.yml",
+      "before": "enabled: false",
+      "after": "enabled: true",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/probes/index.html/DATA",
+          "value": "Loaded"
+        }
+      ]
+    }
+  ]
+}

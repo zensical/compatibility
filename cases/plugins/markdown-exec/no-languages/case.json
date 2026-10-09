@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "markdown-exec"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "value": "Literal python exec=\"on\"\nprint(\"COMPAT_LITERAL\")"
+    }
+  ],
+  "purpose": "Executable source is left literal when the language selection is empty."
+}

@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "llmstxt"
+  ],
+  "check": "llmstxt",
+  "warm": true,
+  "assertions": [],
+  "failure": {
+    "mkdocs": "Page URI 'missing.md' not found",
+    "zensical": "Page URI 'missing.md' not found"
+  },
+  "purpose": "Explicit missing sources are rejected in strict mode."
+}

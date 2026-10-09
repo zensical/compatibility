@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    "mkdocs-nav-weight"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|a/|z/"
+    }
+  ],
+  "purpose": "Navigation is left unchanged when the weight plugin is disabled."
+}

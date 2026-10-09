@@ -1,0 +1,74 @@
+{
+  "plugins": [
+    "glightbox"
+  ],
+  "check": "lightbox",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/0/link/data-type",
+      "value": "image"
+    },
+    {
+      "path": "/index.html/1/link",
+      "value": null
+    }
+  ],
+  "purpose": "Image wrapping, opt-in/out classes, captions, dimensions, and page metadata are compared.",
+  "differences": [
+    {
+      "path": "/index.html/0/link/data-desc-position",
+      "mkdocs": "bottom",
+      "zensical_missing": true,
+      "reason": "Default lightbox attributes are omitted by Zensical."
+    },
+    {
+      "path": "/index.html/0/link/data-height",
+      "mkdocs": "auto",
+      "zensical_missing": true,
+      "reason": "Default lightbox attributes are omitted by Zensical."
+    },
+    {
+      "path": "/index.html/0/link/data-width",
+      "mkdocs": "auto",
+      "zensical_missing": true,
+      "reason": "Default lightbox attributes are omitted by Zensical."
+    },
+    {
+      "path": "/index.html/2/link/data-desc-position",
+      "mkdocs": "bottom",
+      "zensical_missing": true,
+      "reason": "Default lightbox attributes are omitted by Zensical."
+    },
+    {
+      "path": "/index.html/2/link/data-height",
+      "mkdocs": "auto",
+      "zensical_missing": true,
+      "reason": "Default lightbox attributes are omitted by Zensical."
+    },
+    {
+      "path": "/index.html/2/link/data-width",
+      "mkdocs": "auto",
+      "zensical_missing": true,
+      "reason": "Default lightbox attributes are omitted by Zensical."
+    },
+    {
+      "path": "/index.html/3/link/data-desc-position",
+      "mkdocs": "bottom",
+      "zensical_missing": true,
+      "reason": "Default lightbox attributes are omitted by Zensical."
+    },
+    {
+      "path": "/index.html/3/link/data-height",
+      "mkdocs": "auto",
+      "zensical_missing": true,
+      "reason": "Default lightbox attributes are omitted by Zensical."
+    },
+    {
+      "path": "/index.html/3/link/data-width",
+      "mkdocs": "auto",
+      "zensical_missing": true,
+      "reason": "Default lightbox attributes are omitted by Zensical."
+    }
+  ]
+}

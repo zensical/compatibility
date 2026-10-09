@@ -1,0 +1,41 @@
+{
+  "plugins": [
+    "markdownextradata"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/DATA",
+      "value": "Second / Release"
+    }
+  ],
+  "purpose": "Custom directories are used instead of default discovery; precedence of later files and names requiring dictionary access are exercised.",
+  "steps": [
+    {
+      "name": "edit-data",
+      "path": "second/customer.json",
+      "before": "Second",
+      "after": "Revised",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/probes/index.html/DATA",
+          "value": "Revised / Release"
+        }
+      ]
+    },
+    {
+      "name": "remove-override",
+      "path": "second/customer.json",
+      "delete": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/probes/index.html/DATA",
+          "value": "First / Release"
+        }
+      ]
+    }
+  ]
+}

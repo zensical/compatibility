@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "exclude"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/routes",
+      "value": [
+        "guide/page/index.html",
+        "index.html",
+        "public/index.html"
+      ]
+    }
+  ],
+  "purpose": "Recursive glob matches and regular expressions jointly remove pages from publication."
+}

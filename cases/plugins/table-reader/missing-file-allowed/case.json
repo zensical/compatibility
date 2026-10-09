@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "table-reader"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "value": "Missing {{ Cannot find 'missing.csv' }}"
+    }
+  ],
+  "strict": false,
+  "purpose": "Missing optional table files are represented by the upstream placeholder in non-strict builds."
+}

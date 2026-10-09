@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "markdownextradata"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/DATA",
+      "value": "Configured / {{ missing }}"
+    }
+  ],
+  "purpose": "Missing optional data directories are ignored and configured variables remain available."
+}

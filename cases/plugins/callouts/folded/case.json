@@ -1,0 +1,22 @@
+{
+  "plugins": [
+    "callouts"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/alerts/0/kind",
+      "value": "details"
+    },
+    {
+      "path": "/index.html/alerts/0/open",
+      "value": false
+    },
+    {
+      "path": "/index.html/alerts/1/open",
+      "value": true
+    }
+  ],
+  "purpose": "Collapsed and expanded callouts are compared."
+}

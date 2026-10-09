@@ -1,0 +1,3 @@
+# Invalid template
+
+{% if customer %}

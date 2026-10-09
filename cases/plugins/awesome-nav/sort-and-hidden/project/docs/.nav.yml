@@ -1,0 +1,6 @@
+nav:
+  - index.md
+  - glob: "*/"
+    flatten_single_child_sections: true
+    sort:
+      by: title

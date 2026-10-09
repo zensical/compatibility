@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    "awesome-nav"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/navigation/navigation/1/children/0/title",
+      "value": "0 First"
+    },
+    {
+      "path": "/publication/canonicals/hidden~1page~1index.html",
+      "value": "https://example.com/docs/hidden/page/"
+    }
+  ],
+  "purpose": "Pattern-local sorting and hidden directories are compared while hidden pages remain published."
+}

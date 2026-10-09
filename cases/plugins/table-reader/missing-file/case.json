@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "table-reader"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [],
+  "failure": {
+    "mkdocs": "Cannot find table file 'missing.csv'",
+    "zensical": "Cannot find table file 'missing.csv'"
+  },
+  "purpose": "Missing required table files are rejected."
+}

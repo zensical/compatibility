@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "markdownextradata"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probes/index.html/CUSTOM",
+      "value": "012 / {{ customer.name }}"
+    }
+  ],
+  "purpose": "Custom Jinja delimiters and whitespace settings are used while ordinary braces are preserved."
+}

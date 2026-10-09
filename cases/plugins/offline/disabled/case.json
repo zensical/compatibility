@@ -1,0 +1,28 @@
+{
+  "plugins": [
+    "offline"
+  ],
+  "check": [
+    "publication",
+    "offline"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "guide/index.html",
+        "index.html"
+      ]
+    },
+    {
+      "path": "/offline/inline_search",
+      "value": false
+    },
+    {
+      "path": "/offline/shims/index.html",
+      "value": []
+    }
+  ],
+  "purpose": "Flat output routes, worker shims, and inline search data are checked with search enabled, absent, or offline disabled."
+}

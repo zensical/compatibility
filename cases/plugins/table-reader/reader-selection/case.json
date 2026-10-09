@@ -1,0 +1,43 @@
+{
+  "plugins": [
+    "table-reader"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/tables",
+      "value": [
+        [
+          [
+            "Name",
+            "Score"
+          ],
+          [
+            "Alice",
+            "10"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Score"
+          ],
+          [
+            "Bob",
+            "20"
+          ]
+        ],
+        [
+          [
+            "Name"
+          ],
+          [
+            "Carol"
+          ]
+        ]
+      ]
+    }
+  ],
+  "purpose": "Selected CSV, JSON, and YAML readers, parser arguments, and unselected literal expressions are compared."
+}

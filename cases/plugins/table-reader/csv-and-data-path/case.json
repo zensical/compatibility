@@ -1,0 +1,91 @@
+{
+  "plugins": [
+    "table-reader"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/tables",
+      "value": [
+        [
+          [
+            "Name",
+            "Score"
+          ],
+          [
+            "Alice",
+            "10"
+          ],
+          [
+            "Bob",
+            "20"
+          ]
+        ]
+      ]
+    }
+  ],
+  "purpose": "CSV data_path resolution and literal non-reader expressions are compared.",
+  "steps": [
+    {
+      "name": "edit-csv",
+      "path": "tables/people.csv",
+      "before": "Alice,10",
+      "after": "Alice,30",
+      "changed": {
+        "mkdocs": true,
+        "zensical": false
+      },
+      "assertions": [
+        {
+          "path": "/index.html/tables/0/1",
+          "engine": "mkdocs",
+          "value": [
+            "Alice",
+            "30"
+          ]
+        },
+        {
+          "path": "/index.html/tables/0/1",
+          "engine": "zensical",
+          "value": [
+            "Alice",
+            "10"
+          ]
+        }
+      ],
+      "differences": [
+        {
+          "path": "/index.html/tables/0/1/1",
+          "mkdocs": "30",
+          "zensical": "10",
+          "reason": "External table data edits are not tracked by the native Markdown cache."
+        },
+        {
+          "path": "/index.html/text",
+          "mkdocs": "People Name Score Alice 30 Bob 20 {{ 1 + 1 }}",
+          "zensical": "People Name Score Alice 10 Bob 20 {{ 1 + 1 }}",
+          "reason": "The stale table cell is retained in visible text."
+        }
+      ],
+      "known_gap": "CSV data edits are not reflected in cached native Markdown until a clean rebuild."
+    },
+    {
+      "name": "clean-recovery",
+      "clean": true,
+      "changed": {
+        "mkdocs": false,
+        "zensical": true
+      },
+      "assertions": [
+        {
+          "path": "/index.html/tables/0/1",
+          "value": [
+            "Alice",
+            "30"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    "minify"
+  ],
+  "check": "publication",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/probe_comments/index.html",
+      "value": [
+        "COMPAT_KEPT"
+      ]
+    },
+    {
+      "path": "/probes/index.html/SPACES",
+      "value": "first  second\n  third"
+    }
+  ],
+  "purpose": "HTML minification preserves requested comments and whitespace inside preformatted content."
+}

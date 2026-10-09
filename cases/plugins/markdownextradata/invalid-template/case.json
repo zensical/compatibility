@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "markdownextradata"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [],
+  "failure": {
+    "mkdocs": "Unexpected end of template",
+    "zensical": "Unexpected end of template"
+  },
+  "purpose": "Unclosed Jinja blocks are rejected by both builders."
+}

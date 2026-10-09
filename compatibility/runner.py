@@ -38,7 +38,7 @@ from pathlib import Path
 
 import yaml
 
-from compatibility import blog, macros, media, search, social, tags
+from compatibility import blog, macros, media, rendering, search, social, tags
 from compatibility.checks import CHECKS
 from compatibility.publication import publication, references, tag_content
 from scripts.prepare_fonts import prepare_fonts
@@ -55,6 +55,10 @@ EXTRACTORS = {
     "references": references,
     "tag-content": tag_content,
     "macros-diagnostics": macros.diagnostics,
+    "content": rendering.content,
+    "lightbox": rendering.lightbox,
+    "llmstxt": rendering.llmstxt,
+    "offline": rendering.offline,
 }
 
 
@@ -219,7 +223,7 @@ def process_environment() -> dict[str, str]:
     env = os.environ.copy()
     env["PYTHONUTF8"] = "1"
     env["PYTHONIOENCODING"] = "utf-8"
-    for name in ("PYTHONPATH", "PYTHONHOME"):
+    for name in ("PYTHONPATH", "PYTHONHOME", "MIKE_DOCS_VERSION"):
         env.pop(name, None)
     env.update(PYTHONNOUSERSITE="1", NO_COLOR="1", TZ="UTC")
     return env
@@ -238,6 +242,9 @@ def validate_case(case: Path, root: Path) -> dict:
         "case needs an output contract"
     )
     failures = spec.get("failure", {})
+    variables = spec.get("environment", {})
+    assert isinstance(variables, dict) and set(variables) <= {"MIKE_DOCS_VERSION"}, "only MIKE_DOCS_VERSION may be set by a case"
+    assert all(isinstance(value, str) for value in variables.values()), "case environment values must be strings"
     assert set(failures) <= {"mkdocs", "zensical"}, "unknown failure engine"
     if len(failures) == 1:
         assert spec.get("assertions") and spec.get("reason", "").strip(), (
@@ -332,8 +339,9 @@ def build(
     clean: bool,
     strict: bool,
     timeout: int,
+    environment: dict[str, str] | None = None,
 ) -> dict:
-    command = [str(python), "-m", engine, "build", "--config-file", "mkdocs.yml"]
+    command = [str(python), "-m", engine, "build", "--config-file", str(project / "mkdocs.yml")]
     if clean:
         command.append("--clean")
     if strict:
@@ -345,7 +353,7 @@ def build(
             cwd=project,
             stdout=log,
             stderr=log,
-            env=process_environment(),
+            env=process_environment() | (environment or {}),
             start_new_session=os.name == "posix",
             creationflags=subprocess.CREATE_NEW_PROCESS_GROUP if os.name == "nt" else 0,
         ) as process:
@@ -359,6 +367,7 @@ def build(
     outcome = {
         "command": command,
         "cwd": str(project),
+        "environment": environment or {},
         "exit_code": code,
         "timed_out": timed_out,
         "seconds": round(time.monotonic() - started, 3),
@@ -449,6 +458,7 @@ def run_case(
                 clean=step.get("clean", False),
                 strict=spec.get("strict", True),
                 timeout=spec.get("timeout", 120),
+                environment=spec.get("environment", {}),
             )
             for engine, python in interpreters.items()
         }

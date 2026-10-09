@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "gh-admonitions"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/alerts/0/title",
+      "value": "Note"
+    },
+    {
+      "path": "/index.html/alerts",
+      "count": 5
+    },
+    {
+      "path": "/index.html/code",
+      "value": [
+        "> [!NOTE]\n> COMPAT_LITERAL\n"
+      ]
+    }
+  ],
+  "purpose": "Five alert types, titles, bodies, and fenced examples are compared.",
+  "differences": [
+    {
+      "path": "/index.html/alerts/2/classes/1",
+      "mkdocs": "warning",
+      "zensical": "important",
+      "reason": "The original alert type is retained by pymdownx.quotes; the upstream plugin maps this type to an alias."
+    },
+    {
+      "path": "/index.html/alerts/4/classes/1",
+      "mkdocs": "danger",
+      "zensical": "caution",
+      "reason": "The original alert type is retained by pymdownx.quotes; the upstream plugin maps this type to an alias."
+    }
+  ]
+}

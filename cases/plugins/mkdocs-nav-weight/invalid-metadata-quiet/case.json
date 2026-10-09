@@ -1,0 +1,17 @@
+{
+  "plugins": [
+    "mkdocs-nav-weight"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|z/|a/"
+    }
+  ],
+  "purpose": "Invalid metadata is replaced by defaults when warnings are disabled."
+}

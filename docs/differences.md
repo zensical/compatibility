@@ -43,6 +43,13 @@ pairs live in `case.json`; changed or resolved pairs fail until reviewed.
 | Disabled search | Native emits an empty search index; MkDocs emits no index. Both remove the UI and all indexed sections. Exact index presence remains checked. |
 | Headingless search titles | Native uses the explicit navigation label for the root search result; Material uses the front matter title. The exact title pair is checked; section content and targets remain compared. |
 | Audio controls | Upstream adds controls even when disabled. Native honors `audio_controls: false`; only the exact controls flags are accepted differences. |
+| Callout aliases | `important` and `caution` are mapped to other types by the upstream plugins. Their original type names are retained by Zensical. Exact class pairs are checked; titles, content, and expansion states remain compared. |
+| Lightbox defaults | Default width, height, and caption-position attributes are omitted by Zensical. Only their exact absence is accepted. Configured dimensions and captions remain compared. |
+| Lightbox page opt-out | Page metadata `glightbox: false` is ignored by the candidate. Exact unwanted image wrappers are checked on cold/warm builds before xfail is reported. |
+| Hidden weighted sections | A previous-page link to a hidden section index is emitted by Zensical but omitted upstream. Both `headless_included` values are checked before xfail is reported. Navigation, publication, and all other page connections remain compared. |
+| Cached table data | A changed CSV cell is retained by the native Markdown cache. The exact stale cell and visible text are checked before xfail is reported. Recovery is required after a clean build. |
+| Offline search files | `search/search_index.js` and `search/search_index.json` are emitted upstream; `search.js` and `search.json` are emitted by Zensical. Each script must contain its corresponding JSON data. With search disabled, an empty script is emitted only by Zensical. |
+| LLM Markdown syntax | Equivalent escaping, angle-bracket link destinations, and block spacing are normalized through Markdown parsing. File membership, element structure, text, targets, order, and code whitespace remain compared. |
 | Inline media text | Upstream replacement drops following text from Markdown and raw HTML, including the search index. Native preserves and indexes it; only the named trailing tokens may differ. |
 | RSS blog summaries | Four description fields differ only in whitespace between heading and paragraph. |
 | Social typography | Only two named cards allow mean RGB error 4 instead of 1; measured maximum is about 3.636. Metadata, paths and sizes must match. |

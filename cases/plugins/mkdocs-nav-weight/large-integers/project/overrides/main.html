@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}{{ super() }}
+<p data-compat-probe="PAGES">{{ nav.pages | map(attribute='url') | join('|') }}</p>
+<p data-compat-probe="TITLE">{{ page.title }}</p>
+<p data-compat-probe="PREVIOUS">{{ page.previous_page.url if page.previous_page else '' }}</p>
+<p data-compat-probe="NEXT">{{ page.next_page.url if page.next_page else '' }}</p>
+<p data-compat-probe="ANCESTORS">{{ page.ancestors | map(attribute='title') | join('|') }}</p>
+{% endblock %}

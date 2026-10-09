@@ -1,0 +1,22 @@
+{
+  "plugins": [
+    "section-index"
+  ],
+  "check": "navigation",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/navigation/1/title",
+      "value": "Guide"
+    },
+    {
+      "path": "/navigation/1/url",
+      "value": "https://example.com/docs/guide/"
+    },
+    {
+      "path": "/navigation/1/children/0/title",
+      "value": "Start"
+    }
+  ],
+  "purpose": "Linked section indexes and nested section navigation are compared in both URL modes."
+}

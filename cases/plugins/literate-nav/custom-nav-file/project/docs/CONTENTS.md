@@ -1,0 +1,3 @@
+- [Home](index.md)
+- [Zeta label](z.md)
+- [Alpha label](a.md)

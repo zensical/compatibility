@@ -72,6 +72,7 @@ from passing. A homepage must also exist in every successful build.
 | `reason` | Required explanation for an asymmetric expected failure |
 | `known_gap` | Reason for verified output differences, declared on a case or affected step |
 | `purpose` | Behavior or interaction the fixture exercises |
+| `environment` | Optional `MIKE_DOCS_VERSION` for versioned builds; the inherited value is cleared |
 | `seed` | Repository-owned inputs copied to each project's cache |
 | `pixel_budgets` | Social per-card mean RGB allowance and reason; default 1 |
 | `pixel_differences` | Social exact decoded RGBA hash pair and reason |
@@ -191,3 +192,5 @@ browser execution, widget behavior, redirect execution, or live navigation;
 the generated HTML checks alone cannot establish those behaviors.
 
 Macros output is checked with `publication` probes and paired cold/warm builds. Template edits are applied without a clean build. Diagnostic headings, source files, exception messages, and syntax-error source lines are checked by `macros-diagnostics`. Traceback presence and the final exception are retained; builder paths and stack frames are excluded.
+
+Markdown transformations are observed by `content`, including callouts, tables, code, headings, and visible text. Image links and lightbox attributes are observed by `lightbox`. Generated Markdown and text files are compared by `llmstxt`. Worker shims and inline search consistency are checked by `offline`. Their observation boundaries and plugin settings are described in [plugin coverage](plugin-coverage.md).

@@ -21,10 +21,13 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-# Runtime dependencies for API cases and Windows timezone data. Native plugin
-# implementations do not require upstream generator/navigation packages.
+# Runtime dependencies are pinned for API rendering, executable Markdown,
+# table imports, and timezone data. Native plugin rewrites are used otherwise.
 mkdocstrings[python]==1.0.6
 mkdocstrings-python==2.0.9
 mkdocs-autorefs==1.4.4
 griffelib==2.3.0
+markdown-exec[ansi]==1.12.4
+pandas==2.3.3
+tabulate==0.10.0
 tzdata==2025.3 ; sys_platform == 'win32'

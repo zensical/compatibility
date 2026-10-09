@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "llmstxt"
+  ],
+  "check": "llmstxt",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.md/text",
+      "value": "Home Welcome."
+    },
+    {
+      "path": "",
+      "count": 2
+    }
+  ],
+  "purpose": "The default index and per-page Markdown are emitted without an aggregate file."
+}

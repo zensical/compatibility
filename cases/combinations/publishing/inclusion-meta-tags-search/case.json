@@ -1,0 +1,74 @@
+{
+  "plugins": [
+    "meta",
+    "tags"
+  ],
+  "check": [
+    "navigation",
+    "publication",
+    "tag-content"
+  ],
+  "warm": true,
+  "purpose": "Core inclusion, inherited tags and metadata search exclusion are combined; unlisted pages must remain in tag listings and search.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "guides/public/index.html",
+        "guides/search-hidden/index.html",
+        "guides/unlisted/index.html",
+        "index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/guides/public/",
+        "https://example.test/docs/guides/search-hidden/",
+        "https://example.test/docs/guides/unlisted/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "guides/public/": [
+          "COMPAT_PUBLIC"
+        ],
+        "guides/unlisted/": [
+          "COMPAT_UNLISTED"
+        ],
+        "": [
+          "COMPAT_HOME"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|guides/public/|guides/search-hidden/"
+    },
+    {
+      "path": "/tag-content/index.html/listings",
+      "value": [
+        {
+          "id": "tag:python",
+          "tag": "Python",
+          "links": [
+            {
+              "title": "Public",
+              "url": "https://example.test/docs/guides/public/"
+            },
+            {
+              "title": "Search hidden",
+              "url": "https://example.test/docs/guides/search-hidden/"
+            },
+            {
+              "title": "Unlisted",
+              "url": "https://example.test/docs/guides/unlisted/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

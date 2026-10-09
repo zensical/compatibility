@@ -1,0 +1,47 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "Explicit navigation restores an unlisted page while other unlisted pages remain published, searchable and in the sitemap.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "public.html",
+        "unlisted.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/index.html",
+        "https://example.test/docs/public.html",
+        "https://example.test/docs/unlisted.html"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "index.html": [
+          "COMPAT_HOME"
+        ],
+        "public.html": [
+          "COMPAT_PUBLIC"
+        ],
+        "unlisted.html": [
+          "COMPAT_UNLISTED"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "index.html|unlisted.html"
+    }
+  ]
+}

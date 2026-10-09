@@ -1,0 +1,225 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "Anchors, recursive directories, character classes, escaped prefixes, comments and ordered negations are checked for not_in_nav with Unicode paths.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "!private.html",
+        "#private.html",
+        "drafts/deep/page.html",
+        "drafts/keep.html",
+        "guide/new.html",
+        "guide/old.html",
+        "guides/café.html",
+        "index.html",
+        "keep.html",
+        "nested/guide/old.html",
+        "nested/root.html",
+        "nested/secret.html",
+        "retired-keep.html",
+        "retired-one.html",
+        "root.html",
+        "secret.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/%21private.html",
+        "https://example.test/docs/%23private.html",
+        "https://example.test/docs/drafts/deep/page.html",
+        "https://example.test/docs/drafts/keep.html",
+        "https://example.test/docs/guide/new.html",
+        "https://example.test/docs/guide/old.html",
+        "https://example.test/docs/guides/caf%C3%A9.html",
+        "https://example.test/docs/index.html",
+        "https://example.test/docs/keep.html",
+        "https://example.test/docs/nested/guide/old.html",
+        "https://example.test/docs/nested/root.html",
+        "https://example.test/docs/nested/secret.html",
+        "https://example.test/docs/retired-keep.html",
+        "https://example.test/docs/retired-one.html",
+        "https://example.test/docs/root.html",
+        "https://example.test/docs/secret.html"
+      ],
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "%21private.html": [
+          "COMPAT_PAGE_14"
+        ],
+        "%23private.html": [
+          "COMPAT_PAGE_13"
+        ],
+        "drafts/deep/page.html": [
+          "COMPAT_PAGE_11"
+        ],
+        "drafts/keep.html": [
+          "COMPAT_PAGE_2"
+        ],
+        "guide/new.html": [
+          "COMPAT_PAGE_3"
+        ],
+        "guide/old.html": [
+          "COMPAT_PAGE_12"
+        ],
+        "guides/caf%C3%A9.html": [
+          "COMPAT_PAGE_7"
+        ],
+        "index.html": [
+          "COMPAT_HOME"
+        ],
+        "keep.html": [
+          "COMPAT_PAGE_5"
+        ],
+        "nested/guide/old.html": [
+          "COMPAT_PAGE_4"
+        ],
+        "nested/root.html": [
+          "COMPAT_PAGE_1"
+        ],
+        "nested/secret.html": [
+          "COMPAT_PAGE_10"
+        ],
+        "retired-keep.html": [
+          "COMPAT_PAGE_6"
+        ],
+        "retired-one.html": [
+          "COMPAT_PAGE_15"
+        ],
+        "root.html": [
+          "COMPAT_PAGE_8"
+        ],
+        "secret.html": [
+          "COMPAT_PAGE_9"
+        ]
+      },
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "drafts/keep.html|guide/new.html|guides/caf%C3%A9.html|index.html|keep.html|nested/guide/old.html|nested/root.html|retired-keep.html"
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/!private.html",
+        "https://example.test/docs/%23private.html",
+        "https://example.test/docs/drafts/deep/page.html",
+        "https://example.test/docs/drafts/keep.html",
+        "https://example.test/docs/guide/new.html",
+        "https://example.test/docs/guide/old.html",
+        "https://example.test/docs/guides/caf%C3%A9.html",
+        "https://example.test/docs/index.html",
+        "https://example.test/docs/keep.html",
+        "https://example.test/docs/nested/guide/old.html",
+        "https://example.test/docs/nested/root.html",
+        "https://example.test/docs/nested/secret.html",
+        "https://example.test/docs/retired-keep.html",
+        "https://example.test/docs/retired-one.html",
+        "https://example.test/docs/root.html",
+        "https://example.test/docs/secret.html"
+      ],
+      "engine": "zensical"
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "!private.html": [
+          "COMPAT_PAGE_14"
+        ],
+        "%23private.html": [
+          "COMPAT_PAGE_13"
+        ],
+        "drafts/deep/page.html": [
+          "COMPAT_PAGE_11"
+        ],
+        "drafts/keep.html": [
+          "COMPAT_PAGE_2"
+        ],
+        "guide/new.html": [
+          "COMPAT_PAGE_3"
+        ],
+        "guide/old.html": [
+          "COMPAT_PAGE_12"
+        ],
+        "guides/caf%C3%A9.html": [
+          "COMPAT_PAGE_7"
+        ],
+        "index.html": [
+          "COMPAT_HOME"
+        ],
+        "keep.html": [
+          "COMPAT_PAGE_5"
+        ],
+        "nested/guide/old.html": [
+          "COMPAT_PAGE_4"
+        ],
+        "nested/root.html": [
+          "COMPAT_PAGE_1"
+        ],
+        "nested/secret.html": [
+          "COMPAT_PAGE_10"
+        ],
+        "retired-keep.html": [
+          "COMPAT_PAGE_6"
+        ],
+        "retired-one.html": [
+          "COMPAT_PAGE_15"
+        ],
+        "root.html": [
+          "COMPAT_PAGE_8"
+        ],
+        "secret.html": [
+          "COMPAT_PAGE_9"
+        ]
+      },
+      "engine": "zensical"
+    }
+  ],
+  "known_gap": "MkDocs percent-encodes a leading exclamation mark in published URLs; Zensical preserves the valid literal character.",
+  "differences": [
+    {
+      "path": "/publication/canonicals/!private.html",
+      "mkdocs": "https://example.test/docs/%21private.html",
+      "zensical": "https://example.test/docs/!private.html",
+      "reason": "MkDocs percent-encodes a leading exclamation mark in published URLs; Zensical preserves the valid literal character."
+    },
+    {
+      "path": "/publication/sitemap",
+      "mkdocs_only": "https://example.test/docs/%21private.html",
+      "reason": "MkDocs percent-encodes a leading exclamation mark in published URLs; Zensical preserves the valid literal character."
+    },
+    {
+      "path": "/publication/sitemap",
+      "zensical_only": "https://example.test/docs/!private.html",
+      "reason": "MkDocs percent-encodes a leading exclamation mark in published URLs; Zensical preserves the valid literal character."
+    },
+    {
+      "path": "/publication/search/%21private.html",
+      "mkdocs": [
+        "COMPAT_PAGE_14"
+      ],
+      "zensical_missing": true,
+      "reason": "MkDocs percent-encodes a leading exclamation mark in published URLs; Zensical preserves the valid literal character."
+    },
+    {
+      "path": "/publication/search/!private.html",
+      "mkdocs_missing": true,
+      "zensical": [
+        "COMPAT_PAGE_14"
+      ],
+      "reason": "MkDocs percent-encodes a leading exclamation mark in published URLs; Zensical preserves the valid literal character."
+    }
+  ]
+}

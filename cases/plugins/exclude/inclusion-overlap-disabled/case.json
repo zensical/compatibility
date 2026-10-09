@@ -1,0 +1,57 @@
+{
+  "plugins": [
+    "exclude"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "The exclude plugin and core patterns are combined, including restored hidden files, malformed excluded metadata and plugin enablement.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        ".restored/keep/index.html",
+        "index.html",
+        "plugin/index.html",
+        "public/index.html",
+        "unlisted/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/.restored/keep/",
+        "https://example.test/docs/plugin/",
+        "https://example.test/docs/public/",
+        "https://example.test/docs/unlisted/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        ".restored/keep/": [
+          "COMPAT_RESTORED"
+        ],
+        "": [
+          "COMPAT_HOME"
+        ],
+        "plugin/": [
+          "COMPAT_PLUGIN"
+        ],
+        "public/": [
+          "COMPAT_PUBLIC"
+        ],
+        "unlisted/": [
+          "COMPAT_UNLISTED"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|.restored/keep/|plugin/|public/"
+    }
+  ]
+}

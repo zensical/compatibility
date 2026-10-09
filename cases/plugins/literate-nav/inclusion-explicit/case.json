@@ -1,0 +1,52 @@
+{
+  "plugins": [
+    "literate-nav"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "An excluded literate-nav control file remains available; explicit links or inferred directory entries are checked with unlisted pages.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "plugin-hidden/index.html",
+        "public/index.html",
+        "unlisted/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/plugin-hidden/",
+        "https://example.test/docs/public/",
+        "https://example.test/docs/unlisted/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "plugin-hidden/": [
+          "COMPAT_PLUGIN_HIDDEN"
+        ],
+        "public/": [
+          "COMPAT_PUBLIC"
+        ],
+        "unlisted/": [
+          "COMPAT_UNLISTED"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|public/|unlisted/"
+    }
+  ]
+}

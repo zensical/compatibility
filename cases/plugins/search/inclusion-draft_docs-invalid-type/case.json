@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "A list is rejected for the string-valued draft_docs setting by both public CLIs.",
+  "failure": {
+    "mkdocs": "draft_docs",
+    "zensical": "draft_docs"
+  }
+}

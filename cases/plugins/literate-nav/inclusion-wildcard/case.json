@@ -1,0 +1,101 @@
+{
+  "plugins": [
+    "literate-nav"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "An excluded literate-nav control file remains available; explicit links or inferred directory entries are checked with unlisted pages.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "guides/plugin-hidden/index.html",
+        "guides/public/index.html",
+        "guides/unlisted/index.html",
+        "index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/guides/plugin-hidden/",
+        "https://example.test/docs/guides/public/",
+        "https://example.test/docs/guides/unlisted/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "guides/plugin-hidden/": [
+          "COMPAT_PLUGIN_HIDDEN"
+        ],
+        "guides/public/": [
+          "COMPAT_PUBLIC"
+        ],
+        "guides/unlisted/": [
+          "COMPAT_UNLISTED"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|guides/draft/|guides/excluded/|guides/plugin-hidden/|guides/public/|guides/unlisted/",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "engine": "zensical",
+      "value": "|guides/plugin-hidden/|guides/public/|guides/unlisted/"
+    }
+  ],
+  "known_gap": "MkDocs literate-nav directory inference retains excluded and draft page links with no title; Zensical removes unpublished entries.",
+  "differences": [
+    {
+      "path": "/navigation/navigation/1/children",
+      "mkdocs_only": {
+        "title": "None",
+        "url": "https://example.test/docs/guides/draft/"
+      },
+      "reason": "MkDocs literate-nav directory inference retains excluded and draft page links with no title; Zensical removes unpublished entries."
+    },
+    {
+      "path": "/navigation/navigation/1/children",
+      "mkdocs_only": {
+        "title": "None",
+        "url": "https://example.test/docs/guides/excluded/"
+      },
+      "reason": "MkDocs literate-nav directory inference retains excluded and draft page links with no title; Zensical removes unpublished entries."
+    },
+    {
+      "path": "/publication/probes/guides~1plugin-hidden~1index.html/PAGES",
+      "mkdocs": "|guides/draft/|guides/excluded/|guides/plugin-hidden/|guides/public/|guides/unlisted/",
+      "zensical": "|guides/plugin-hidden/|guides/public/|guides/unlisted/",
+      "reason": "MkDocs literate-nav directory inference retains excluded and draft page links with no title; Zensical removes unpublished entries."
+    },
+    {
+      "path": "/publication/probes/guides~1public~1index.html/PAGES",
+      "mkdocs": "|guides/draft/|guides/excluded/|guides/plugin-hidden/|guides/public/|guides/unlisted/",
+      "zensical": "|guides/plugin-hidden/|guides/public/|guides/unlisted/",
+      "reason": "MkDocs literate-nav directory inference retains excluded and draft page links with no title; Zensical removes unpublished entries."
+    },
+    {
+      "path": "/publication/probes/guides~1unlisted~1index.html/PAGES",
+      "mkdocs": "|guides/draft/|guides/excluded/|guides/plugin-hidden/|guides/public/|guides/unlisted/",
+      "zensical": "|guides/plugin-hidden/|guides/public/|guides/unlisted/",
+      "reason": "MkDocs literate-nav directory inference retains excluded and draft page links with no title; Zensical removes unpublished entries."
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "mkdocs": "|guides/draft/|guides/excluded/|guides/plugin-hidden/|guides/public/|guides/unlisted/",
+      "zensical": "|guides/plugin-hidden/|guides/public/|guides/unlisted/",
+      "reason": "MkDocs literate-nav directory inference retains excluded and draft page links with no title; Zensical removes unpublished entries."
+    }
+  ]
+}

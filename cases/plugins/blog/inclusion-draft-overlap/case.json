@@ -1,0 +1,122 @@
+{
+  "plugins": [
+    "material/blog"
+  ],
+  "check": [
+    "navigation",
+    "publication",
+    "blog"
+  ],
+  "warm": true,
+  "purpose": "Core draft patterns and blog draft metadata are combined; an unlisted published post must remain in the blog view and search.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "blog/index.html",
+        "blog/public/index.html",
+        "index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/blog/",
+        "https://example.test/docs/blog/public/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "blog/": [
+          "COMPAT_BLOG"
+        ],
+        "blog/public/": [
+          "COMPAT_PUBLIC"
+        ],
+        "": [
+          "COMPAT_HOME"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|blog/"
+    },
+    {
+      "path": "/blog/pages/blog~1index.html/posts",
+      "count": 1
+    },
+    {
+      "path": "/blog/pages/blog~1index.html/posts/0/url",
+      "value": "/docs/blog/public/"
+    }
+  ],
+  "differences": [
+    {
+      "path": "/blog/pages/index.html/document_title",
+      "mkdocs": "File inclusion compatibility",
+      "zensical": "Home - File inclusion compatibility",
+      "reason": "Zensical retains the home navigation title in the browser title; MkDocs uses only the site name."
+    }
+  ],
+  "steps": [
+    {
+      "name": "include-blog-drafts",
+      "path": "mkdocs.yml",
+      "before": "draft: false",
+      "after": "draft: true",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/routes",
+          "value": [
+            "blog/index.html",
+            "blog/metadata-draft/index.html",
+            "blog/public/index.html",
+            "index.html"
+          ]
+        },
+        {
+          "path": "/publication/sitemap",
+          "value": [
+            "https://example.test/docs/",
+            "https://example.test/docs/blog/",
+            "https://example.test/docs/blog/metadata-draft/",
+            "https://example.test/docs/blog/public/"
+          ]
+        },
+        {
+          "path": "/publication/search",
+          "value": {
+            "blog/": [
+              "COMPAT_BLOG"
+            ],
+            "blog/public/": [
+              "COMPAT_PUBLIC"
+            ],
+            "": [
+              "COMPAT_HOME"
+            ],
+            "blog/metadata-draft/": [
+              "COMPAT_METADATA_DRAFT"
+            ]
+          }
+        },
+        {
+          "path": "/publication/probes/index.html/PAGES",
+          "value": "|blog/"
+        },
+        {
+          "path": "/blog/pages/blog~1index.html/posts",
+          "count": 2
+        },
+        {
+          "path": "/blog/pages/blog~1index.html/posts/0/url",
+          "value": "/docs/blog/metadata-draft/"
+        }
+      ]
+    }
+  ]
+}

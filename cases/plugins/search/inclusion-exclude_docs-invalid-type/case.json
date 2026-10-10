@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "A list is rejected for the string-valued exclude_docs setting by both public CLIs.",
+  "failure": {
+    "mkdocs": "exclude_docs",
+    "zensical": "exclude_docs"
+  }
+}

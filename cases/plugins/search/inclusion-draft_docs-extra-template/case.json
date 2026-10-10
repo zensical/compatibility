@@ -1,0 +1,46 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "An extra template matched by draft_docs is skipped by Zensical; the specific MkDocs evaluation failure is retained.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "public/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/public/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "public/": [
+          "COMPAT_PUBLIC"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|public/"
+    }
+  ],
+  "failure": {
+    "mkdocs": "UndefinedError: 'must_not_render' is undefined"
+  },
+  "reason": "MkDocs evaluates configured extra_templates despite their exclusion; Zensical skips excluded templates before evaluation."
+}

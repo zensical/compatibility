@@ -1,0 +1,52 @@
+{
+  "plugins": [
+    "section-index"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "Section indexes are retained while excluded, draft and unlisted children are filtered from inferred navigation.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "guide/index.html",
+        "guide/public/index.html",
+        "guide/unlisted/index.html",
+        "index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/guide/",
+        "https://example.test/docs/guide/public/",
+        "https://example.test/docs/guide/unlisted/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "guide/": [
+          "COMPAT_GUIDE"
+        ],
+        "guide/public/": [
+          "COMPAT_PUBLIC"
+        ],
+        "guide/unlisted/": [
+          "COMPAT_UNLISTED"
+        ],
+        "": [
+          "COMPAT_HOME"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|guide/|guide/public/"
+    }
+  ]
+}

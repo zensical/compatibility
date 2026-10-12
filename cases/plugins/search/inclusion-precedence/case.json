@@ -1,0 +1,74 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "Publication exclusion takes precedence over drafts and navigation; negations apply only to their own setting.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "public/index.html",
+        "restored/index.html",
+        "unlisted/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/public/",
+        "https://example.test/docs/restored/",
+        "https://example.test/docs/unlisted/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "public/": [
+          "COMPAT_PUBLIC"
+        ],
+        "restored/": [
+          "COMPAT_RESTORED"
+        ],
+        "unlisted/": [
+          "COMPAT_UNLISTED"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|public/|restored/"
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-excluded",
+      "path": "docs/excluded.md",
+      "before": "COMPAT_EXCLUDED",
+      "after": "COMPAT_EXCLUDED_UPDATED",
+      "changed": {
+        "mkdocs": false,
+        "zensical": false
+      }
+    },
+    {
+      "name": "edit-draft",
+      "path": "docs/draft.md",
+      "before": "COMPAT_DRAFT",
+      "after": "COMPAT_DRAFT_UPDATED",
+      "changed": {
+        "mkdocs": false,
+        "zensical": false
+      }
+    }
+  ]
+}

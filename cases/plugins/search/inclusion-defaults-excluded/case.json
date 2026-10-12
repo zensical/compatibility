@@ -1,0 +1,51 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication",
+    "llmstxt"
+  ],
+  "warm": true,
+  "purpose": "Default dotfile, hidden-directory and root-template exclusions are checked, including explicit restoration and ordinary nested templates.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "nested/templates/page/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/nested/templates/page/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "nested/templates/page/": [
+          "COMPAT_HIDDEN_4"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|nested/templates/page/"
+    },
+    {
+      "path": "/llmstxt",
+      "count": 1
+    },
+    {
+      "path": "/llmstxt/nested~1templates~1public.txt/text",
+      "value": "COMPAT_PUBLIC_ASSET"
+    }
+  ]
+}

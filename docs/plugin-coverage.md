@@ -35,33 +35,51 @@ API generators are tested with their required `mkdocstrings` renderer under `cas
 | --- | ---: | ---: | --- |
 | `api-autonav` | 0 | 3 | Generated module pages, custom roots, exclusions, navigation, and source changes. |
 | `autorefs` | 3 | 2 | Aliases, nearest targets, routed targets, and enabled or external-only tooltips. |
-| `awesome-nav` | 3 | 4 | Nested navigation, custom control files, sorting, hidden pages, and control-file edits. |
-| `blog` | 22 | 8 | Routes, dates, authors, categories, archives, excerpts, pagination, and mutations. |
+| `awesome-nav` | 5 | 5 | Nested navigation, control files, sorting, hidden pages, core inclusion patterns, and exclude-plugin interactions. |
+| `blog` | 23 | 8 | Routes, dates, authors, categories, archives, excerpts, pagination, mutations, and core versus metadata drafts. |
 | `callouts` | 3 | 0 | Alert types, explicit titles, lists, folded blocks, and literal fenced examples. |
-| `exclude` | 2 | 5 | Globs, regular expressions, recursive paths, publication, and generated API exclusions. |
+| `exclude` | 4 | 7 | Globs, regular expressions, recursive paths, publication, core inclusion patterns, navigation plugins, and generated API exclusions. |
 | `gh-admonitions` | 2 | 0 | GitHub alert types, custom titles, formatted bodies, and literal fenced examples. |
 | `glightbox` | 4 | 0 | Automatic and manual wrapping, skipped classes, captions, dimensions, and page opt-out. |
-| `literate-nav` | 2 | 3 | Nested summaries, custom control files, indexes, labels, and control-file edits. |
+| `literate-nav` | 4 | 4 | Nested summaries, control files, indexes, labels, core inclusion patterns, directory inference, and exclude-plugin interactions. |
 | `llmstxt` | 4 | 0 | Sections, globs, export hosts, URL modes, descriptions, aggregate output, and edits. |
 | `macros` | 27 | 0 | Variables, modules, includes, precedence, page selection, titles, and diagnostic modes. |
 | `markdown-exec` | 5 | 0 | Python execution, Markdown results, ANSI configuration, and selected languages. |
 | `markdownextradata` | 7 | 0 | Configuration context, data directories, precedence, scalar types, delimiters, titles, and data edits. |
-| `meta` | 8 | 7 | Inheritance, merge behavior, aliases, disabled output, invalid inputs, and metadata edits. |
+| `meta` | 8 | 8 | Inheritance, merge behavior, aliases, disabled output, invalid inputs, metadata edits, and core inclusion patterns. |
 | `mike` | 3 | 0 | Unversioned and versioned builds, canonical aliases, and version-selector settings. |
 | `minify` | 2 | 3 | Preserved code whitespace, comment settings, search, and API/social combinations. |
 | `mkdocs-audio` | 4 | 3 | Default and custom markers, MIME types, playback attributes, disabled output, and media combinations. |
 | `mkdocs-autoapi` | 0 | 2 | Source discovery, ignored files, generated references, inventories, and source changes. |
-| `mkdocs-nav-weight` | 10 | 2 | Weights, section indexes, hidden pages, reverse sorting, labels, strict warnings, and metadata edits. |
+| `mkdocs-nav-weight` | 12 | 2 | Weights, section indexes, hidden pages, reverse sorting, labels, strict warnings, metadata edits, and core inclusion patterns. |
 | `mkdocs-video` | 4 | 3 | Iframes, native video, custom markers, playback attributes, disabled output, and media combinations. |
 | `mkdocstrings` | 2 | 6 | Handler output, object references, inventories, member order, source display, and API generators. |
 | `offline` | 3 | 0 | Flat URLs, worker shims, inline search consistency, search absence, and disabled output. |
-| `redirects` | 3 | 1 | Directory and flat URLs, external and routed targets, and missing targets. |
-| `rss` | 2 | 4 | Multiple feeds, filtering, dates, stylesheets, disabled output, and publishing combinations. |
-| `search` | 8 | 0 | Sections, titles, exclusions, separators, encoded paths, disabled output, and mutations. |
-| `section-index` | 2 | 0 | Linked section landing pages, nested sections, and directory or flat URLs. |
+| `redirects` | 4 | 1 | Directory and flat URLs, external and routed targets, missing targets, and unlisted targets. |
+| `rss` | 3 | 4 | Multiple feeds, filtering, dates, stylesheets, disabled output, core inclusion patterns, and publishing combinations. |
+| `search` | 34 | 0 | Sections, titles, exclusions, separators, encoded paths, disabled output, mutations, and core inclusion patterns. |
+| `section-index` | 3 | 0 | Linked section landing pages, nested sections, directory or flat URLs, and core inclusion patterns. |
 | `social` | 21 | 6 | Layouts, typography, metadata, filtering, pixels, disabled output, and mutations. |
 | `table-reader` | 5 | 0 | CSV, JSON, YAML, reader selection, path lookup, arguments, missing files, and edits. |
-| `tags` | 14 | 5 | Scalars, ordering, hierarchy, filters, listings, disabled output, invalid inputs, and mutations. |
+| `tags` | 14 | 6 | Scalars, ordering, hierarchy, filters, listings, disabled output, invalid inputs, mutations, and core inclusion patterns. |
+
+## File inclusion settings
+
+`exclude_docs`, `draft_docs`, and `not_in_nav` are covered by 41 fixtures: 38 isolated cases and three plugin combinations. Existing extractors and the paired CLI runner are used.
+
+Patterns are checked with directory and flat URLs, anchored paths, recursive directories, character classes, escaped prefixes, Unicode paths, and ordered negations. Default exclusions and restorations are checked for pages and resources. Null, empty, and invalid configuration values are also checked.
+
+Publication routes, sitemap URLs, search tokens, navigation hierarchy, and `nav.pages` membership are checked together. Explicit navigation, pairwise overlaps, and precedence across all three settings are covered. Unchanged warm builds, configuration edits, additions, deletions, and edits to unpublished sources are checked.
+
+The settings are combined with `exclude`, `awesome-nav`, `literate-nav`, `mkdocs-nav-weight`, `section-index`, tags, metadata, RSS, redirects, and blog drafts. Resource membership is checked with `llmstxt`; extra-template evaluation is checked through the public CLI diagnostic.
+
+Preview inclusion and draft markers are outside these build contracts. Expected plugin and URL differences are recorded in [Observed differences](differences.md).
+
+The inclusion cases can be selected against a development candidate:
+
+```sh
+.venv/bin/python -m pytest tests/test_plugins.py --combinations -k inclusion --zensical-python=../zensical-zensical/.venv/bin/python
+```
 
 ## Observation boundaries
 
@@ -78,6 +96,10 @@ The known differences discovered by the cases are described in [Observed differe
 The new branch cases require a candidate containing both `edbaf55` (nav-weight) and master commit `8e96dd1` (markdownextradata), or later equivalents. A temporary combined candidate was built from copies of those branches for local validation.
 
 ## Validation
+
+The 41 file inclusion fixtures were run against `../zensical-zensical` on 2026-10-09 with Python 3.14.8. The result was **36 passed and 5 xfailed**. Artifacts were retained in `artifacts/50effdfd5d9245e894b993f9c4f7e5c3/`. Final fixture cleanup was rechecked with **12 passed and 1 xfailed**, retained in `artifacts/a1dfb8a0b2a440d1ab52ed726e372ad3/`. Full-suite collection and the plugin coverage guard also passed.
+
+The five expected failures cover awesome-nav glob membership in two fixtures, literate-nav unpublished links, and leading-exclamation URL encoding in both URL modes. Exact differences and unchanged warm output are required before xfail is reported. The three asymmetric rejection cases passed after their MkDocs diagnostics and successful native outputs were checked.
 
 The 58 added projects and the coverage guard were run against the combined candidate with Python 3.14.8. The result was **55 passed and 4 xfailed**. Artifacts were retained in `artifacts/a4917568269a4a83960822ac1ea9071d/`.
 

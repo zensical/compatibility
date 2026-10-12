@@ -1,0 +1,60 @@
+{
+  "plugins": [
+    "rss"
+  ],
+  "check": [
+    "navigation",
+    "publication",
+    "rss"
+  ],
+  "warm": true,
+  "purpose": "Feed membership is compared with publication filters; unlisted pages must remain in feeds while excluded and draft pages disappear.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "news/public/index.html",
+        "news/unlisted/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/news/public/",
+        "https://example.test/docs/news/unlisted/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "news/public/": [
+          "COMPAT_PUBLIC"
+        ],
+        "news/unlisted/": [
+          "COMPAT_UNLISTED"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|news/public/"
+    },
+    {
+      "path": "/rss/feeds/feed_json_created.json/items",
+      "count": 2
+    },
+    {
+      "path": "/rss/feeds/feed_json_created.json/items/0/url",
+      "value": "https://example.test/docs/news/unlisted/"
+    },
+    {
+      "path": "/rss/feeds/feed_json_created.json/items/1/url",
+      "value": "https://example.test/docs/news/public/"
+    }
+  ]
+}

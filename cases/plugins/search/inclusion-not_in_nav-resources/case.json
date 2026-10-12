@@ -1,0 +1,55 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication",
+    "llmstxt"
+  ],
+  "warm": true,
+  "purpose": "Resource publication is checked with not_in_nav patterns; matching and negated resources must remain published.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "public/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/public/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "public/": [
+          "COMPAT_PUBLIC"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|public/"
+    },
+    {
+      "path": "/llmstxt",
+      "count": 2
+    },
+    {
+      "path": "/llmstxt/public.txt/text",
+      "value": "COMPAT_PUBLIC_ASSET"
+    },
+    {
+      "path": "/llmstxt/private.txt/text",
+      "value": "COMPAT_PRIVATE_ASSET"
+    }
+  ]
+}

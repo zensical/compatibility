@@ -47,6 +47,9 @@ pairs live in `case.json`; changed or resolved pairs fail until reviewed.
 | Lightbox defaults | Default width, height, and caption-position attributes are omitted by Zensical. Only their exact absence is accepted. Configured dimensions and captions remain compared. |
 | Lightbox page opt-out | Page metadata `glightbox: false` is ignored by the candidate. Exact unwanted image wrappers are checked on cold/warm builds before xfail is reported. |
 | Hidden weighted sections | A previous-page link to a hidden section index is emitted by Zensical but omitted upstream. Both `headless_included` values are checked before xfail is reported. Navigation, publication, and all other page connections remain compared. |
+| Awesome-nav unlisted pages | Core `not_in_nav` pages are filtered before glob matching by MkDocs awesome-nav and restored by Zensical. Exact additional navigation entries and `nav.pages` memberships are checked before xfail is reported. Explicit unlisted entries are rejected by MkDocs in strict mode; the specific diagnostic and successful native output are required. |
+| Literate-nav unpublished entries | Directory inference retains excluded and draft links with a `None` title in MkDocs. Those entries are removed by Zensical. Exact navigation entries and `nav.pages` memberships are checked before xfail is reported; routes, sitemap, and search remain compared. |
+| Leading exclamation marks | A leading `!` is percent-encoded by MkDocs and retained literally by Zensical. Exact canonical, sitemap, and search URL differences are checked with both URL modes before xfail is reported. |
 | Cached table data | A changed CSV cell is retained by the native Markdown cache. The exact stale cell and visible text are checked before xfail is reported. Recovery is required after a clean build. |
 | Offline search files | `search/search_index.js` and `search/search_index.json` are emitted upstream; `search.js` and `search.json` are emitted by Zensical. Each script must contain its corresponding JSON data. With search disabled, an empty script is emitted only by Zensical. |
 | LLM Markdown syntax | Equivalent escaping, angle-bracket link destinations, and block spacing are normalized through Markdown parsing. File membership, element structure, text, targets, order, and code whitespace remain compared. |
@@ -73,6 +76,7 @@ Their tests pass after validating exact differences and all other contracts:
 | AutoAPI + literate-nav + exclude | Upstream generated summary retains the excluded link and fails strict mode with the specific missing-target warning. Native builds without that API page. |
 | Retained HTTP RSS | Upstream retains old item versions, duplicates current items on rebuilds and keeps deleted-page items. Native emits only current published pages. Exact item contents and occurrence counts are checked at each checkpoint. |
 | Disabled tag listings | Material links a tag label to a missing listing fragment. Native keeps the label unlinked. The exact MkDocs link and native absence remain checked. |
+| Excluded extra templates | Configured extra templates are evaluated by MkDocs despite `exclude_docs` or `draft_docs` matches. They are skipped before evaluation by Zensical. The specific MkDocs undefined-function diagnostic and successful native publication contracts are required. |
 
 The new publishing compositions use `social.concurrency: 1`. Default upstream
 concurrency timed out twice during the shared inherited-color rebuild; those

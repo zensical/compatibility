@@ -1,0 +1,72 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "Anchors, recursive directories, character classes, escaped prefixes, comments and ordered negations are checked for draft_docs with Unicode paths.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "drafts/keep/index.html",
+        "guide/new/index.html",
+        "guides/café/index.html",
+        "index.html",
+        "keep/index.html",
+        "nested/guide/old/index.html",
+        "nested/root/index.html",
+        "retired-keep/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/drafts/keep/",
+        "https://example.test/docs/guide/new/",
+        "https://example.test/docs/guides/caf%C3%A9/",
+        "https://example.test/docs/keep/",
+        "https://example.test/docs/nested/guide/old/",
+        "https://example.test/docs/nested/root/",
+        "https://example.test/docs/retired-keep/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "drafts/keep/": [
+          "COMPAT_PAGE_2"
+        ],
+        "guide/new/": [
+          "COMPAT_PAGE_3"
+        ],
+        "guides/caf%C3%A9/": [
+          "COMPAT_PAGE_7"
+        ],
+        "": [
+          "COMPAT_HOME"
+        ],
+        "keep/": [
+          "COMPAT_PAGE_5"
+        ],
+        "nested/guide/old/": [
+          "COMPAT_PAGE_4"
+        ],
+        "nested/root/": [
+          "COMPAT_PAGE_1"
+        ],
+        "retired-keep/": [
+          "COMPAT_PAGE_6"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|drafts/keep/|guide/new/|guides/caf%C3%A9/|keep/|nested/guide/old/|nested/root/|retired-keep/"
+    }
+  ]
+}

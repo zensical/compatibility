@@ -1,0 +1,48 @@
+{
+  "plugins": [
+    "redirects"
+  ],
+  "check": [
+    "navigation",
+    "publication",
+    "redirects"
+  ],
+  "warm": true,
+  "purpose": "A redirect to an unlisted page remains valid; the target stays published and searchable without entering navigation.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "old/index.html",
+        "unlisted/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/unlisted/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "unlisted/": [
+          "COMPAT_UNLISTED"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": ""
+    },
+    {
+      "path": "/redirects/redirects/old~1index.html/canonical",
+      "value": "../unlisted/"
+    }
+  ]
+}

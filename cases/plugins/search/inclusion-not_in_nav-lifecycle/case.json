@@ -1,0 +1,232 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "Configuration edits, source additions and deletions are checked for not_in_nav after a warm build.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "moving/index.html",
+        "public/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/moving/",
+        "https://example.test/docs/public/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "moving/": [
+          "COMPAT_MOVING"
+        ],
+        "public/": [
+          "COMPAT_PUBLIC"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|public/"
+    }
+  ],
+  "steps": [
+    {
+      "name": "restore-membership",
+      "path": "mkdocs.yml",
+      "before": "not_in_nav: moving.md",
+      "after": "not_in_nav: \"\"",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/routes",
+          "value": [
+            "index.html",
+            "moving/index.html",
+            "public/index.html"
+          ]
+        },
+        {
+          "path": "/publication/sitemap",
+          "value": [
+            "https://example.test/docs/",
+            "https://example.test/docs/moving/",
+            "https://example.test/docs/public/"
+          ]
+        },
+        {
+          "path": "/publication/search",
+          "value": {
+            "": [
+              "COMPAT_HOME"
+            ],
+            "moving/": [
+              "COMPAT_MOVING"
+            ],
+            "public/": [
+              "COMPAT_PUBLIC"
+            ]
+          }
+        },
+        {
+          "path": "/publication/probes/index.html/PAGES",
+          "value": "|moving/|public/"
+        }
+      ]
+    },
+    {
+      "name": "add-page",
+      "copy": {
+        "inputs/added.md": "docs/added.md"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/routes",
+          "value": [
+            "added/index.html",
+            "index.html",
+            "moving/index.html",
+            "public/index.html"
+          ]
+        },
+        {
+          "path": "/publication/sitemap",
+          "value": [
+            "https://example.test/docs/",
+            "https://example.test/docs/added/",
+            "https://example.test/docs/moving/",
+            "https://example.test/docs/public/"
+          ]
+        },
+        {
+          "path": "/publication/search",
+          "value": {
+            "added/": [
+              "COMPAT_ADDED"
+            ],
+            "": [
+              "COMPAT_HOME"
+            ],
+            "moving/": [
+              "COMPAT_MOVING"
+            ],
+            "public/": [
+              "COMPAT_PUBLIC"
+            ]
+          }
+        },
+        {
+          "path": "/publication/probes/index.html/PAGES",
+          "value": "|added/|moving/|public/"
+        }
+      ]
+    },
+    {
+      "name": "reapply-pattern",
+      "path": "mkdocs.yml",
+      "before": "not_in_nav: \"\"",
+      "after": "not_in_nav: moving.md",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/routes",
+          "value": [
+            "added/index.html",
+            "index.html",
+            "moving/index.html",
+            "public/index.html"
+          ]
+        },
+        {
+          "path": "/publication/sitemap",
+          "value": [
+            "https://example.test/docs/",
+            "https://example.test/docs/added/",
+            "https://example.test/docs/moving/",
+            "https://example.test/docs/public/"
+          ]
+        },
+        {
+          "path": "/publication/search",
+          "value": {
+            "added/": [
+              "COMPAT_ADDED"
+            ],
+            "": [
+              "COMPAT_HOME"
+            ],
+            "moving/": [
+              "COMPAT_MOVING"
+            ],
+            "public/": [
+              "COMPAT_PUBLIC"
+            ]
+          }
+        },
+        {
+          "path": "/publication/probes/index.html/PAGES",
+          "value": "|added/|public/"
+        }
+      ]
+    },
+    {
+      "name": "delete-page",
+      "remove": [
+        "docs/added.md"
+      ],
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/routes",
+          "value": [
+            "index.html",
+            "moving/index.html",
+            "public/index.html"
+          ]
+        },
+        {
+          "path": "/publication/sitemap",
+          "value": [
+            "https://example.test/docs/",
+            "https://example.test/docs/moving/",
+            "https://example.test/docs/public/"
+          ]
+        },
+        {
+          "path": "/publication/search",
+          "value": {
+            "": [
+              "COMPAT_HOME"
+            ],
+            "moving/": [
+              "COMPAT_MOVING"
+            ],
+            "public/": [
+              "COMPAT_PUBLIC"
+            ]
+          }
+        },
+        {
+          "path": "/publication/probes/index.html/PAGES",
+          "value": "|public/"
+        }
+      ]
+    }
+  ]
+}

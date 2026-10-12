@@ -1,0 +1,51 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication",
+    "llmstxt"
+  ],
+  "warm": true,
+  "purpose": "Excluded resources and malformed Markdown are checked before publication and metadata processing; a negated asset must remain published.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "public/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/public/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        "": [
+          "COMPAT_HOME"
+        ],
+        "public/": [
+          "COMPAT_PUBLIC"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|public/"
+    },
+    {
+      "path": "/llmstxt",
+      "count": 1
+    },
+    {
+      "path": "/llmstxt/public.txt/text",
+      "value": "COMPAT_PUBLIC_ASSET"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication",
+    "llmstxt"
+  ],
+  "warm": true,
+  "purpose": "Default dotfile, hidden-directory and root-template exclusions are checked, including explicit restoration and ordinary nested templates.",
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        ".hidden/deep/page/index.html",
+        ".hidden/index.html",
+        "index.html",
+        "nested/.hidden/index.html",
+        "nested/templates/page/index.html",
+        "templates/page/index.html"
+      ]
+    },
+    {
+      "path": "/publication/sitemap",
+      "value": [
+        "https://example.test/docs/",
+        "https://example.test/docs/.hidden/",
+        "https://example.test/docs/.hidden/deep/page/",
+        "https://example.test/docs/nested/.hidden/",
+        "https://example.test/docs/nested/templates/page/",
+        "https://example.test/docs/templates/page/"
+      ]
+    },
+    {
+      "path": "/publication/search",
+      "value": {
+        ".hidden/": [
+          "COMPAT_HIDDEN_0"
+        ],
+        ".hidden/deep/page/": [
+          "COMPAT_HIDDEN_1"
+        ],
+        "": [
+          "COMPAT_HOME"
+        ],
+        "nested/.hidden/": [
+          "COMPAT_HIDDEN_2"
+        ],
+        "nested/templates/page/": [
+          "COMPAT_HIDDEN_4"
+        ],
+        "templates/page/": [
+          "COMPAT_HIDDEN_3"
+        ]
+      }
+    },
+    {
+      "path": "/publication/probes/index.html/PAGES",
+      "value": "|.hidden/|.hidden/deep/page/|nested/.hidden/|nested/templates/page/|templates/page/"
+    },
+    {
+      "path": "/llmstxt",
+      "count": 3
+    },
+    {
+      "path": "/llmstxt/nested~1templates~1public.txt/text",
+      "value": "COMPAT_PUBLIC_ASSET"
+    },
+    {
+      "path": "/llmstxt/.assets~1data.txt/text",
+      "value": "COMPAT_HIDDEN_ASSET"
+    },
+    {
+      "path": "/llmstxt/templates~1data.txt/text",
+      "value": "COMPAT_TEMPLATE_ASSET"
+    }
+  ]
+}

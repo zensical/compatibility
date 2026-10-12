@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "search"
+  ],
+  "check": [
+    "navigation",
+    "publication"
+  ],
+  "warm": true,
+  "purpose": "A list is rejected for the string-valued not_in_nav setting by both public CLIs.",
+  "failure": {
+    "mkdocs": "not_in_nav",
+    "zensical": "not_in_nav"
+  }
+}

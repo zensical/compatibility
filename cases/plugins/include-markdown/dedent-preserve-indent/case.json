@@ -1,0 +1,20 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/code",
+      "value": [
+        "First line\nSecond line\n"
+      ]
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Indentation First line\nSecond line"
+    }
+  ],
+  "purpose": "Global dedenting and includer indentation are checked with an indented source."
+}

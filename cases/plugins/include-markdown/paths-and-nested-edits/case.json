@@ -1,0 +1,37 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "value": "Home Shared content Shared content"
+    },
+    {
+      "path": "/guides~1page~1index.html/text",
+      "value": "Guide Outer content First external content Shared content"
+    }
+  ],
+  "purpose": "Both directives, quoted spaces, docs-relative and source-relative paths, nested includes, and external source edits are checked.",
+  "steps": [
+    {
+      "name": "edit-external-source",
+      "path": "external.txt",
+      "before": "First",
+      "after": "Revised",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/index.html/text",
+          "value": "Home Shared content Shared content"
+        },
+        {
+          "path": "/guides~1page~1index.html/text",
+          "value": "Guide Outer content Revised external content Shared content"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "plugins": [
+    "include-markdown",
+    "macros"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/headings/0/text",
+      "value": "Macros"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Macros Page 3 Included 5 Jinja 7",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Macros Page 3 Included {{ 2 + 3 }} Jinja 7",
+      "engine": "zensical"
+    }
+  ],
+  "purpose": "Page macros, included macros, and Jinja includes are checked together with include-markdown tags.",
+  "known_gap": "Included files are expanded after native macros, as with plain Snippets; included expressions are rendered by upstream Macros after include-markdown.",
+  "differences": [
+    {
+      "path": "/index.html/text",
+      "mkdocs": "Macros Page 3 Included 5 Jinja 7",
+      "zensical": "Macros Page 3 Included {{ 2 + 3 }} Jinja 7",
+      "reason": "Included files are expanded after native macros, as with plain Snippets; included expressions are rendered by upstream Macros after include-markdown."
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-included-expression",
+      "path": "docs/included.txt",
+      "before": "2 + 3",
+      "after": "2 + 4",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/index.html/text",
+          "value": "Macros Page 3 Included 6 Jinja 7",
+          "engine": "mkdocs"
+        },
+        {
+          "path": "/index.html/text",
+          "value": "Macros Page 3 Included {{ 2 + 4 }} Jinja 7",
+          "engine": "zensical"
+        }
+      ],
+      "differences": [
+        {
+          "path": "/index.html/text",
+          "mkdocs": "Macros Page 3 Included 6 Jinja 7",
+          "zensical": "Macros Page 3 Included {{ 2 + 4 }} Jinja 7",
+          "reason": "Included files are expanded after native macros, as with plain Snippets; included expressions are rendered by upstream Macros after include-markdown."
+        }
+      ]
+    }
+  ]
+}

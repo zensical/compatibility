@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [],
+  "purpose": "Missing local sources are rejected with the include or Snippets diagnostic.",
+  "failure": {
+    "mkdocs": "No files found including 'missing\\.txt' at index\\.md:3",
+    "zensical": "SnippetMissingError:.*missing\\.txt"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/headings/1/text",
+      "value": "Included heading"
+    },
+    {
+      "path": "/index.html/headings/1/level",
+      "value": "h3",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/headings/1/level",
+      "value": "h2",
+      "engine": "zensical"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Options Included heading Included body",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Options Before section Included heading Included body After section",
+      "engine": "zensical"
+    }
+  ],
+  "purpose": "Per-inclusion boundaries and heading offsets are checked against whole-file native Snippets output.",
+  "known_gap": "Per-inclusion start, end, and heading-offset options are ignored by the native adapter; the whole file and its original headings are retained.",
+  "differences": [
+    {
+      "path": "/index.html/headings/1/level",
+      "mkdocs": "h3",
+      "zensical": "h2",
+      "reason": "Per-inclusion start, end, and heading-offset options are ignored by the native adapter; the whole file and its original headings are retained."
+    },
+    {
+      "path": "/index.html/text",
+      "mkdocs": "Options Included heading Included body",
+      "zensical": "Options Before section Included heading Included body After section",
+      "reason": "Per-inclusion start, end, and heading-offset options are ignored by the native adapter; the whole file and its original headings are retained."
+    }
+  ]
+}

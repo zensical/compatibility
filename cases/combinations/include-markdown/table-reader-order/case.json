@@ -1,0 +1,123 @@
+{
+  "plugins": [
+    "include-markdown",
+    "table-reader"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/tables/0",
+      "value": [
+        [
+          "Name",
+          "Value"
+        ],
+        [
+          "Included",
+          "7"
+        ]
+      ]
+    },
+    {
+      "path": "/index.html/tables",
+      "value": [
+        [
+          [
+            "Name",
+            "Value"
+          ],
+          [
+            "Included",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Value"
+          ],
+          [
+            "Included",
+            "7"
+          ]
+        ]
+      ],
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/tables",
+      "value": [
+        [
+          [
+            "Name",
+            "Value"
+          ],
+          [
+            "Included",
+            "7"
+          ]
+        ]
+      ],
+      "engine": "zensical"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Reader Name Value Included 7 Name Value Included 7",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Reader Name Value Included 7 {{ read_csv(\"data.csv\") }}",
+      "engine": "zensical"
+    }
+  ],
+  "purpose": "A table-reader expression in included content is checked alongside the same reader on the page.",
+  "known_gap": "Included files are expanded after the native table-reader preprocessor, as with plain Snippets; upstream table-reader processes includes expanded by include-markdown.",
+  "differences": [
+    {
+      "path": "/index.html/tables",
+      "mkdocs": [
+        [
+          [
+            "Name",
+            "Value"
+          ],
+          [
+            "Included",
+            "7"
+          ]
+        ],
+        [
+          [
+            "Name",
+            "Value"
+          ],
+          [
+            "Included",
+            "7"
+          ]
+        ]
+      ],
+      "zensical": [
+        [
+          [
+            "Name",
+            "Value"
+          ],
+          [
+            "Included",
+            "7"
+          ]
+        ]
+      ],
+      "reason": "Included files are expanded after the native table-reader preprocessor, as with plain Snippets; upstream table-reader processes includes expanded by include-markdown."
+    },
+    {
+      "path": "/index.html/text",
+      "mkdocs": "Reader Name Value Included 7 Name Value Included 7",
+      "zensical": "Reader Name Value Included 7 {{ read_csv(\"data.csv\") }}",
+      "reason": "Included files are expanded after the native table-reader preprocessor, as with plain Snippets; upstream table-reader processes includes expanded by include-markdown."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "value": "Encoding caf\u00e9 d\u00e9j\u00e0 vu"
+    }
+  ],
+  "purpose": "The configured encoding is used for external files, including non-ASCII content."
+}

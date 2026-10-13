@@ -728,6 +728,7 @@ mkdocs==1.6.1 \
     #   mkdocs-awesome-nav
     #   mkdocs-exclude
     #   mkdocs-github-admonitions-plugin
+    #   mkdocs-include-markdown-plugin
     #   mkdocs-literate-nav
     #   mkdocs-macros-plugin
     #   mkdocs-markdownextradata-plugin
@@ -781,6 +782,10 @@ mkdocs-github-admonitions-plugin==0.1.1 \
 mkdocs-glightbox==0.5.2 \
     --hash=sha256:23a431ea802b60b1030c73323db2eed6ba859df1a0822ce575afa43e0ea3f47e \
     --hash=sha256:c7622799347c32310878e01ccf14f70648445561010911c80590cec0353370ac
+    # via -r requirements/mkdocs.in
+mkdocs-include-markdown-plugin==7.3.0 \
+    --hash=sha256:2800126746452e31c2e321bbd43c8190b356e0de353e20cbc16a34a3c3d6796c \
+    --hash=sha256:5b5c99b5d3c9b9ce0114a9e60353bbafb6be53a26c2d3b74ec6b767a7a8e55ca
     # via -r requirements/mkdocs.in
 mkdocs-literate-nav==0.6.3 \
     --hash=sha256:2c421561280fa9184f88cbf399bebbd4cc17ee507e978a31ce11fd6f3aabf233 \
@@ -1640,7 +1645,9 @@ watchdog==6.0.0 \
 wcmatch==11.0.1 \
     --hash=sha256:1ea2b4fa678b8ca268253798d5963935df39132d47c3e241c0a0732224005e7d \
     --hash=sha256:fd149ecddb9f0a88ea780017d6dde17c994e494e7f7303d4e3c9d6251f978f4b
-    # via mkdocs-awesome-nav
+    # via
+    #   mkdocs-awesome-nav
+    #   mkdocs-include-markdown-plugin
 wcwidth==0.9.2 \
     --hash=sha256:0a47e03d8293590ecce66c45dc20ff7b4b885e3c78093722239585eca0d77ab2 \
     --hash=sha256:0cd4f7f2e53905dcb110d213a4c8529b6733fa3d232d8c717f946cc69a10349b \

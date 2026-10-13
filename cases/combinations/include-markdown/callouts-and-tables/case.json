@@ -1,0 +1,36 @@
+{
+  "plugins": [
+    "include-markdown",
+    "callouts"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/alerts/0/title",
+      "value": "Note"
+    },
+    {
+      "path": "/index.html/tables",
+      "value": [
+        [
+          [
+            "Name",
+            "Value"
+          ],
+          [
+            "Included",
+            "7"
+          ]
+        ]
+      ]
+    },
+    {
+      "path": "/index.html/code",
+      "value": [
+        "> [!NOTE]\n> Literal note\n"
+      ]
+    }
+  ],
+  "purpose": "Included callouts, headings, tables, and fenced examples are transformed by the configured Markdown extensions."
+}

@@ -1,0 +1,30 @@
+{
+  "plugins": [
+    "include-markdown",
+    "macros"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "engine": "mkdocs",
+      "value": "Macros Page 3 Included 5 45"
+    },
+    {
+      "path": "/index.html/text",
+      "engine": "zensical",
+      "value": "Macros Page 3 Included [[ 2 + 3 ]] 45"
+    }
+  ],
+  "purpose": "Default include tags, custom Jinja variable and block delimiters, and reversed plugin order are checked.",
+  "known_gap": "Included files are expanded after native macros, as with plain Snippets; included expressions are rendered by upstream Macros after include-markdown.",
+  "differences": [
+    {
+      "path": "/index.html/text",
+      "mkdocs": "Macros Page 3 Included 5 45",
+      "zensical": "Macros Page 3 Included [[ 2 + 3 ]] 45",
+      "reason": "Included files are expanded after native macros, as with plain Snippets; included expressions are rendered by upstream Macros after include-markdown."
+    }
+  ]
+}

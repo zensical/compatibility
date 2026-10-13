@@ -25,7 +25,7 @@ IN THE SOFTWARE.
 
 # Plugin coverage
 
-All 27 plugins from the [published compatibility list](https://zensical.org/docs/compatibility/mkdocs/plugins/index.md) are covered. The list was checked on 2026-10-07. Coverage is also provided for `mkdocs-nav-weight` and `markdownextradata`, which are supported on development branches.
+All 27 plugins from the [published compatibility list](https://zensical.org/docs/compatibility/mkdocs/plugins/index.md) are covered. The list was checked on 2026-10-07. Coverage is also provided for development support of `mkdocs-nav-weight`, `markdownextradata`, and `include-markdown`.
 
 Each project is built through both public CLIs in separate environments. Observable contracts are checked before the complete semantic manifests are compared. Cold and unchanged warm builds are checked in the new cases. Focused input changes are applied without a clean build where mutation steps are declared.
 
@@ -37,15 +37,16 @@ API generators are tested with their required `mkdocstrings` renderer under `cas
 | `autorefs` | 3 | 2 | Aliases, nearest targets, routed targets, and enabled or external-only tooltips. |
 | `awesome-nav` | 5 | 5 | Nested navigation, control files, sorting, hidden pages, core inclusion patterns, and exclude-plugin interactions. |
 | `blog` | 23 | 8 | Routes, dates, authors, categories, archives, excerpts, pagination, mutations, and core versus metadata drafts. |
-| `callouts` | 3 | 0 | Alert types, explicit titles, lists, folded blocks, and literal fenced examples. |
-| `exclude` | 4 | 7 | Globs, regular expressions, recursive paths, publication, core inclusion patterns, navigation plugins, and generated API exclusions. |
+| `callouts` | 3 | 1 | Alert types, explicit titles, lists, folded blocks, literal fenced examples, and included callouts. |
+| `exclude` | 4 | 8 | Globs, regular expressions, recursive paths, publication, core inclusion patterns, navigation plugins, generated API exclusions, and included unpublished sources. |
 | `gh-admonitions` | 2 | 0 | GitHub alert types, custom titles, formatted bodies, and literal fenced examples. |
 | `glightbox` | 4 | 0 | Automatic and manual wrapping, skipped classes, captions, dimensions, and page opt-out. |
+| `include-markdown` | 15 | 6 | Directives, paths, nested sources, custom syntax, indentation, encoding, disabled output, fenced code, Snippets settings, URL modes, options, plugin order, and edits. |
 | `literate-nav` | 4 | 4 | Nested summaries, control files, indexes, labels, core inclusion patterns, directory inference, and exclude-plugin interactions. |
 | `llmstxt` | 4 | 0 | Sections, globs, export hosts, URL modes, descriptions, aggregate output, and edits. |
-| `macros` | 27 | 0 | Variables, modules, includes, precedence, page selection, titles, and diagnostic modes. |
+| `macros` | 27 | 2 | Variables, modules, includes, precedence, page selection, titles, diagnostic modes, and include-markdown with default or custom Jinja syntax. |
 | `markdown-exec` | 5 | 0 | Python execution, Markdown results, ANSI configuration, and selected languages. |
-| `markdownextradata` | 7 | 0 | Configuration context, data directories, precedence, scalar types, delimiters, titles, and data edits. |
+| `markdownextradata` | 7 | 1 | Configuration context, data directories, precedence, scalar types, delimiters, titles, data edits, and included expressions. |
 | `meta` | 8 | 8 | Inheritance, merge behavior, aliases, disabled output, invalid inputs, metadata edits, and core inclusion patterns. |
 | `mike` | 3 | 0 | Unversioned and versioned builds, canonical aliases, and version-selector settings. |
 | `minify` | 2 | 3 | Preserved code whitespace, comment settings, search, and API/social combinations. |
@@ -60,18 +61,18 @@ API generators are tested with their required `mkdocstrings` renderer under `cas
 | `search` | 34 | 0 | Sections, titles, exclusions, separators, encoded paths, disabled output, mutations, and core inclusion patterns. |
 | `section-index` | 3 | 0 | Linked section landing pages, nested sections, directory or flat URLs, and core inclusion patterns. |
 | `social` | 21 | 6 | Layouts, typography, metadata, filtering, pixels, disabled output, and mutations. |
-| `table-reader` | 5 | 0 | CSV, JSON, YAML, reader selection, path lookup, arguments, missing files, and edits. |
+| `table-reader` | 5 | 1 | CSV, JSON, YAML, reader selection, path lookup, arguments, missing files, edits, and included reader expressions. |
 | `tags` | 14 | 6 | Scalars, ordering, hierarchy, filters, listings, disabled output, invalid inputs, mutations, and core inclusion patterns. |
 
 ## File inclusion settings
 
-`exclude_docs`, `draft_docs`, and `not_in_nav` are covered by 41 fixtures: 38 isolated cases and three plugin combinations. Existing extractors and the paired CLI runner are used.
+`exclude_docs`, `draft_docs`, and `not_in_nav` are covered by 42 fixtures: 38 isolated cases and four plugin combinations. Existing extractors and the paired CLI runner are used.
 
 Patterns are checked with directory and flat URLs, anchored paths, recursive directories, character classes, escaped prefixes, Unicode paths, and ordered negations. Default exclusions and restorations are checked for pages and resources. Null, empty, and invalid configuration values are also checked.
 
 Publication routes, sitemap URLs, search tokens, navigation hierarchy, and `nav.pages` membership are checked together. Explicit navigation, pairwise overlaps, and precedence across all three settings are covered. Unchanged warm builds, configuration edits, additions, deletions, and edits to unpublished sources are checked.
 
-The settings are combined with `exclude`, `awesome-nav`, `literate-nav`, `mkdocs-nav-weight`, `section-index`, tags, metadata, RSS, redirects, and blog drafts. Resource membership is checked with `llmstxt`; extra-template evaluation is checked through the public CLI diagnostic.
+The settings are combined with `exclude`, `awesome-nav`, `literate-nav`, `mkdocs-nav-weight`, `section-index`, tags, metadata, RSS, redirects, blog drafts, and `include-markdown`. Resource membership is checked with `llmstxt`; extra-template evaluation is checked through the public CLI diagnostic.
 
 Preview inclusion and draft markers are outside these build contracts. Expected plugin and URL differences are recorded in [Observed differences](differences.md).
 
@@ -79,6 +80,24 @@ The inclusion cases can be selected against a development candidate:
 
 ```sh
 .venv/bin/python -m pytest tests/test_plugins.py --combinations -k inclusion --zensical-python=../zensical-zensical/.venv/bin/python
+```
+
+## Include-markdown settings
+
+The baseline is pinned to `mkdocs-include-markdown-plugin==7.3.0`. Both directives are checked with quoted spaces, multiline tags, docs-relative paths, source-relative paths, repeated includes, nested sources, and sources outside `docs/`.
+
+Global dedenting, includer indentation, Latin-1 source encoding, disabled output, custom delimiters, renamed directives, and fenced code are checked. Native Snippets settings are combined with the plugin: `base_path`, `restrict_base_path`, `check_paths`, `auto_append`, and `dedent_subsections`.
+
+Included links and images are checked with directory and flat URLs, including `rewrite-relative-urls=false`. Global heading offsets and per-inclusion section boundaries and heading offsets are checked against the exact native output.
+
+Combinations are provided for macros, custom Jinja delimiters, Jinja includes, Markdown extra data, table-reader, callouts, tables, search, and exclusion settings. Included expressions and excluded sources are edited without clean builds. Search tokens, publication routes, and navigation are checked for included sources excluded by `exclude_docs`, `draft_docs`, or the exclude plugin.
+
+Remote downloads, HTTP watch behavior, glob includes, and untested options are outside these contracts. The exact observed gaps are recorded in [Observed differences](differences.md).
+
+The include cases can be selected against a development candidate:
+
+```sh
+.venv/bin/python -m pytest tests/test_plugins.py --combinations -k include-markdown --zensical-python=../zensical-zensical/.venv/bin/python
 ```
 
 ## Observation boundaries
@@ -96,6 +115,10 @@ The known differences discovered by the cases are described in [Observed differe
 The new branch cases require a candidate containing both `edbaf55` (nav-weight) and master commit `8e96dd1` (markdownextradata), or later equivalents. A temporary combined candidate was built from copies of those branches for local validation.
 
 ## Validation
+
+The 21 include-markdown fixtures and the plugin coverage guard were run against `../zensical-zensical` on 2026-10-13 with Python 3.14.8. The result was **11 passed and 11 xfailed**, with no failures. Artifacts were retained in `artifacts/9ade05ad58ce4b42ae0994fe1e2acc39/`. Full-suite collection with combinations also passed: **305 tests collected**.
+
+The expected failures cover preprocessing order, URL rewriting, ignored heading and section options, discarded indentation, and explicit Snippets settings. Exact output pairs or the specific rejection diagnostic are required before xfail is reported. Cold and unchanged warm builds are checked for every case; source and data changes are checked where declared.
 
 The 41 file inclusion fixtures were run against `../zensical-zensical` on 2026-10-09 with Python 3.14.8. The result was **36 passed and 5 xfailed**. Artifacts were retained in `artifacts/50effdfd5d9245e894b993f9c4f7e5c3/`. Final fixture cleanup was rechecked with **12 passed and 1 xfailed**, retained in `artifacts/a1dfb8a0b2a440d1ab52ed726e372ad3/`. Full-suite collection and the plugin coverage guard also passed.
 

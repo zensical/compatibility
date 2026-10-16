@@ -1,0 +1,63 @@
+{
+  "plugins": [
+    "include-markdown",
+    "markdownextradata"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/headings/0/text",
+      "value": "Data"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Data Page Example Included Example",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Data Page Example Included {{ customer.name }}",
+      "engine": "zensical"
+    }
+  ],
+  "purpose": "Data interpolation in the page and included text is checked with custom include delimiters.",
+  "known_gap": "Included files are expanded after native data interpolation, as with plain Snippets; included expressions are rendered upstream after include-markdown.",
+  "differences": [
+    {
+      "path": "/index.html/text",
+      "mkdocs": "Data Page Example Included Example",
+      "zensical": "Data Page Example Included {{ customer.name }}",
+      "reason": "Included files are expanded after native data interpolation, as with plain Snippets; included expressions are rendered upstream after include-markdown."
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-data",
+      "path": "_data/customer.yaml",
+      "before": "Example",
+      "after": "Revised",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/index.html/text",
+          "value": "Data Page Revised Included Revised",
+          "engine": "mkdocs"
+        },
+        {
+          "path": "/index.html/text",
+          "value": "Data Page Revised Included {{ customer.name }}",
+          "engine": "zensical"
+        }
+      ],
+      "differences": [
+        {
+          "path": "/index.html/text",
+          "mkdocs": "Data Page Revised Included Revised",
+          "zensical": "Data Page Revised Included {{ customer.name }}",
+          "reason": "Included files are expanded after native data interpolation, as with plain Snippets; included expressions are rendered upstream after include-markdown."
+        }
+      ]
+    }
+  ]
+}

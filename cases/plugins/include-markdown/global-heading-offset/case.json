@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/headings/1/text",
+      "value": "Included heading"
+    },
+    {
+      "path": "/index.html/headings/1/level",
+      "value": "h3",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/headings/1/level",
+      "value": "h2",
+      "engine": "zensical"
+    }
+  ],
+  "purpose": "Global heading_offset is checked against the original heading level retained by native Snippets.",
+  "known_gap": "Global heading_offset is ignored by native configuration; the original included heading level is retained.",
+  "differences": [
+    {
+      "path": "/index.html/headings/1/level",
+      "mkdocs": "h3",
+      "zensical": "h2",
+      "reason": "Global heading_offset is ignored by native configuration; the original included heading level is retained."
+    }
+  ]
+}

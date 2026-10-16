@@ -1,0 +1,5 @@
+Outside section
+
+--8<-- [start:part]
+Native section
+--8<-- [end:part]

@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "value": "Disabled {% include-markdown \"missing.md\" %} {% include \"missing.txt\" %}"
+    }
+  ],
+  "purpose": "Missing include targets are not read when the plugin is disabled."
+}

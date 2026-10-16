@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "value": "Mixed Included body Native section Appended footer"
+    }
+  ],
+  "purpose": "An explicit Snippets restriction applies to native include targets outside its base_path; upstream includes are expanded first.",
+  "failure": {
+    "zensical": "SnippetMissingError:.*included\\.txt.*could not be found"
+  },
+  "reason": "The configured restrict_base_path=true is retained by the native adapter, so a docs-relative include outside the Snippets base path is rejected."
+}

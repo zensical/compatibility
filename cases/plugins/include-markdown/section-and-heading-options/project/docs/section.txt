@@ -1,0 +1,11 @@
+Before section
+
+<!-- BEGIN -->
+
+## Included heading
+
+Included body
+
+<!-- END -->
+
+After section

@@ -31,6 +31,7 @@ These projects run only with `--combinations`:
 - `social/blog`: cards for generated blog posts and views.
 - `social/metadata`: inherited metadata affects social card output.
 - `rss/blog-showcase`: three feed instances with blog author metadata.
+- `include-markdown/*`: includes with macros, custom Jinja syntax, Markdown extra data, table-reader, callouts, and exclusion/search settings.
 
 Use the same case format and extractors as isolated cases. Add combinations
 for a concrete interaction contract rather than every possible plugin pair.

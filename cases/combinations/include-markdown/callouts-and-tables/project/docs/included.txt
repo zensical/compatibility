@@ -1,0 +1,13 @@
+## Included
+
+> [!NOTE]
+> Included note
+
+| Name | Value |
+| --- | --- |
+| Included | 7 |
+
+```text
+> [!NOTE]
+> Literal note
+```

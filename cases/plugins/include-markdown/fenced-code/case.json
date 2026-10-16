@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/code",
+      "value": [
+        "<sample>\n  indented\n"
+      ]
+    }
+  ],
+  "purpose": "Includes inside fenced code are expanded, and code whitespace and HTML escaping are preserved."
+}

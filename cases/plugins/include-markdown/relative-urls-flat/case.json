@@ -1,0 +1,56 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": [
+    "references",
+    "lightbox"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/references/pages/index.html/links/1/url",
+      "value": "https://example.test/docs/target.html#target"
+    },
+    {
+      "path": "/lightbox/index.html/1/src",
+      "value": "assets/diagram.svg"
+    },
+    {
+      "path": "/references/pages/index.html/links/0/url",
+      "value": "https://example.test/docs/fragments/target.html#target",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/references/pages/index.html/links/0/url",
+      "value": "https://example.test/docs/target.html#target",
+      "engine": "zensical"
+    },
+    {
+      "path": "/lightbox/index.html/0/src",
+      "value": "fragments/assets/diagram.svg",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/lightbox/index.html/0/src",
+      "value": "assets/diagram.svg",
+      "engine": "zensical"
+    }
+  ],
+  "purpose": "Default and disabled relative URL rewriting are checked with flat page URLs.",
+  "known_gap": "Relative links and images are rewritten from the included source directory upstream; native Snippets retains the literal URLs.",
+  "differences": [
+    {
+      "path": "/references/pages/index.html/links/0/url",
+      "mkdocs": "https://example.test/docs/fragments/target.html#target",
+      "zensical": "https://example.test/docs/target.html#target",
+      "reason": "Relative links and images are rewritten from the included source directory upstream; native Snippets retains the literal URLs."
+    },
+    {
+      "path": "/lightbox/index.html/0/src",
+      "mkdocs": "fragments/assets/diagram.svg",
+      "zensical": "assets/diagram.svg",
+      "reason": "Relative links and images are rewritten from the included source directory upstream; native Snippets retains the literal URLs."
+    }
+  ]
+}

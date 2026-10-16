@@ -1,0 +1,69 @@
+{
+  "plugins": [
+    "include-markdown",
+    "exclude"
+  ],
+  "check": [
+    "publication",
+    "navigation",
+    "content"
+  ],
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/publication/routes",
+      "value": [
+        "index.html",
+        "ordinary/index.html"
+      ]
+    },
+    {
+      "path": "/publication/search/",
+      "value": [
+        "COMPAT_DRAFT",
+        "COMPAT_PRIVATE",
+        "COMPAT_SHARED_FIRST"
+      ]
+    },
+    {
+      "path": "/navigation/navigation",
+      "value": [
+        {
+          "title": "Home",
+          "url": "https://example.test/docs/"
+        },
+        {
+          "title": "Ordinary",
+          "url": "https://example.test/docs/ordinary/"
+        }
+      ]
+    }
+  ],
+  "purpose": "Excluded and draft Markdown sources remain includable without their own routes, navigation entries, or search results; included edits are indexed.",
+  "steps": [
+    {
+      "name": "edit-excluded-source",
+      "path": "docs/fragments/shared.md",
+      "before": "COMPAT_SHARED_FIRST",
+      "after": "COMPAT_SHARED_REVISED",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/routes",
+          "value": [
+            "index.html",
+            "ordinary/index.html"
+          ]
+        },
+        {
+          "path": "/publication/search/",
+          "value": [
+            "COMPAT_DRAFT",
+            "COMPAT_PRIVATE",
+            "COMPAT_SHARED_REVISED"
+          ]
+        }
+      ]
+    }
+  ]
+}

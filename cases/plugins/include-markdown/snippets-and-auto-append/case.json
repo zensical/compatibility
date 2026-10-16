@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "value": "Mixed Included body Native section Appended footer"
+    }
+  ],
+  "purpose": "Native snippet sections, include tags, configured base paths, and auto_append are processed exactly once."
+}

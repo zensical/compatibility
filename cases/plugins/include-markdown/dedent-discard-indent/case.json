@@ -1,0 +1,53 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/headings/0/text",
+      "value": "Indentation"
+    },
+    {
+      "path": "/index.html/code",
+      "value": [
+        "First line\n"
+      ],
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/code",
+      "value": [],
+      "engine": "zensical"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Indentation First line Second line",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/text",
+      "value": "Indentation First line\nSecond line",
+      "engine": "zensical"
+    }
+  ],
+  "purpose": "Global dedenting and includer indentation are checked with an indented source.",
+  "known_gap": "The first includer line remains indented upstream when preserve_includer_indent is false; all includer indentation is removed by native Snippets.",
+  "differences": [
+    {
+      "path": "/index.html/code",
+      "mkdocs": [
+        "First line\n"
+      ],
+      "zensical": [],
+      "reason": "The first includer line remains indented upstream when preserve_includer_indent is false; all includer indentation is removed by native Snippets."
+    },
+    {
+      "path": "/index.html/text",
+      "mkdocs": "Indentation First line Second line",
+      "zensical": "Indentation First line\nSecond line",
+      "reason": "The first includer line remains indented upstream when preserve_includer_indent is false; all includer indentation is removed by native Snippets."
+    }
+  ]
+}

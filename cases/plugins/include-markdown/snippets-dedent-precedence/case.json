@@ -1,0 +1,37 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/headings/0/text",
+      "value": "Precedence"
+    },
+    {
+      "path": "/index.html/code",
+      "value": [],
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/index.html/code",
+      "value": [
+        "Included line\n"
+      ],
+      "engine": "zensical"
+    }
+  ],
+  "purpose": "An explicit Snippets dedent_subsections setting is retained when it conflicts with include-markdown dedent.",
+  "known_gap": "Explicit Snippets dedent_subsections=false takes precedence over the native mapped include-markdown dedent=true; upstream includes are dedented before Snippets.",
+  "differences": [
+    {
+      "path": "/index.html/code",
+      "mkdocs": [],
+      "zensical": [
+        "Included line\n"
+      ],
+      "reason": "Explicit Snippets dedent_subsections=false takes precedence over the native mapped include-markdown dedent=true; upstream includes are dedented before Snippets."
+    }
+  ]
+}

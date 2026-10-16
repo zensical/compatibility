@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "include-markdown"
+  ],
+  "check": "content",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/index.html/text",
+      "value": "Custom Outer Included Included {% include \"missing.txt\" %} [( readXmd \"missing.txt\" )]"
+    }
+  ],
+  "purpose": "Custom delimiters and directive names with regular-expression characters are checked in pages and nested sources; inactive syntax is retained."
+}

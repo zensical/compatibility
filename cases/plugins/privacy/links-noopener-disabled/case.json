@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Existing link relationships are retained when automatic noopener annotation is disabled.",
+  "warm": true,
+  "http": {
+    "directory": "remote"
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/external/attributes/rel",
+      "value": [
+        "nofollow"
+      ]
+    }
+  ]
+}

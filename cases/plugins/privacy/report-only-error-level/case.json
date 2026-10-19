@@ -1,0 +1,25 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Report-only warnings are filtered at error level, so a strict build is completed without requests.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {},
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/image/attributes/src",
+      "value": "http://privacy.test/image.png"
+    },
+    {
+      "path": "/assets",
+      "value": {}
+    }
+  ]
+}

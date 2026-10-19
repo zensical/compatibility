@@ -5,7 +5,7 @@ Each case builds the same project through both public CLIs in separate
 environments and checks the generated output.
 
 The suite covers publishing, navigation, API references, tags, metadata,
-search, exclusion, minification and audio/video, with isolated plugin cases, opt-in
+search, exclusion, minification, privacy and audio/video, with isolated plugin cases, opt-in
 combinations and HTTP lifecycle checks.
 
 ## Run locally
@@ -91,7 +91,8 @@ Put plugin interactions under `cases/combinations/`; these run with
 `--combinations` and use the same runner and checks. See
 [the expansion analysis](docs/expansion.md) for coverage priorities.
 See [media coverage](docs/media.md) for the audio/video cases and playback checks.
-Coverage of all documented plugins and the two new branch additions is listed in
+Privacy settings, local HTTP fixtures, cache probes, and plugin combinations are described in [privacy coverage](docs/privacy.md).
+Coverage of documented and development plugins is listed in
 [plugin coverage](docs/plugin-coverage.md), including settings and observation boundaries.
 
 ## CI and dependency updates

@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "A fixture redirect is followed, and the downloaded image is published under the original URL identity.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/redirect.png": 1,
+        "/image.png": 1
+      },
+      "warm": {}
+    },
+    "routes": {
+      "/redirect.png": {
+        "location": "http://privacy.test/image.png"
+      }
+    }
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/image/attributes/src",
+      "value": "assets/external/privacy.test/redirect.png"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Configured CSS and module scripts, template favicon and preload hints, and SVG image references are localized together.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1,
+        "/site.css": 1,
+        "/font.woff2": 1,
+        "/app.js": 1
+      },
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/svg-image/attributes/href",
+      "value": "assets/external/privacy.test/image.png"
+    },
+    {
+      "path": "/pages/index.html/preload/attributes/crossorigin",
+      "value": ""
+    }
+  ]
+}

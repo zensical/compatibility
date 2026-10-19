@@ -56,6 +56,10 @@ pairs live in `case.json`; changed or resolved pairs fail until reviewed.
 | Include-markdown options | Global heading offsets and per-inclusion section boundaries and heading offsets are ignored natively. Whole-file text and original heading levels are required by exact assertions. |
 | Include-markdown discarded indentation | The first includer line remains indented upstream with `preserve_includer_indent=false`. All includer indentation is removed natively. Exact code and visible text are checked. |
 | Include-markdown Snippets precedence | Explicit `dedent_subsections=false` overrides mapped native dedenting. The configured base path restriction is also retained. Exact code or the specific native missing-snippet diagnostic and successful oracle output are required. |
+| Privacy fragments | Earlier image fragments are accumulated on shared upstream File objects. Each fragment is retained independently by native privacy. Exact image and resource URL pairs are required before xfail is reported. |
+| Privacy custom media | Dependencies are discovered through custom expressions upstream, but only CSS and JavaScript are patched. Custom text resources are also patched natively. Exact local and downloaded text pairs are checked. |
+| Privacy and cached minification | A remote CSS dependency is retained by the upstream minifier with `cache_safe` enabled. A local dependency is emitted natively. The exact URL pair is checked; asset references and emitted-byte fingerprints remain compared. |
+| Privacy and lightbox wrappers | Default wrapper dimensions and caption position are emitted upstream, while href is retained only in the native wrapper. Only the exact attribute presence/value pairs are accepted in both plugin orders. |
 | Offline search files | `search/search_index.js` and `search/search_index.json` are emitted upstream; `search.js` and `search.json` are emitted by Zensical. Each script must contain its corresponding JSON data. With search disabled, an empty script is emitted only by Zensical. |
 | LLM Markdown syntax | Equivalent escaping, angle-bracket link destinations, and block spacing are normalized through Markdown parsing. File membership, element structure, text, targets, order, and code whitespace remain compared. |
 | Inline media text | Upstream replacement drops following text from Markdown and raw HTML, including the search index. Native preserves and indexes it; only the named trailing tokens may differ. |
@@ -123,3 +127,5 @@ for evidence and a bounded concurrency probe. No timeout is treated as xfail.
 - HTTP server binding origins are restored to the shared fixture `site_url`
   before semantic comparison. Paths, queries and fragments stay intact;
   actual bind URLs and downloaded HTTP responses are recorded.
+
+- The privacy fixture origin is retained as `privacy.test`; the actual loopback proxy authority is normalized if it occurs in selected extractors. Redundant leading `./` URL prefixes and six-character asset digests are normalized by `privacy`. Fingerprint validity is retained after comparison with emitted bytes. Paths, query digests, fragments, attributes, dependency URLs, and binary hashes remain observed. Actual request counts and origins are retained in separate HTTP artifacts.

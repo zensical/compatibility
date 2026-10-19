@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "privacy",
+    "minify"
+  ],
+  "check": [
+    "privacy",
+    "search"
+  ],
+  "purpose": "Privacy annotations and asset references are retained through HTML minification, and search content is compared.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1
+      },
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/privacy/pages/index.html/image/attributes/src",
+      "value": "assets/external/privacy.test/image.png"
+    },
+    {
+      "path": "/privacy/pages/index.html/external/attributes/rel",
+      "value": [
+        "noopener"
+      ]
+    }
+  ]
+}

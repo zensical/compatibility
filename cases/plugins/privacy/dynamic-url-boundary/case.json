@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Dynamically assembled JavaScript URLs are retained without requests, while static page images are downloaded.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1
+      },
+      "warm": {}
+    },
+    "local_assets": [
+      "loader.js"
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/assets/loader.js/strings",
+      "value": [
+        "http://privacy.test",
+        "/dynamic.js"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Theme logo and favicon URLs are localized after full template rendering, and their shared download is reused.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1
+      },
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/assets/assets~1external~1privacy.test~1image.png/sha256",
+      "value": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec"
+    }
+  ]
+}

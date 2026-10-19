@@ -1,0 +1,25 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Absolute external and same-host anchors are annotated, while fragment-only links are retained unchanged.",
+  "warm": true,
+  "http": {
+    "directory": "remote"
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/same-host/attributes/rel",
+      "value": [
+        "noopener"
+      ]
+    },
+    {
+      "path": "/pages/index.html/fragment/attributes",
+      "value": {
+        "href": "#privacy"
+      }
+    }
+  ]
+}

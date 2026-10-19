@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "A strict build is rejected for reported external images, and no assets are requested.",
+  "warm": false,
+  "http": {
+    "directory": "remote"
+  },
+  "failure": {
+    "mkdocs": "(?s)(?=.*External file:)(?=.*strict mode)",
+    "zensical": "(?s)(?=.*External file:)(?=.*strict)"
+  }
+}

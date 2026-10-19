@@ -1,0 +1,37 @@
+{
+  "plugins": [
+    "material/privacy",
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Repeated Material privacy instances are compared with separate output roots, URL filters, and ordered link attributes.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1,
+        "/second.png": 1
+      },
+      "warm": {}
+    },
+    "asset_roots": [
+      "first",
+      "last"
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/image/attributes/src",
+      "value": "first/privacy.test/image.png"
+    },
+    {
+      "path": "/pages/index.html/second/attributes/src",
+      "value": "last/privacy.test/second.png"
+    },
+    {
+      "path": "/pages/index.html/external/attributes/data-order",
+      "value": "last"
+    }
+  ]
+}

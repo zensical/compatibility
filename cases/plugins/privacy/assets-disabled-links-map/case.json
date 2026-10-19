@@ -1,0 +1,32 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Image downloading is disabled while target, rel, and custom attributes are assigned to external links.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {},
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/assets",
+      "value": {}
+    },
+    {
+      "path": "/pages/index.html/external/attributes/rel",
+      "value": [
+        "noopener",
+        "noreferrer"
+      ]
+    },
+    {
+      "path": "/pages/index.html/external/attributes/data-owner",
+      "value": "privacy"
+    }
+  ]
+}

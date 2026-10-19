@@ -1,0 +1,43 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "One query-sensitive image download is shared by HTTP and protocol-relative references with independent fragments.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png?size=2": 1
+      },
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/assets",
+      "value": {
+        "assets/external/privacy.test/image.eb32ace0.png": {
+          "sha256": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec",
+          "bytes": 68
+        }
+      }
+    }
+  ],
+  "known_gap": "Fragments are appended to shared File objects upstream, so earlier image fragments are accumulated by later references. Each fragment is retained independently by native privacy.",
+  "differences": [
+    {
+      "path": "/pages/index.html/dark/attributes/src",
+      "mkdocs": "assets/external/privacy.test/image.eb32ace0.png#only-light#only-dark",
+      "zensical": "assets/external/privacy.test/image.eb32ace0.png#only-dark",
+      "reason": "Fragments are appended to shared File objects upstream, so earlier image fragments are accumulated by later references. Each fragment is retained independently by native privacy."
+    },
+    {
+      "path": "/resources/index.html/1/src",
+      "mkdocs": "assets/external/privacy.test/image.eb32ace0.png#only-light#only-dark",
+      "zensical": "assets/external/privacy.test/image.eb32ace0.png#only-dark",
+      "reason": "Fragments are appended to shared File objects upstream, so earlier image fragments are accumulated by later references. Each fragment is retained independently by native privacy."
+    }
+  ]
+}

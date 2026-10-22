@@ -21,7 +21,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-"""Install the pinned RSS source tree whose wheel omits integration modules."""
+"""Prepare the pinned RSS source and the Material social concurrency patch."""
 
 from __future__ import annotations
 
@@ -93,6 +93,7 @@ def main() -> None:
         + "\n",
         encoding="utf-8",
     )
+    subprocess.run([sys.executable, str(ROOT / "scripts/patch_material.py")], check=True)
 
 
 if __name__ == "__main__":

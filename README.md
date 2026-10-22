@@ -63,6 +63,14 @@ Fonts are downloaded into ignored `.cache/fonts/`, verified and reused by both
 builders. Run `prepare_oracle.py` again after syncing the MkDocs environment
 to restore the pinned RSS source.
 
+The Material 9.7.1 social layer dispatch is also patched by `prepare_oracle.py`. An orphaned placeholder future is prevented by locking submission and publication of the rendering future. Rendering concurrency and card output are preserved.
+
+The patch is limited to reviewed source bytes and is recorded in each run's environment report. It must be reviewed or removed when Material is updated. An existing oracle can be patched without downloading RSS again:
+
+```sh
+.venv/bin/python scripts/patch_material.py
+```
+
 ## Results
 
 Each run creates `artifacts/<run-id>/` with package versions, native extension

@@ -185,6 +185,11 @@ info = {'python': sys.executable, 'prefix': sys.prefix,
 receipt = Path(sys.prefix).parent / 'oracle-source.json'
 if module == 'mkdocs' and receipt.is_file():
     info['oracle_source'] = json.loads(receipt.read_text())
+patch_receipt = Path(sys.prefix) / 'compatibility-material-patch.json'
+if module == 'mkdocs' and patch_receipt.is_file():
+    patch = json.loads(patch_receipt.read_text())
+    assert hashlib.sha256(Path(patch['path']).read_bytes()).hexdigest() == patch['patched_sha256'], 'Material social patch receipt does not match installed source; rerun scripts/patch_material.py'
+    info['oracle_patches'] = [patch]
 candidate_receipt = Path(sys.prefix) / 'compatibility-candidate.json'
 if module == 'zensical' and candidate_receipt.is_file():
     info['candidate_source'] = json.loads(candidate_receipt.read_text())

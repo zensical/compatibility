@@ -1,0 +1,54 @@
+{
+  "plugins": [
+    "glightbox",
+    "privacy"
+  ],
+  "check": [
+    "privacy",
+    "lightbox"
+  ],
+  "purpose": "Privacy is applied after Glightbox wrapping; downloaded image bytes and lightbox attributes are compared.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1
+      },
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/privacy/assets/assets~1external~1privacy.test~1image.png/sha256",
+      "value": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec"
+    }
+  ],
+  "known_gap": "Default dimensions and caption positions are emitted by upstream Glightbox, and href is omitted. The native href is retained, and those default attributes are omitted.",
+  "differences": [
+    {
+      "path": "/lightbox/index.html/0/link/data-desc-position",
+      "mkdocs": "bottom",
+      "zensical_missing": true,
+      "reason": "Default dimensions and caption positions are emitted by upstream Glightbox, and href is omitted. The native href is retained, and those default attributes are omitted."
+    },
+    {
+      "path": "/lightbox/index.html/0/link/data-height",
+      "mkdocs": "auto",
+      "zensical_missing": true,
+      "reason": "Default dimensions and caption positions are emitted by upstream Glightbox, and href is omitted. The native href is retained, and those default attributes are omitted."
+    },
+    {
+      "path": "/lightbox/index.html/0/link/data-width",
+      "mkdocs": "auto",
+      "zensical_missing": true,
+      "reason": "Default dimensions and caption positions are emitted by upstream Glightbox, and href is omitted. The native href is retained, and those default attributes are omitted."
+    },
+    {
+      "path": "/lightbox/index.html/0/link/href",
+      "mkdocs_missing": true,
+      "zensical": "http://privacy.test/image.png",
+      "reason": "Default dimensions and caption positions are emitted by upstream Glightbox, and href is omitted. The native href is retained, and those default attributes are omitted."
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "plugins": [
+    "privacy",
+    "social"
+  ],
+  "check": [
+    "privacy",
+    "social"
+  ],
+  "purpose": "Downloaded page images and generated social metadata are retained together; cold and warm card pixels are compared.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1
+      },
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/privacy/pages/index.html/image/attributes/src",
+      "value": "assets/external/privacy.test/image.png"
+    },
+    {
+      "path": "/social/cards",
+      "count": 1
+    }
+  ]
+}

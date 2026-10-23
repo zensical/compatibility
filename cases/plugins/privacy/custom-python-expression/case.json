@@ -1,0 +1,56 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Python lookbehind, backreferences, and Unicode capture offsets are exercised by local and downloaded custom media.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1,
+        "/custom.txt": 1
+      },
+      "warm": {}
+    },
+    "local_assets": [
+      "custom.txt"
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/image/attributes/src",
+      "value": "assets/external/privacy.test/image.png"
+    },
+    {
+      "path": "/assets/assets~1external~1privacy.test~1image.png/sha256",
+      "value": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec"
+    },
+    {
+      "path": "/assets/assets~1external~1privacy.test~1custom.txt/text",
+      "value": "\u00e9: \"http://privacy.test/image.png\"\n",
+      "engine": "mkdocs"
+    },
+    {
+      "path": "/assets/assets~1external~1privacy.test~1custom.txt/text",
+      "value": "\u00e9: \"image.png\"\n",
+      "engine": "zensical"
+    }
+  ],
+  "known_gap": "Dependencies from custom media extensions are downloaded upstream, but only CSS and JavaScript are patched. Custom media are also patched by native privacy.",
+  "differences": [
+    {
+      "path": "/assets/assets~1external~1privacy.test~1custom.txt/text",
+      "mkdocs": "\u00e9: \"http://privacy.test/image.png\"\n",
+      "zensical": "\u00e9: \"image.png\"\n",
+      "reason": "Dependencies from custom media extensions are downloaded upstream, but only CSS and JavaScript are patched. Custom media are also patched by native privacy."
+    },
+    {
+      "path": "/assets/custom.txt/text",
+      "mkdocs": "\u00e9: \"http://privacy.test/custom.txt\"\n",
+      "zensical": "\u00e9: \"assets/external/privacy.test/custom.txt\"\n",
+      "reason": "Dependencies from custom media extensions are downloaded upstream, but only CSS and JavaScript are patched. Custom media are also patched by native privacy."
+    }
+  ]
+}

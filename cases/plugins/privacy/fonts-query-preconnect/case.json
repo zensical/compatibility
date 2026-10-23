@@ -1,0 +1,34 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "An extensionless stylesheet is named from its MIME type and query digest; fonts are downloaded and the preconnect hint is removed. Non-strict mode is used for the upstream Windows symlink fallback; warm requests are retained without a platform-specific assumption.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/css?family=Fixture&display=swap": 1,
+        "/font.woff2": 1
+      }
+    },
+    "routes": {
+      "/css": {
+        "file": "font.css",
+        "content_type": "text/css; charset=utf-8"
+      }
+    }
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/font/attributes/href",
+      "value": "assets/external/privacy.test/css.f717ae5d.css"
+    },
+    {
+      "path": "/pages/index.html",
+      "count": 1
+    }
+  ],
+  "strict": false
+}

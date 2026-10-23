@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Custom cache and output directories are populated; the download is reused on an unchanged warm build.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1
+      },
+      "warm": {}
+    },
+    "asset_roots": [
+      "downloads"
+    ],
+    "cache_dirs": [
+      "privacy-cache"
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/image/attributes/src",
+      "value": "downloads/privacy.test/image.png"
+    },
+    {
+      "path": "/cache/privacy-cache",
+      "value": true
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "plugins": [
+    "privacy",
+    "offline"
+  ],
+  "check": [
+    "privacy",
+    "offline"
+  ],
+  "purpose": "Images are localized with offline flat URLs, and the inline search index is checked against its JSON source.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1
+      },
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/privacy/pages/index.html/image/attributes/src",
+      "value": "assets/external/privacy.test/image.png"
+    },
+    {
+      "path": "/privacy/pages/guide~1page.html/image/attributes/src",
+      "value": "../assets/external/privacy.test/image.png"
+    },
+    {
+      "path": "/offline/inline_search",
+      "value": true
+    }
+  ]
+}

@@ -76,6 +76,7 @@ from passing. A homepage must also exist in every successful build.
 | `seed` | Repository-owned inputs copied to each project's cache |
 | `pixel_budgets` | Social per-card mean RGB allowance and reason; default 1 |
 | `pixel_differences` | Social exact decoded RGBA hash pair and reason |
+| `http` | Local fixture directory, response overrides, per-phase request contracts, and privacy output/cache probes |
 
 Mutation example:
 
@@ -194,3 +195,6 @@ the generated HTML checks alone cannot establish those behaviors.
 Macros output is checked with `publication` probes and paired cold/warm builds. Template edits are applied without a clean build. Diagnostic headings, source files, exception messages, and syntax-error source lines are checked by `macros-diagnostics`. Traceback presence and the final exception are retained; builder paths and stack frames are excluded.
 
 Markdown transformations are observed by `content`, including callouts, tables, code, headings, and visible text. Image links and lightbox attributes are observed by `lightbox`. Generated Markdown and text files are compared by `llmstxt`. Worker shims and inline search consistency are checked by `offline`. Their observation boundaries and plugin settings are described in [plugin coverage](plugin-coverage.md).
+
+
+Privacy output is observed by `privacy`. Marked elements, downloaded bytes, CSS references, JavaScript strings, local target existence, and asset fingerprints are compared. A local HTTP origin is enabled by the `http` case field. A stable virtual origin is shared by both project copies, and asset requests are routed through a local HTTP proxy. Actual request counts are recorded separately from semantic manifests, so unchanged warm output and zero warm requests can be required together. The fixture fields and observation boundaries are described in [privacy coverage](privacy.md).

@@ -1,0 +1,15 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "An invalid custom Python regular expression is rejected with its specific diagnostic.",
+  "warm": false,
+  "http": {
+    "directory": "remote"
+  },
+  "failure": {
+    "mkdocs": "(?s)(?=.*unterminated character set)",
+    "zensical": "(?s)(?=.*invalid assets_expr_map expression)"
+  }
+}

@@ -25,7 +25,7 @@ IN THE SOFTWARE.
 
 # Plugin coverage
 
-All 27 plugins from the [published compatibility list](https://zensical.org/docs/compatibility/mkdocs/plugins/index.md) are covered. The list was checked on 2026-10-07. Coverage is also provided for development support of `mkdocs-nav-weight`, `markdownextradata`, and `include-markdown`.
+All 27 plugins from the [published compatibility list](https://zensical.org/docs/compatibility/mkdocs/plugins/index.md) are covered. The list was checked on 2026-10-07. Coverage is also provided for development support of `mkdocs-nav-weight`, `markdownextradata`, `include-markdown`, and `privacy`.
 
 Each project is built through both public CLIs in separate environments. Observable contracts are checked before the complete semantic manifests are compared. Cold and unchanged warm builds are checked in the new cases. Focused input changes are applied without a clean build where mutation steps are declared.
 
@@ -56,6 +56,7 @@ API generators are tested with their required `mkdocstrings` renderer under `cas
 | `mkdocs-video` | 4 | 3 | Iframes, native video, custom markers, playback attributes, disabled output, and media combinations. |
 | `mkdocstrings` | 2 | 6 | Handler output, object references, inventories, member order, source display, and API generators. |
 | `offline` | 3 | 0 | Flat URLs, worker shims, inline search consistency, search absence, and disabled output. |
+| `privacy` | 31 | 13 | Asset fetching, cache/request controls, filters, Python expressions, fragments, template resources, URL modes, error templates, and plugin combinations. |
 | `redirects` | 4 | 1 | Directory and flat URLs, external and routed targets, missing targets, and unlisted targets. |
 | `rss` | 3 | 4 | Multiple feeds, filtering, dates, stylesheets, disabled output, core inclusion patterns, and publishing combinations. |
 | `search` | 34 | 0 | Sections, titles, exclusions, separators, encoded paths, disabled output, mutations, and core inclusion patterns. |
@@ -99,6 +100,14 @@ The include cases can be selected against a development candidate:
 ```sh
 .venv/bin/python -m pytest tests/test_plugins.py --combinations -k include-markdown --zensical-python=../zensical-zensical/.venv/bin/python
 ```
+
+## Privacy settings
+
+Privacy is covered by 44 fixtures: 31 isolated cases and 13 combinations. Cold and unchanged warm output are compared through both public CLIs. Actual HTTP requests, custom cache-directory population, and emitted asset bytes are checked against local fixture data.
+
+The settings are combined with minification and content hashes, search, Glightbox, include-markdown, macros, offline search, exclusion, blog metadata, and social cards. Theme logo/favicon configuration, extra CSS/scripts, extra templates, nested routes, site URL subpaths, and HTTP error templates are covered.
+
+The local server protocol, extraction boundaries, known differences, and selection command are described in [privacy coverage](privacy.md). A development candidate containing privacy support is required.
 
 ## Observation boundaries
 

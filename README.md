@@ -5,7 +5,7 @@ Each case builds the same project through both public CLIs in separate
 environments and checks the generated output.
 
 The suite covers publishing, navigation, API references, tags, metadata,
-search, exclusion, minification and audio/video, with isolated plugin cases, opt-in
+search, exclusion, minification, privacy and audio/video, with isolated plugin cases, opt-in
 combinations and HTTP lifecycle checks.
 
 ## Run locally
@@ -63,6 +63,14 @@ Fonts are downloaded into ignored `.cache/fonts/`, verified and reused by both
 builders. Run `prepare_oracle.py` again after syncing the MkDocs environment
 to restore the pinned RSS source.
 
+The Material 9.7.1 social layer dispatch is also patched by `prepare_oracle.py`. An orphaned placeholder future is prevented by locking submission and publication of the rendering future. Rendering concurrency and card output are preserved.
+
+The patch is limited to reviewed source bytes and is recorded in each run's environment report. It must be reviewed or removed when Material is updated. An existing oracle can be patched without downloading RSS again:
+
+```sh
+.venv/bin/python scripts/patch_material.py
+```
+
 ## Results
 
 Each run creates `artifacts/<run-id>/` with package versions, native extension
@@ -91,7 +99,8 @@ Put plugin interactions under `cases/combinations/`; these run with
 `--combinations` and use the same runner and checks. See
 [the expansion analysis](docs/expansion.md) for coverage priorities.
 See [media coverage](docs/media.md) for the audio/video cases and playback checks.
-Coverage of all documented plugins and the two new branch additions is listed in
+Privacy settings, local HTTP fixtures, cache probes, and plugin combinations are described in [privacy coverage](docs/privacy.md).
+Coverage of documented and development plugins is listed in
 [plugin coverage](docs/plugin-coverage.md), including settings and observation boundaries.
 
 ## CI and dependency updates

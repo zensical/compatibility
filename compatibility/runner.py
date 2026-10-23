@@ -38,7 +38,7 @@ from pathlib import Path
 
 import yaml
 
-from compatibility import blog, macros, media, rendering, search, social, tags
+from compatibility import blog, macros, media, privacy, rendering, search, social, tags
 from compatibility.checks import CHECKS
 from compatibility.publication import publication, references, tag_content
 from scripts.prepare_fonts import prepare_fonts
@@ -59,6 +59,7 @@ EXTRACTORS = {
     "lightbox": rendering.lightbox,
     "llmstxt": rendering.llmstxt,
     "offline": rendering.offline,
+    "privacy": privacy.extract,
 }
 
 
@@ -184,6 +185,11 @@ info = {'python': sys.executable, 'prefix': sys.prefix,
 receipt = Path(sys.prefix).parent / 'oracle-source.json'
 if module == 'mkdocs' and receipt.is_file():
     info['oracle_source'] = json.loads(receipt.read_text())
+patch_receipt = Path(sys.prefix) / 'compatibility-material-patch.json'
+if module == 'mkdocs' and patch_receipt.is_file():
+    patch = json.loads(patch_receipt.read_text())
+    assert hashlib.sha256(Path(patch['path']).read_bytes()).hexdigest() == patch['patched_sha256'], 'Material social patch receipt does not match installed source; rerun scripts/patch_material.py'
+    info['oracle_patches'] = [patch]
 candidate_receipt = Path(sys.prefix) / 'compatibility-candidate.json'
 if module == 'zensical' and candidate_receipt.is_file():
     info['candidate_source'] = json.loads(candidate_receipt.read_text())
@@ -281,6 +287,7 @@ def validate_case(case: Path, root: Path) -> dict:
         assert not (case / "project" / name).exists(), (
             f"generated fixture input: {name}"
         )
+    privacy.validate(case, spec)
     return spec
 
 
@@ -404,11 +411,21 @@ def mutate(project: Path, step: dict) -> None:
 def run_case(
     case: Path, spec: dict, interpreters: dict[str, Path], output: Path
 ) -> None:
+    with privacy.fixture(case, spec) as remote:
+        _run_case(case, spec, interpreters, output, remote)
+
+
+def _run_case(
+    case: Path, spec: dict, interpreters: dict[str, Path], output: Path,
+    remote: privacy.Fixture | None,
+) -> None:
     projects = {}
     for engine in interpreters:
         project = output / engine
         shutil.copytree(case / "project", project)
         projects[engine] = project
+        if remote is not None:
+            remote.prepare(project)
     sources = {
         p.relative_to(case / "project").as_posix(): hashlib.sha256(
             p.read_bytes()
@@ -449,8 +466,10 @@ def run_case(
         if any(key in step for key in ("path", "copy", "remove")):
             for project in projects.values():
                 mutate(project, step)
-        outcomes = {
-            engine: build(
+        outcomes = {}
+        for engine, python in interpreters.items():
+            before = remote.snapshot() if remote is not None else None
+            outcomes[engine] = build(
                 python,
                 engine,
                 projects[engine],
@@ -458,10 +477,10 @@ def run_case(
                 clean=step.get("clean", False),
                 strict=spec.get("strict", True),
                 timeout=spec.get("timeout", 120),
-                environment=spec.get("environment", {}),
+                environment=spec.get("environment", {}) | (remote.environment() if remote is not None else {}),
             )
-            for engine, python in interpreters.items()
-        }
+            if remote is not None:
+                remote.record(before, phase, engine, step["name"], successful=outcomes[engine]["exit_code"] == 0)
         for engine, outcome in outcomes.items():
             check_build(outcome, engine, phase, spec.get("failure", {}))
         if set(spec.get("failure", {})) == set(interpreters):
@@ -474,6 +493,8 @@ def run_case(
                 f"{engine} homepage missing"
             )
             manifest = observe(project / "site", spec)
+            if remote is not None:
+                manifest = remote.normalize(manifest)
             assert manifest, f"empty manifest: {engine}"
             write_json(phase / f"{engine}.json", manifest)
             manifests[engine] = manifest

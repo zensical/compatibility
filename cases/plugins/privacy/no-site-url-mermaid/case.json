@@ -1,0 +1,35 @@
+{
+  "plugins": [
+    "privacy"
+  ],
+  "check": "privacy",
+  "purpose": "Mermaid is preloaded for nested pages when site_url is absent; the loader and downloaded script are compared.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1,
+        "/mermaid.min.js": 1
+      },
+      "warm": {}
+    },
+    "local_assets": [
+      "loader.js"
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/pages/index.html/image/attributes/src",
+      "value": "assets/external/privacy.test/image.png"
+    },
+    {
+      "path": "/assets/assets~1external~1privacy.test~1image.png/sha256",
+      "value": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec"
+    },
+    {
+      "path": "/assets/assets~1external~1privacy.test~1mermaid.min.js/strings",
+      "value": []
+    }
+  ]
+}

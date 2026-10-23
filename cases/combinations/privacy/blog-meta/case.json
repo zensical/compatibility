@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "privacy",
+    "blog",
+    "meta"
+  ],
+  "check": "privacy",
+  "purpose": "Images in generated blog views and published posts are localized while metadata inheritance is enabled.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/image.png": 1
+      },
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/assets/assets~1external~1privacy.test~1image.png/sha256",
+      "value": "6b1048f8a6d40bac0b2954c18fefa40c4ea7a96120fc2e54b7317c0e43c2bbec"
+    },
+    {
+      "path": "/pages/blog~1release~1index.html/image/attributes/src",
+      "value": "../../assets/external/privacy.test/image.png"
+    }
+  ]
+}

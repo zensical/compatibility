@@ -1,0 +1,23 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/pages/index.html",
+      "value": {
+        "metadata": null,
+        "head": [
+          "Site fallback"
+        ]
+      }
+    },
+    {
+      "path": "/csv",
+      "value": null
+    }
+  ],
+  "purpose": "Generation, checks, and CSV export are disabled with the public enabled option."
+}

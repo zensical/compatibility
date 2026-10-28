@@ -1,0 +1,188 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/pages",
+      "value": {
+        "index.html": {
+          "metadata": "Original description.",
+          "head": [
+            "Original description."
+          ]
+        }
+      }
+    },
+    {
+      "path": "/csv",
+      "value": {
+        "header": [
+          "Page",
+          "Meta description"
+        ],
+        "rows": [
+          [
+            "https://example.com/docs/",
+            "Original description."
+          ]
+        ]
+      }
+    }
+  ],
+  "purpose": "Description and CSV changes are compared after source edits, page additions, page deletions, and configuration edits.",
+  "steps": [
+    {
+      "name": "edit-paragraph",
+      "path": "docs/index.md",
+      "before": "Original description.",
+      "after": "Updated description.",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages",
+          "value": {
+            "index.html": {
+              "metadata": "Updated description.",
+              "head": [
+                "Updated description."
+              ]
+            }
+          }
+        },
+        {
+          "path": "/csv",
+          "value": {
+            "header": [
+              "Page",
+              "Meta description"
+            ],
+            "rows": [
+              [
+                "https://example.com/docs/",
+                "Updated description."
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "add-page",
+      "copy": {
+        "inputs/guide.md": "docs/guide.md"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages",
+          "value": {
+            "index.html": {
+              "metadata": "Updated description.",
+              "head": [
+                "Updated description."
+              ]
+            },
+            "guide/index.html": {
+              "metadata": "Guide description.",
+              "head": [
+                "Guide description."
+              ]
+            }
+          }
+        },
+        {
+          "path": "/csv",
+          "value": {
+            "header": [
+              "Page",
+              "Meta description"
+            ],
+            "rows": [
+              [
+                "https://example.com/docs/",
+                "Updated description."
+              ],
+              [
+                "https://example.com/docs/guide/",
+                "Guide description."
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "delete-page",
+      "remove": [
+        "docs/guide.md"
+      ],
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages",
+          "value": {
+            "index.html": {
+              "metadata": "Updated description.",
+              "head": [
+                "Updated description."
+              ]
+            }
+          }
+        },
+        {
+          "path": "/csv",
+          "value": {
+            "header": [
+              "Page",
+              "Meta description"
+            ],
+            "rows": [
+              [
+                "https://example.com/docs/",
+                "Updated description."
+              ]
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "enable-trimming",
+      "path": "mkdocs.yml",
+      "before": "export_csv: true",
+      "after": "export_csv: true\n    trim: true\n    max_length: 7",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages",
+          "value": {
+            "index.html": {
+              "metadata": "Updated",
+              "head": [
+                "Updated"
+              ]
+            }
+          }
+        },
+        {
+          "path": "/csv",
+          "value": {
+            "header": [
+              "Page",
+              "Meta description"
+            ],
+            "rows": [
+              [
+                "https://example.com/docs/",
+                "Updated"
+              ]
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

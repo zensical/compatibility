@@ -1,0 +1,188 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "Pre-escaped front matter, CSV quoting, multiline values, Unicode URLs, site subpaths, final rendered descriptions, and cached edits are compared.",
+  "assertions": [
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "Generated introduction."
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": [
+        "Generated introduction."
+      ]
+    },
+    {
+      "path": "/pages/guide~1café.html/metadata",
+      "value": "Quoted, &quot;exact&quot; &amp; multiline\nsecond line\n"
+    },
+    {
+      "path": "/pages/guide~1café.html/head",
+      "engine": "mkdocs",
+      "value": [
+        "Quoted, \"exact\" & multiline\nsecond line\n"
+      ]
+    },
+    {
+      "path": "/pages/guide~1café.html/head",
+      "engine": "zensical",
+      "value": [
+        "Quoted, &quot;exact&quot; &amp; multiline\nsecond line\n"
+      ]
+    },
+    {
+      "path": "/csv",
+      "engine": "mkdocs",
+      "value": {
+        "header": [
+          "Page",
+          "Meta description"
+        ],
+        "rows": [
+          [
+            "https://example.test/docs/guide/caf%C3%A9.html",
+            "Quoted, \"exact\" & multiline\nsecond line\n"
+          ],
+          [
+            "https://example.test/docs/index.html",
+            "Generated introduction."
+          ],
+          [
+            "https://example.test/docs/missing.html",
+            "Site fallback"
+          ]
+        ]
+      }
+    },
+    {
+      "path": "/csv",
+      "engine": "zensical",
+      "value": {
+        "header": [
+          "Page",
+          "Meta description"
+        ],
+        "rows": [
+          [
+            "https://example.test/docs/guide/caf%C3%A9.html",
+            "Quoted, &quot;exact&quot; &amp; multiline\nsecond line\n"
+          ],
+          [
+            "https://example.test/docs/index.html",
+            "Generated introduction."
+          ],
+          [
+            "https://example.test/docs/missing.html",
+            "Site fallback"
+          ]
+        ]
+      }
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-exported-paragraph",
+      "path": "docs/index.md",
+      "before": "Generated introduction.",
+      "after": "Revised introduction.",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages/index.html/metadata",
+          "value": "Revised introduction."
+        },
+        {
+          "path": "/pages/index.html/head",
+          "value": [
+            "Revised introduction."
+          ]
+        },
+        {
+          "path": "/csv/rows",
+          "engine": "mkdocs",
+          "value": [
+            [
+              "https://example.test/docs/guide/caf%C3%A9.html",
+              "Quoted, \"exact\" & multiline\nsecond line\n"
+            ],
+            [
+              "https://example.test/docs/index.html",
+              "Revised introduction."
+            ],
+            [
+              "https://example.test/docs/missing.html",
+              "Site fallback"
+            ]
+          ]
+        },
+        {
+          "path": "/csv/rows",
+          "engine": "zensical",
+          "value": [
+            [
+              "https://example.test/docs/guide/caf%C3%A9.html",
+              "Quoted, &quot;exact&quot; &amp; multiline\nsecond line\n"
+            ],
+            [
+              "https://example.test/docs/index.html",
+              "Revised introduction."
+            ],
+            [
+              "https://example.test/docs/missing.html",
+              "Site fallback"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "remove-exported-page",
+      "path": "docs/guide/café.md",
+      "delete": true,
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages",
+          "count": 2
+        },
+        {
+          "path": "/csv/rows",
+          "value": [
+            [
+              "https://example.test/docs/index.html",
+              "Revised introduction."
+            ],
+            [
+              "https://example.test/docs/missing.html",
+              "Site fallback"
+            ]
+          ]
+        }
+      ],
+      "differences": []
+    }
+  ],
+  "differences": [
+    {
+      "path": "/pages/guide~1café.html/head",
+      "mkdocs": [
+        "Quoted, \"exact\" & multiline\nsecond line\n"
+      ],
+      "zensical": [
+        "Quoted, &quot;exact&quot; &amp; multiline\nsecond line\n"
+      ],
+      "reason": "Pre-escaped front matter is decoded by the upstream template. Literal entity text is retained by Zensical's UI escaping."
+    },
+    {
+      "path": "/csv/rows/0/1",
+      "mkdocs": "Quoted, \"exact\" & multiline\nsecond line\n",
+      "zensical": "Quoted, &quot;exact&quot; &amp; multiline\nsecond line\n",
+      "reason": "Pre-escaped front matter is decoded by the upstream template. Literal entity text is retained by Zensical's UI escaping."
+    }
+  ]
+}

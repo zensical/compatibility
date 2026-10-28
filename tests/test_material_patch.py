@@ -33,6 +33,7 @@ import time
 from concurrent.futures import Future, ThreadPoolExecutor
 from pathlib import Path
 from types import SimpleNamespace
+from urllib.parse import urlparse
 
 import pytest
 
@@ -114,6 +115,124 @@ def test_privacy_patch_is_idempotent_and_rejects_unreviewed_source(privacy_sourc
 
     with pytest.raises(RuntimeError, match="differs from the reviewed"):
         patch_privacy_source(privacy_source + "\n# unexpected upstream change\n")
+
+
+def privacy_queue_from_source(source, pool):
+    """Compile the real queue and initialization methods with a small asset store."""
+    plugin_class = next(node for node in ast.parse(source).body if isinstance(node, ast.ClassDef) and node.name == "PrivacyPlugin")
+    methods = [node for node in plugin_class.body if isinstance(node, ast.FunctionDef) and node.name in {"on_config", "_queue", "_queue_locked"}]
+    module = ast.parse("from __future__ import annotations\nclass QueuedPrivacy: pass")
+    module.body[1].body = methods
+    assets = {}
+    namespace = {
+        "posixpath": posixpath,
+        "urlparse": urlparse,
+        "RLock": threading.RLock,
+        "ThreadPoolExecutor": lambda concurrency: pool,
+        "Files": lambda files: SimpleNamespace(get_file_from_path=assets.get, append=lambda file: assets.setdefault(file.src_uri, file)),
+        "log": SimpleNamespace(disabled=False),
+    }
+    exec(compile(ast.fix_missing_locations(module), "material-privacy-queue", "exec"), namespace)
+    plugin = namespace["QueuedPrivacy"]()
+    plugin.config = SimpleNamespace(enabled=True, concurrency=2, assets_expr_map={}, log=False, assets_fetch_dir="assets/external")
+    plugin.on_config(SimpleNamespace(site_url="https://example.test/docs/"))
+    plugin._path_from_url = lambda url: url.netloc + url.path
+    plugin._path_to_file = lambda path, config: SimpleNamespace(src_uri=posixpath.join(plugin.config.assets_fetch_dir, path))
+    return plugin
+
+
+@pytest.mark.parametrize("concurrent", [False, True], ids=["synchronous", "background"])
+def test_concurrent_privacy_discovery_downloads_a_shared_asset_once(privacy_source, concurrent):
+    # Eight callers are released together while registration is delayed.
+    ready = threading.Barrier(8)
+    fetched = []
+
+    def fetch(file, config):
+        fetched.append(file.url)
+        if not concurrent:
+            time.sleep(0.05)
+        return True
+
+    with ThreadPoolExecutor(max_workers=2) as downloads:
+        def submit(worker, file, config):
+            future = downloads.submit(worker, file, config)
+            time.sleep(0.05)
+            return future
+
+        plugin = privacy_queue_from_source(patch_privacy_source(privacy_source), SimpleNamespace(submit=submit))
+        plugin._fetch = fetch
+        url = urlparse("http://privacy.test/image.png")
+
+        def discover():
+            ready.wait(timeout=5)
+            return plugin._queue(url, None, concurrent=concurrent)
+
+        with ThreadPoolExecutor(max_workers=8) as callers:
+            discoveries = [callers.submit(discover) for _ in range(8)]
+            files = [discovery.result(timeout=5) for discovery in discoveries]
+
+        for download in plugin.pool_jobs:
+            download.result(timeout=5)
+
+    # The same asset must be returned to every caller after exactly one download.
+    assert fetched == ["http://privacy.test/image.png"]
+    assert all(file is files[0] for file in files)
+
+
+def test_privacy_downloads_of_distinct_assets_remain_concurrent(privacy_source):
+    # Download completion is blocked until both workers have started.
+    downloading = threading.Barrier(2)
+    fetched = []
+
+    def fetch(file, config):
+        downloading.wait(timeout=5)
+        fetched.append(file.url)
+        return True
+
+    with ThreadPoolExecutor(max_workers=2) as downloads:
+        plugin = privacy_queue_from_source(patch_privacy_source(privacy_source), downloads)
+        plugin._fetch = fetch
+
+        plugin._queue(urlparse("http://privacy.test/first.png"), None, concurrent=True)
+        plugin._queue(urlparse("http://privacy.test/second.png"), None, concurrent=True)
+        for download in plugin.pool_jobs:
+            download.result(timeout=5)
+
+    assert sorted(fetched) == ["http://privacy.test/first.png", "http://privacy.test/second.png"]
+
+
+def test_synchronous_privacy_downloads_can_queue_dependencies(privacy_source):
+    # A synchronous stylesheet download is allowed to discover a background font.
+    fetched = []
+    completed = Future()
+
+    with ThreadPoolExecutor(max_workers=2) as downloads:
+        plugin = privacy_queue_from_source(patch_privacy_source(privacy_source), downloads)
+
+        def fetch(file, config):
+            fetched.append(file.url)
+            if file.url.endswith("style.css"):
+                plugin._queue(urlparse("http://privacy.test/font.woff2"), config, concurrent=True)
+            return True
+
+        plugin._fetch = fetch
+
+        def discover():
+            try:
+                completed.set_result(plugin._queue(urlparse("http://privacy.test/style.css"), None))
+            except Exception as error:
+                completed.set_exception(error)
+
+        # A non-reentrant lock regression must be detected within the test timeout.
+        caller = threading.Thread(target=discover, daemon=True)
+        caller.start()
+        completed.result(timeout=5)
+        caller.join(timeout=5)
+        for download in plugin.pool_jobs:
+            download.result(timeout=5)
+
+    assert not caller.is_alive()
+    assert sorted(fetched) == ["http://privacy.test/font.woff2", "http://privacy.test/style.css"]
 
 
 @pytest.mark.parametrize("event", ["on_env", "on_post_build"])

@@ -63,3 +63,6 @@ mike==2.2.0
 mkdocs-table-reader-plugin==4.0.1
 pandas==2.3.3
 tabulate==0.10.0
+
+# Automatic page descriptions are compared against the upstream plugin.
+mkdocs-meta-descriptions-plugin==4.1.0

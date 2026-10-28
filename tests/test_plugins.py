@@ -36,7 +36,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SUPPORTED_PLUGINS = {
     "api-autonav", "autorefs", "awesome-nav", "blog", "callouts", "exclude",
     "gh-admonitions", "glightbox", "include-markdown", "literate-nav", "llmstxt", "macros",
-    "markdown-exec", "markdownextradata", "meta", "mike", "minify",
+    "markdown-exec", "markdownextradata", "meta", "meta-descriptions", "mike", "minify",
     "mkdocs-audio", "mkdocs-autoapi", "mkdocs-nav-weight", "mkdocs-video",
     "mkdocstrings", "offline", "privacy", "redirects", "rss", "search", "section-index",
     "social", "table-reader", "tags",

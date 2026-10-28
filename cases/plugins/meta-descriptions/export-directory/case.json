@@ -1,0 +1,117 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "CSV header, quoting, multiline values, Unicode URLs, site subpaths, final rendered descriptions, and cached edits are compared.",
+  "assertions": [
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "Generated introduction."
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": [
+        "Generated introduction."
+      ]
+    },
+    {
+      "path": "/pages/guide~1café~1index.html/metadata",
+      "value": "Quoted, &quot;exact&quot; &amp; multiline\nsecond line\n"
+    },
+    {
+      "path": "/pages/guide~1café~1index.html/head",
+      "value": [
+        "Quoted, \"exact\" & multiline\nsecond line\n"
+      ]
+    },
+    {
+      "path": "/csv",
+      "value": {
+        "header": [
+          "Page",
+          "Meta description"
+        ],
+        "rows": [
+          [
+            "https://example.test/docs/",
+            "Generated introduction."
+          ],
+          [
+            "https://example.test/docs/guide/caf%C3%A9/",
+            "Quoted, \"exact\" & multiline\nsecond line\n"
+          ],
+          [
+            "https://example.test/docs/missing/",
+            "Site fallback"
+          ]
+        ]
+      }
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-exported-paragraph",
+      "path": "docs/index.md",
+      "before": "Generated introduction.",
+      "after": "Revised introduction.",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages/index.html/metadata",
+          "value": "Revised introduction."
+        },
+        {
+          "path": "/pages/index.html/head",
+          "value": [
+            "Revised introduction."
+          ]
+        },
+        {
+          "path": "/csv/rows",
+          "value": [
+            [
+              "https://example.test/docs/",
+              "Revised introduction."
+            ],
+            [
+              "https://example.test/docs/guide/caf%C3%A9/",
+              "Quoted, \"exact\" & multiline\nsecond line\n"
+            ],
+            [
+              "https://example.test/docs/missing/",
+              "Site fallback"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "name": "remove-exported-page",
+      "path": "docs/guide/café.md",
+      "delete": true,
+      "clean": true,
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages",
+          "count": 2
+        },
+        {
+          "path": "/csv/rows",
+          "value": [
+            [
+              "https://example.test/docs/",
+              "Revised introduction."
+            ],
+            [
+              "https://example.test/docs/missing/",
+              "Site fallback"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

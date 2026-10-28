@@ -1,0 +1,28 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "Missing rendered descriptions are exported as empty fields without reading body meta tags.",
+  "assertions": [
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "Generated metadata."
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": []
+    },
+    {
+      "path": "/csv/rows",
+      "value": [
+        [
+          "https://example.test/docs/",
+          ""
+        ]
+      ]
+    }
+  ],
+  "strict": false
+}

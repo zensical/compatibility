@@ -1,0 +1,81 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "Short-paragraph fallback, exact minimum lengths, escaped entity lengths, and explicit-description precedence are compared.",
+  "assertions": [
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "A useful introduction."
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": [
+        "A useful introduction."
+      ]
+    },
+    {
+      "path": "/pages/short~1index.html/metadata",
+      "value": null
+    },
+    {
+      "path": "/pages/short~1index.html/head",
+      "value": [
+        "Site fallback"
+      ]
+    },
+    {
+      "path": "/pages/boundary~1index.html/metadata",
+      "value": "12345"
+    },
+    {
+      "path": "/pages/boundary~1index.html/head",
+      "value": [
+        "12345"
+      ]
+    },
+    {
+      "path": "/pages/escaped~1index.html/metadata",
+      "value": "&amp;"
+    },
+    {
+      "path": "/pages/escaped~1index.html/head",
+      "value": [
+        "&"
+      ]
+    },
+    {
+      "path": "/pages/explicit~1index.html/metadata",
+      "value": "Hi"
+    },
+    {
+      "path": "/pages/explicit~1index.html/head",
+      "value": [
+        "Hi"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "lengthen-short-introduction",
+      "path": "docs/short.md",
+      "before": "Hi",
+      "after": "Now a useful introduction.",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages/short~1index.html/metadata",
+          "value": "Now a useful introduction."
+        },
+        {
+          "path": "/pages/short~1index.html/head",
+          "value": [
+            "Now a useful introduction."
+          ]
+        }
+      ]
+    }
+  ]
+}

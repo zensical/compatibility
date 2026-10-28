@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": false,
+  "purpose": "Invalid descriptions are rejected in strict mode with the expected page and length diagnostic.",
+  "assertions": [],
+  "failure": {
+    "mkdocs": "Meta description 5 characters shorter than 10: index.md",
+    "zensical": "Meta description 5 characters shorter than 10: index.md"
+  }
+}

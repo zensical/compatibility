@@ -198,3 +198,5 @@ Markdown transformations are observed by `content`, including callouts, tables, 
 
 
 Privacy output is observed by `privacy`. Marked elements, downloaded bytes, CSS references, JavaScript strings, local target existence, and asset fingerprints are compared. A local HTTP origin is enabled by the `http` case field. A stable virtual origin is shared by both project copies, and asset requests are routed through a local HTTP proxy. Actual request counts are recorded separately from semantic manifests, so unchanged warm output and zero warm requests can be required together. The fixture fields and observation boundaries are described in [privacy coverage](privacy.md).
+
+Meta descriptions are observed by `meta-descriptions`. Authored metadata, rendered head tags, CSV headers, URLs, and decoded fields are retained. CSV row order is excluded; duplicate rows and exact field text are retained.

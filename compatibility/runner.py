@@ -38,7 +38,17 @@ from pathlib import Path
 
 import yaml
 
-from compatibility import blog, macros, media, privacy, rendering, search, social, tags
+from compatibility import (
+    blog,
+    macros,
+    media,
+    meta_descriptions,
+    privacy,
+    rendering,
+    search,
+    social,
+    tags,
+)
 from compatibility.checks import CHECKS
 from compatibility.publication import publication, references, tag_content
 from scripts.prepare_fonts import prepare_fonts
@@ -58,6 +68,7 @@ EXTRACTORS = {
     "content": rendering.content,
     "lightbox": rendering.lightbox,
     "llmstxt": rendering.llmstxt,
+    "meta-descriptions": meta_descriptions.extract,
     "offline": rendering.offline,
     "privacy": privacy.extract,
 }

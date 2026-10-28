@@ -1,0 +1,208 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "Introductory paragraphs, headings, admonition exclusions, escaped Unicode text, explicit descriptions, and absent paragraphs are compared.",
+  "assertions": [
+    {
+      "path": "/pages",
+      "count": 14
+    },
+    {
+      "path": "/csv",
+      "value": null
+    },
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "First intro with a link."
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": [
+        "First intro with a link."
+      ]
+    },
+    {
+      "path": "/pages/explicit~1index.html/metadata",
+      "value": "Explicit & exact"
+    },
+    {
+      "path": "/pages/explicit~1index.html/head",
+      "value": [
+        "Explicit & exact"
+      ]
+    },
+    {
+      "path": "/pages/empty~1index.html/metadata",
+      "value": "Generated from empty metadata."
+    },
+    {
+      "path": "/pages/empty~1index.html/head",
+      "value": [
+        "Generated from empty metadata."
+      ]
+    },
+    {
+      "path": "/pages/null~1index.html/metadata",
+      "value": "Generated from null metadata."
+    },
+    {
+      "path": "/pages/null~1index.html/head",
+      "value": [
+        "Generated from null metadata."
+      ]
+    },
+    {
+      "path": "/pages/admonition~1index.html/metadata",
+      "value": "Actual introductory paragraph."
+    },
+    {
+      "path": "/pages/admonition~1index.html/head",
+      "value": [
+        "Actual introductory paragraph."
+      ]
+    },
+    {
+      "path": "/pages/nested~1index.html/metadata",
+      "value": "Nested paragraph."
+    },
+    {
+      "path": "/pages/nested~1index.html/head",
+      "value": [
+        "Nested paragraph."
+      ]
+    },
+    {
+      "path": "/pages/escaped~1index.html/metadata",
+      "value": "Café &amp; naïve 🦀 with &quot;quotes&quot; and an apostrophe &#x27; here."
+    },
+    {
+      "path": "/pages/escaped~1index.html/head",
+      "value": [
+        "Café & naïve 🦀 with \"quotes\" and an apostrophe ' here."
+      ]
+    },
+    {
+      "path": "/pages/empty-paragraph~1index.html/metadata",
+      "value": null
+    },
+    {
+      "path": "/pages/empty-paragraph~1index.html/head",
+      "value": [
+        "Site fallback"
+      ]
+    },
+    {
+      "path": "/pages/code~1index.html/metadata",
+      "value": null
+    },
+    {
+      "path": "/pages/code~1index.html/head",
+      "value": [
+        "Site fallback"
+      ]
+    },
+    {
+      "path": "/pages/heading-2~1index.html/metadata",
+      "value": null
+    },
+    {
+      "path": "/pages/heading-2~1index.html/head",
+      "value": [
+        "Site fallback"
+      ]
+    },
+    {
+      "path": "/pages/heading-3~1index.html/metadata",
+      "value": null
+    },
+    {
+      "path": "/pages/heading-3~1index.html/head",
+      "value": [
+        "Site fallback"
+      ]
+    },
+    {
+      "path": "/pages/heading-4~1index.html/metadata",
+      "value": null
+    },
+    {
+      "path": "/pages/heading-4~1index.html/head",
+      "value": [
+        "Site fallback"
+      ]
+    },
+    {
+      "path": "/pages/heading-5~1index.html/metadata",
+      "value": null
+    },
+    {
+      "path": "/pages/heading-5~1index.html/head",
+      "value": [
+        "Site fallback"
+      ]
+    },
+    {
+      "path": "/pages/heading-6~1index.html/metadata",
+      "value": null
+    },
+    {
+      "path": "/pages/heading-6~1index.html/head",
+      "value": [
+        "Site fallback"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-secondary-paragraph",
+      "path": "docs/index.md",
+      "before": "Second paragraph.",
+      "after": "Changed secondary paragraph.",
+      "changed": {
+        "mkdocs": false,
+        "zensical": false
+      }
+    },
+    {
+      "name": "edit-introduction",
+      "path": "docs/index.md",
+      "before": "First **intro**",
+      "after": "Revised **intro**",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages/index.html/metadata",
+          "value": "Revised intro with a link."
+        },
+        {
+          "path": "/pages/index.html/head",
+          "value": [
+            "Revised intro with a link."
+          ]
+        }
+      ]
+    },
+    {
+      "name": "edit-explicit-description",
+      "path": "docs/explicit.md",
+      "before": "Explicit & exact",
+      "after": "Revised & exact",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages/explicit~1index.html/metadata",
+          "value": "Revised & exact"
+        },
+        {
+          "path": "/pages/explicit~1index.html/head",
+          "value": [
+            "Revised & exact"
+          ]
+        }
+      ]
+    }
+  ]
+}

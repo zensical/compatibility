@@ -1,0 +1,30 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "Generated and explicit Unicode descriptions within inclusive length bounds are accepted in strict mode.",
+  "assertions": [
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "Within limits."
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": [
+        "Within limits."
+      ]
+    },
+    {
+      "path": "/pages/unicode~1index.html/metadata",
+      "value": "🦀🦀🦀🦀🦀"
+    },
+    {
+      "path": "/pages/unicode~1index.html/head",
+      "value": [
+        "🦀🦀🦀🦀🦀"
+      ]
+    }
+  ]
+}

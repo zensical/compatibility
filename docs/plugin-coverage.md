@@ -25,7 +25,7 @@ IN THE SOFTWARE.
 
 # Plugin coverage
 
-All 27 plugins from the [published compatibility list](https://zensical.org/docs/compatibility/mkdocs/plugins/index.md) are covered. The list was checked on 2026-10-07. Coverage is also provided for development support of `mkdocs-nav-weight`, `markdownextradata`, `include-markdown`, and `privacy`.
+All 27 plugins from the [published compatibility list](https://zensical.org/docs/compatibility/mkdocs/plugins/index.md) are covered. The list was checked on 2026-10-07. Coverage is also provided for development support of `mkdocs-nav-weight`, `markdownextradata`, `include-markdown`, `meta-descriptions`, and `privacy`.
 
 Each project is built through both public CLIs in separate environments. Observable contracts are checked before the complete semantic manifests are compared. Cold and unchanged warm builds are checked in the new cases. Focused input changes are applied without a clean build where mutation steps are declared.
 
@@ -47,7 +47,8 @@ API generators are tested with their required `mkdocstrings` renderer under `cas
 | `macros` | 27 | 2 | Variables, modules, includes, precedence, page selection, titles, diagnostic modes, and include-markdown with default or custom Jinja syntax. |
 | `markdown-exec` | 5 | 0 | Python execution, Markdown results, ANSI configuration, and selected languages. |
 | `markdownextradata` | 7 | 1 | Configuration context, data directories, precedence, scalar types, delimiters, titles, data edits, and included expressions. |
-| `meta` | 8 | 8 | Inheritance, merge behavior, aliases, disabled output, invalid inputs, metadata edits, and core inclusion patterns. |
+| `meta` | 8 | 9 | Inheritance, merge behavior, aliases, disabled output, invalid inputs, metadata edits, and core inclusion patterns. |
+| `meta-descriptions` | 13 | 1 | Paragraph extraction, explicit and inherited descriptions, Unicode lengths, trimming, short-paragraph fallback, CSV exports, strict diagnostics, and mutations. |
 | `mike` | 3 | 0 | Unversioned and versioned builds, canonical aliases, and version-selector settings. |
 | `minify` | 2 | 3 | Preserved code whitespace, comment settings, search, and API/social combinations. |
 | `mkdocs-audio` | 4 | 3 | Default and custom markers, MIME types, playback attributes, disabled output, and media combinations. |
@@ -108,6 +109,22 @@ Privacy is covered by 44 fixtures: 31 isolated cases and 13 combinations. Cold a
 The settings are combined with minification and content hashes, search, Glightbox, include-markdown, macros, offline search, exclusion, blog metadata, and social cards. Theme logo/favicon configuration, extra CSS/scripts, extra templates, nested routes, site URL subpaths, and HTTP error templates are covered.
 
 The local server protocol, extraction boundaries, known differences, and selection command are described in [privacy coverage](privacy.md). A development candidate containing privacy support is required.
+
+## Meta descriptions settings
+
+The baseline is pinned to `mkdocs-meta-descriptions-plugin==4.1.0`. Introductory paragraphs, heading boundaries, admonition exclusions, explicit descriptions, and inherited descriptions are checked. Unicode character counts, escaped text, trimming, and short-paragraph fallback are also checked.
+
+Page metadata and rendered head descriptions are observed separately. CSV presence, headers, decoded fields, published URLs, and duplicate rows are retained. CSV row order is excluded because page traversal order is independent of description generation. Directory and flat URLs, encoded paths, site subpaths, multiline fields, custom templates, and missing head tags are covered.
+
+Unchanged warm builds and focused edits are checked. Introduction edits, explicit and inherited metadata edits, trim-width changes, and page deletion are covered. Edits outside the selected paragraph are required to preserve description output. Invalid boolean settings and missing, short, or long descriptions are rejected through both public CLIs in strict mode.
+
+Informational logging and the native-only `enabled` setting are outside these paired output contracts. A development candidate containing meta-descriptions support is required.
+
+The cases can be selected against a development candidate:
+
+```sh
+.venv/bin/python -m pytest tests/test_plugins.py --combinations -k meta-descriptions --zensical-python=../zensical-zensical/.venv/bin/python
+```
 
 ## Observation boundaries
 

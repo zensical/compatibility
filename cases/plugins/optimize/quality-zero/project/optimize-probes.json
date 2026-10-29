@@ -1,0 +1,6 @@
+{
+  "sources": {
+    "assets/optimize/photo.jpg": "docs/assets/optimize/photo.jpg"
+  },
+  "max_mean_error": 90
+}

@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "PNG optimization is retained while JPEG bytes are copied unchanged.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/unchanged",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1diagram.png/smaller",
+      "value": true
+    }
+  ]
+}

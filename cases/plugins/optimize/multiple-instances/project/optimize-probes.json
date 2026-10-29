@@ -1,0 +1,10 @@
+{
+  "sources": {
+    "assets/optimize/photo.jpg": "docs/assets/optimize/photo.jpg",
+    "assets/optimize/other.jpg": "docs/assets/optimize/other.jpg"
+  },
+  "cache_dirs": [
+    "first-cache",
+    "rest-cache"
+  ]
+}

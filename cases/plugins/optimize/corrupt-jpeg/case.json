@@ -1,0 +1,12 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "A selected corrupt JPEG must be rejected with an image diagnostic by both public CLIs.",
+  "warm": false,
+  "failure": {
+    "mkdocs": "cannot identify image file.*photo\\.jpg",
+    "zensical": "failed to optimize assets/optimize/photo\\.jpg"
+  }
+}

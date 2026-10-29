@@ -1,0 +1,30 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "Wildcards, character classes, nested paths, and Unicode exclusions are checked against invalid images.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1skip1.jpg/unchanged",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1a.jpg/unchanged",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1nested~1skip.jpg/unchanged",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1caf\u00e9.jpg/unchanged",
+      "value": true
+    }
+  ]
+}

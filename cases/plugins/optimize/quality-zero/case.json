@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "The minimum JPEG quality is accepted and preserved in the emitted quantization table.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/luma_quantization/0",
+      "value": 255
+    }
+  ]
+}

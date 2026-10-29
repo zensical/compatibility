@@ -1,0 +1,36 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "Custom JPEG quality, baseline scans, PNG speed, retained metadata, concurrency, reporting controls, and a project-relative cache are configured.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/progressive",
+      "value": false
+    },
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/luma_quantization/0",
+      "value": 5
+    },
+    {
+      "path": "/assets/assets~1optimize~1diagram.png/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1diagram.png/text",
+      "value": {
+        "Description": "COMPAT_PNG_METADATA"
+      }
+    },
+    {
+      "path": "/caches/image-cache",
+      "value": true
+    }
+  ]
+}

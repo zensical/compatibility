@@ -1,6 +1,6 @@
 # Privacy coverage
 
-Privacy is covered by 44 complete projects: 31 isolated cases and 13 opt-in combinations. The pinned Material 9.7.1 plugin and a Zensical candidate containing privacy support are exercised through their public CLIs. Source projects are copied independently for both builders.
+Privacy is covered by 45 complete projects: 31 isolated cases and 14 opt-in combinations. The added image optimization combination is described in [image optimization coverage](optimize.md). The pinned Material 9.7.1 plugin and a Zensical candidate containing privacy support are exercised through their public CLIs. Source projects are copied independently for both builders.
 
 ## Settings and combinations
 

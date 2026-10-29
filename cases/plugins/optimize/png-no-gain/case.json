@@ -1,0 +1,21 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "Original PNG bytes are retained when quantization would increase the file size.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1tiny.png/unchanged",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1tiny.png/dimensions",
+      "value": [
+        1,
+        1
+      ]
+    }
+  ]
+}

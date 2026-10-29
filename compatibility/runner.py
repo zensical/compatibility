@@ -38,7 +38,17 @@ from pathlib import Path
 
 import yaml
 
-from compatibility import blog, macros, media, privacy, rendering, search, social, tags
+from compatibility import (
+    blog,
+    macros,
+    media,
+    optimize,
+    privacy,
+    rendering,
+    search,
+    social,
+    tags,
+)
 from compatibility.checks import CHECKS
 from compatibility.publication import publication, references, tag_content
 from scripts.prepare_fonts import prepare_fonts
@@ -60,6 +70,7 @@ EXTRACTORS = {
     "llmstxt": rendering.llmstxt,
     "offline": rendering.offline,
     "privacy": privacy.extract,
+    "optimize": optimize.extract,
 }
 
 
@@ -189,6 +200,9 @@ patch_receipt = Path(sys.prefix) / 'compatibility-material-patch.json'
 if module == 'mkdocs' and patch_receipt.is_file():
     patch = json.loads(patch_receipt.read_text())
     assert hashlib.sha256(Path(patch['path']).read_bytes()).hexdigest() == patch['patched_sha256'], 'Material social patch receipt does not match installed source; rerun scripts/patch_material.py'
+    if 'optimize' in patch:
+        optimize = patch['optimize']
+        assert hashlib.sha256(Path(optimize['path']).read_bytes()).hexdigest() == optimize['patched_sha256'], 'Material optimize patch receipt does not match installed source; rerun scripts/patch_material.py'
     info['oracle_patches'] = [patch]
 candidate_receipt = Path(sys.prefix) / 'compatibility-candidate.json'
 if module == 'zensical' and candidate_receipt.is_file():

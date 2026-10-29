@@ -1,0 +1,36 @@
+{
+  "plugins": [
+    "privacy",
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "Local and downloaded JPEGs are optimized while rewritten URLs and zero warm HTTP requests are preserved.",
+  "warm": true,
+  "http": {
+    "directory": "remote",
+    "requests": {
+      "cold": {
+        "/photo.jpg": 1
+      },
+      "warm": {}
+    }
+  },
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1external~1privacy.test~1photo.jpg/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1external~1privacy.test~1photo.jpg/progressive",
+      "value": true
+    },
+    {
+      "path": "/pages/index.html/COMPAT_REMOTE",
+      "value": "assets/external/privacy.test/photo.jpg"
+    }
+  ]
+}

@@ -5,7 +5,7 @@ Each case builds the same project through both public CLIs in separate
 environments and checks the generated output.
 
 The suite covers publishing, navigation, API references, tags, metadata,
-search, exclusion, minification, privacy and audio/video, with isolated plugin cases, opt-in
+search, exclusion, minification, image optimization, privacy and audio/video, with isolated plugin cases, opt-in
 combinations and HTTP lifecycle checks.
 
 ## Run locally
@@ -18,6 +18,8 @@ different typography. On macOS, expose both libraries before running:
 ```sh
 export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix cairo)/lib:$(brew --prefix fribidi)/lib"
 ```
+
+For PNG optimization, `pngquant` must be available on `PATH` (`sudo apt-get install pngquant` on Linux, `brew install pngquant` on macOS). On Windows, the [MSYS2 UCRT64 pngquant package](https://packages.msys2.org/packages/mingw-w64-ucrt-x86_64-pngquant) is required. Details are provided in [image optimization coverage](docs/optimize.md).
 
 Set up the runner and MkDocs baseline:
 
@@ -65,7 +67,7 @@ to restore the pinned RSS source.
 
 The Material 9.7.1 social layer dispatch is also patched by `prepare_oracle.py`. An orphaned placeholder future is prevented by locking submission and publication of the rendering future. Rendering concurrency and card output are preserved.
 
-The patch is limited to reviewed source bytes and is recorded in each run's environment report. It must be reviewed or removed when Material is updated. An existing oracle can be patched without downloading RSS again:
+The optimizer dispatch is also patched so files are removed from the MkDocs collection before their paths can be changed by workers. Source paths used in savings reports are preserved. Both patches are limited to reviewed source bytes and are recorded in each run's environment report. Both patches must be reviewed or removed when Material is updated. An existing oracle can be patched without downloading RSS again:
 
 ```sh
 .venv/bin/python scripts/patch_material.py

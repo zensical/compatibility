@@ -38,7 +38,7 @@ SUPPORTED_PLUGINS = {
     "gh-admonitions", "glightbox", "include-markdown", "literate-nav", "llmstxt", "macros",
     "markdown-exec", "markdownextradata", "meta", "mike", "minify",
     "mkdocs-audio", "mkdocs-autoapi", "mkdocs-nav-weight", "mkdocs-video",
-    "mkdocstrings", "offline", "privacy", "redirects", "rss", "search", "section-index",
+    "mkdocstrings", "offline", "optimize", "privacy", "redirects", "rss", "search", "section-index",
     "social", "table-reader", "tags",
 }
 

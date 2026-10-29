@@ -1,0 +1,18 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "Include patterns are given precedence over exclusions, and unmatched images are copied unchanged.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1unselected.jpg/unchanged",
+      "value": true
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "Overlapping image selections are claimed by the first matching plugin instance.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/progressive",
+      "value": false
+    },
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/luma_quantization/0",
+      "value": 32
+    },
+    {
+      "path": "/assets/assets~1optimize~1other.jpg/progressive",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1other.jpg/luma_quantization/0",
+      "value": 13
+    },
+    {
+      "path": "/caches/first-cache",
+      "value": true
+    },
+    {
+      "path": "/caches/rest-cache",
+      "value": true
+    }
+  ]
+}

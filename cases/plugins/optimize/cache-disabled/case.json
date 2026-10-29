@@ -1,0 +1,33 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "Unchanged warm output and JPEG quality changes are checked with persistent cache reuse disabled.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+      "value": true
+    }
+  ],
+  "steps": [
+    {
+      "name": "change-quality",
+      "path": "mkdocs.yml",
+      "before": "optimize_jpg_quality: 60",
+      "after": "optimize_jpg_quality: 25",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+          "value": true
+        },
+        {
+          "path": "/assets/assets~1optimize~1photo.jpg/luma_quantization/0",
+          "value": 32
+        }
+      ]
+    }
+  ]
+}

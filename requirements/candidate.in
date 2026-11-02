@@ -27,7 +27,7 @@ mkdocstrings[python]==1.0.6
 mkdocstrings-python==2.0.9
 mkdocs-autorefs==1.4.4
 griffelib==2.3.0
-markdown-exec[ansi]==1.12.4
+markdown-exec[ansi]==1.12.6
 pandas==2.3.3
 tabulate==0.10.0
 tzdata==2025.3 ; sys_platform == 'win32'

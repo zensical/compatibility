@@ -58,7 +58,7 @@ mkdocs-callouts==1.17.1
 mkdocs-github-admonitions-plugin==0.1.1
 mkdocs-glightbox==0.5.2
 mkdocs-llmstxt==0.5.1
-markdown-exec[ansi]==1.12.4
+markdown-exec[ansi]==1.12.6
 mike==2.2.0
 mkdocs-table-reader-plugin==4.0.1
 pandas==2.3.3

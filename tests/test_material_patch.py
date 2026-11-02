@@ -25,6 +25,8 @@
 
 import ast
 import json
+import os
+import posixpath
 import subprocess
 import threading
 import time
@@ -34,7 +36,7 @@ from types import SimpleNamespace
 
 import pytest
 
-from scripts.patch_material import patch_material, patch_source
+from scripts.patch_material import patch_material, patch_optimize_source, patch_privacy_source, patch_source
 
 
 @pytest.fixture(scope="module")
@@ -72,8 +74,122 @@ def test_material_patch_requires_review_for_a_new_oracle_version(monkeypatch):
     response = subprocess.CompletedProcess([], 0, stdout=json.dumps({"version": "9.7.2"}))
     monkeypatch.setattr(subprocess, "run", lambda *args, **kwargs: response)
 
-    with pytest.raises(RuntimeError, match="review the social futures patch"):
+    with pytest.raises(RuntimeError, match="review the Material concurrency patches"):
         patch_material(Path("unused-python"))
+
+
+@pytest.fixture(scope="module")
+def optimize_source(pytestconfig):
+    python = Path(pytestconfig.getoption("--mkdocs-python"))
+    if not python.is_file():
+        pytest.skip("the pinned MkDocs environment is required")
+    command = "import importlib.util,json; print(json.dumps(importlib.util.find_spec('material.plugins.optimize.plugin').origin))"
+    result = subprocess.run([str(python), "-c", command], check=True, capture_output=True, text=True, timeout=30)
+    return Path(json.loads(result.stdout)).read_text(encoding="utf-8")
+
+
+def test_optimize_patch_is_idempotent_and_rejects_unreviewed_source(optimize_source):
+    patched = patch_optimize_source(optimize_source)
+
+    assert patch_optimize_source(patched) == patched
+
+    with pytest.raises(RuntimeError, match="differs from the reviewed"):
+        patch_optimize_source(optimize_source + "\n# unexpected upstream change\n")
+
+
+@pytest.fixture(scope="module")
+def privacy_source(pytestconfig):
+    python = Path(pytestconfig.getoption("--mkdocs-python"))
+    if not python.is_file():
+        pytest.skip("the pinned MkDocs environment is required")
+    command = "import importlib.util,json; print(json.dumps(importlib.util.find_spec('material.plugins.privacy.plugin').origin))"
+    result = subprocess.run([str(python), "-c", command], check=True, capture_output=True, text=True, timeout=30)
+    return Path(json.loads(result.stdout)).read_text(encoding="utf-8")
+
+
+def test_privacy_patch_is_idempotent_and_rejects_unreviewed_source(privacy_source):
+    patched = patch_privacy_source(privacy_source)
+
+    assert patch_privacy_source(patched) == patched
+
+    with pytest.raises(RuntimeError, match="differs from the reviewed"):
+        patch_privacy_source(privacy_source + "\n# unexpected upstream change\n")
+
+
+@pytest.mark.parametrize("event", ["on_env", "on_post_build"])
+def test_recursive_privacy_downloads_finish_before_files_are_published(privacy_source, event):
+    # The actual event methods are compiled without importing either builder.
+    tree = ast.parse(patch_privacy_source(privacy_source))
+    plugin_class = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == "PrivacyPlugin")
+    method = next(node for node in plugin_class.body if isinstance(node, ast.FunctionDef) and node.name == event)
+    method.decorator_list = []
+    published = []
+    stylesheet_download = Future()
+    font_download = Future()
+
+    # A font is discovered by the stylesheet worker during the initial wait.
+    def complete_downloads(jobs):
+        for download in list(jobs):
+            download.set_result(None)
+
+    def publish(file):
+        assert font_download.done(), "the font was published before its download finished"
+        published.append(file)
+
+    font = SimpleNamespace(dest_uri="assets/external/privacy.test/font.woff2", abs_src_path="cached-font.woff2")
+    font.copy_file = lambda: publish(font)
+    plugin = SimpleNamespace(config=SimpleNamespace(enabled=True), pool_jobs=[stylesheet_download], assets=[font], assets_done=[], pool=SimpleNamespace(shutdown=lambda: None))
+    # The queue may already be referenced by the stylesheet worker.
+    queue_download = plugin.pool_jobs.append
+    stylesheet_download.add_done_callback(lambda download: queue_download(font_download))
+    namespace = {
+        "wait": complete_downloads,
+        "posixpath": posixpath,
+        "os": SimpleNamespace(path=SimpleNamespace(exists=lambda path: font_download.done())),
+    }
+    exec(compile(ast.Module(body=[method], type_ignores=[]), "material-privacy-downloads", "exec"), namespace)
+
+    if event == "on_env":
+        namespace[event](plugin, None, config=None, files=SimpleNamespace(append=publish))
+    else:
+        namespace[event](plugin, config=None)
+
+    # Both event boundaries must retain and finish recursively queued downloads.
+    assert published == [font]
+    assert font_download.done()
+
+
+def test_completed_optimizer_cannot_change_file_collection_keys(optimize_source):
+    # The actual dispatch method is compiled without importing either builder.
+    tree = ast.parse(patch_optimize_source(optimize_source))
+    plugin_class = next(node for node in tree.body if isinstance(node, ast.ClassDef) and node.name == "OptimizePlugin")
+    on_env = next(node for node in plugin_class.body if isinstance(node, ast.FunctionDef) and node.name == "on_env")
+    namespace = {"os": os}
+    exec(compile(ast.Module(body=[on_env], type_ignores=[]), "material-optimize-dispatch", "exec"), namespace)
+    source_path = "docs/photo.jpg"
+    file = SimpleNamespace(src_path="photo.jpg", abs_src_path=source_path)
+    collection = {file.src_path: file}
+
+    def remove(selected):
+        del collection[selected.src_path]
+
+    def submit(worker, selected, path, config):
+        # A warm-cache worker is completed before submission returns.
+        selected.src_path = path
+        selected.abs_src_path = path
+        future = Future()
+        future.set_result(selected)
+        return future
+
+    plugin = SimpleNamespace(config=SimpleNamespace(enabled=True, optimize=True, cache_dir="image-cache"), _is_excluded=lambda file: False, _optimize_image=None, pool_jobs={}, pool=SimpleNamespace(submit=submit))
+    files = SimpleNamespace(media_files=lambda: list(collection.values()), remove=remove)
+
+    namespace["on_env"](plugin, None, config=None, files=files)
+
+    # Ownership and the reporting source path are preserved despite completion.
+    assert collection == {}
+    assert list(plugin.pool_jobs) == [source_path]
+    assert plugin.pool_jobs[source_path].result() is file
 
 
 @pytest.mark.parametrize("render_fails", [False, True], ids=["shared-result", "shared-error"])

@@ -1,6 +1,6 @@
 # Privacy coverage
 
-Privacy is covered by 44 complete projects: 31 isolated cases and 13 opt-in combinations. The pinned Material 9.7.1 plugin and a Zensical candidate containing privacy support are exercised through their public CLIs. Source projects are copied independently for both builders.
+Privacy is covered by 45 complete projects: 31 isolated cases and 14 opt-in combinations. The added image optimization combination is described in [image optimization coverage](optimize.md). The pinned Material 9.7.1 plugin and a Zensical candidate containing privacy support are exercised through their public CLIs. Source projects are copied independently for both builders.
 
 ## Settings and combinations
 
@@ -55,6 +55,8 @@ Only the actual fixture binding authority is normalized across selected extracto
 Cold/warm output is required to remain unchanged. An image URL is also replaced without a clean build in `source-mutation`, where a new request and changed output are required. Dynamically assembled JavaScript URLs are deliberately retained without requests, matching the upstream observation boundary.
 
 ## Exact observed differences
+
+JavaScript dependency URLs are emitted relative to the site root by Zensical, with the site's base path retained. Dependencies can therefore be resolved from nested pages and local previews. Exact differences from upstream relative and deployment-host URLs are accepted in `no-site-url-mermaid` and `recursive-css-js`. Both cases must pass their cold/warm output and request contracts.
 
 Five fixtures are reported as xfail only after their output contracts, warm builds, requests, and all undeclared fields have passed:
 

@@ -1,0 +1,72 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "Default JPEG and PNG settings, unreferenced images, grayscale, stable URLs, and unsupported resources are checked.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/dimensions",
+      "value": [
+        128,
+        96
+      ]
+    },
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/progressive",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/luma_quantization/0",
+      "value": 13
+    },
+    {
+      "path": "/assets/assets~1optimize~1unreferenced.jpeg/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1grayscale.jpg/mode",
+      "value": "L"
+    },
+    {
+      "path": "/assets/assets~1optimize~1diagram.png/smaller",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1diagram.png/text",
+      "value": {}
+    },
+    {
+      "path": "/assets/assets~1optimize~1diagram.png/alpha_extrema",
+      "value": [
+        128,
+        128
+      ]
+    },
+    {
+      "path": "/assets/assets~1optimize~1icon.svg/unchanged",
+      "value": true
+    },
+    {
+      "path": "/assets/assets~1optimize~1jpg/unchanged",
+      "value": true
+    },
+    {
+      "path": "/pages/index.html/COMPAT_PHOTO",
+      "value": "assets/optimize/photo.jpg"
+    },
+    {
+      "path": "/caches/.cache~1plugin~1optimize",
+      "value": true
+    },
+    {
+      "path": "/pages/guide~1page~1index.html/COMPAT_NESTED",
+      "value": "../../assets/optimize/photo.jpg"
+    }
+  ]
+}

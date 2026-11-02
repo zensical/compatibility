@@ -1,0 +1,40 @@
+{
+  "plugins": [
+    "material/optimize"
+  ],
+  "check": "optimize",
+  "purpose": "Optimized image output must be refreshed after source replacements without a clean build.",
+  "warm": true,
+  "assertions": [
+    {
+      "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+      "value": true
+    }
+  ],
+  "steps": [
+    {
+      "name": "replace-image",
+      "copy": {
+        "replacements/photo.jpg": "docs/assets/optimize/photo.jpg"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/assets/assets~1optimize~1photo.jpg/smaller",
+          "value": true
+        },
+        {
+          "path": "/assets/assets~1optimize~1photo.jpg/source_sha256",
+          "value": "80ab32c986cd115675d026bbaa2ace0b1bd01ae51ae7b8085dc0d7c2200d142e"
+        },
+        {
+          "path": "/assets/assets~1optimize~1photo.jpg/dimensions",
+          "value": [
+            96,
+            72
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "sources": {
+    "assets/optimize/photo.jpg": "docs/assets/optimize/photo.jpg",
+    "assets/external/privacy.test/photo.jpg": "remote/photo.jpg"
+  }
+}

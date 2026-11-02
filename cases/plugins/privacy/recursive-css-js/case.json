@@ -38,10 +38,32 @@
       ]
     },
     {
+      "engine": "mkdocs",
       "path": "/assets/assets~1external~1privacy.test~1dependency.js/strings",
       "value": [
         "data.json"
       ]
+    },
+    {
+      "engine": "zensical",
+      "path": "/assets/assets~1external~1privacy.test~1dependency.js/strings",
+      "value": [
+        "/docs/assets/external/privacy.test/data.json"
+      ]
+    }
+  ],
+  "differences": [
+    {
+      "path": "/assets/assets~1external~1privacy.test~1dependency.js/strings/0",
+      "mkdocs": "data.json",
+      "zensical": "/docs/assets/external/privacy.test/data.json",
+      "reason": "JavaScript dependencies are resolved against the site's base path by Zensical so references work from nested pages."
+    },
+    {
+      "path": "/assets/assets~1loader.js/strings/0",
+      "mkdocs": "https://example.test/docs/assets/external/privacy.test/dependency.js",
+      "zensical": "/docs/assets/external/privacy.test/dependency.js",
+      "reason": "The site's base path is retained by Zensical while the current origin is used for local previews."
     }
   ]
 }

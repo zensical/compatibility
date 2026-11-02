@@ -582,9 +582,9 @@ markdown==3.11 \
     #   mkdocstrings
     #   properdocs
     #   pymdown-extensions
-markdown-exec==1.12.4 \
-    --hash=sha256:9eb8d535f69bbc85dc70b62dd9d04e65f29144de57448a87e25788c61667fbd8 \
-    --hash=sha256:a688e1e91bc84d8b08a26e6b8380b6ca0d83a7235f81c1609de9d832ee1b49c8
+markdown-exec==1.12.6 \
+    --hash=sha256:31d4070b3137395fbea0f5e82f21226f9919debbbb7fc3dfcfff0c660cc64ae1 \
+    --hash=sha256:b2dabe3c209f10f25aac2585bb8cdfcf325df691d4054f3394fba4b8c87ae4ee
     # via -r requirements/mkdocs.in
 markdown-it-py==3.0.0 \
     --hash=sha256:355216845c60bd96232cd8d8c40e8f9765cc86f46880e43a8fd22dc1a1a8cab1 \

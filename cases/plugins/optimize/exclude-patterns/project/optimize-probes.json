@@ -1,0 +1,9 @@
+{
+  "sources": {
+    "assets/optimize/photo.jpg": "docs/assets/optimize/photo.jpg",
+    "assets/optimize/skip1.jpg": "docs/assets/optimize/skip1.jpg",
+    "assets/optimize/a.jpg": "docs/assets/optimize/a.jpg",
+    "assets/optimize/nested/skip.jpg": "docs/assets/optimize/nested/skip.jpg",
+    "assets/optimize/caf\u00e9.jpg": "docs/assets/optimize/caf\u00e9.jpg"
+  }
+}

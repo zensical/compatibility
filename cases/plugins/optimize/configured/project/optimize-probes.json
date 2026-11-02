@@ -1,0 +1,9 @@
+{
+  "sources": {
+    "assets/optimize/photo.jpg": "docs/assets/optimize/photo.jpg",
+    "assets/optimize/diagram.png": "docs/assets/optimize/diagram.png"
+  },
+  "cache_dirs": [
+    "image-cache"
+  ]
+}

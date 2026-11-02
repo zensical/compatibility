@@ -1,0 +1,13 @@
+{
+  "sources": {
+    "assets/optimize/photo.jpg": "docs/assets/optimize/photo.jpg",
+    "assets/optimize/unreferenced.jpeg": "docs/assets/optimize/unreferenced.jpeg",
+    "assets/optimize/grayscale.jpg": "docs/assets/optimize/grayscale.jpg",
+    "assets/optimize/diagram.png": "docs/assets/optimize/diagram.png",
+    "assets/optimize/icon.svg": "docs/assets/optimize/icon.svg",
+    "assets/optimize/jpg": "docs/assets/optimize/jpg"
+  },
+  "cache_dirs": [
+    ".cache/plugin/optimize"
+  ]
+}

@@ -78,11 +78,11 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get update
-          sudo apt-get install --yes libcairo2 libfribidi0
+          sudo apt-get install --yes libcairo2 libfribidi0 pngquant
       - name: Install upstream image libraries on macOS
         if: runner.os == 'macOS'
         run: |
-          brew install cairo fribidi
+          brew install cairo fribidi pngquant
           echo "DYLD_FALLBACK_LIBRARY_PATH=$(brew --prefix cairo)/lib:$(brew --prefix fribidi)/lib" >> "$GITHUB_ENV"
       - name: Install upstream image libraries on Windows
         if: runner.os == 'Windows'
@@ -93,6 +93,7 @@ jobs:
           install: >-
             mingw-w64-ucrt-x86_64-cairo
             mingw-w64-ucrt-x86_64-fribidi
+            mingw-w64-ucrt-x86_64-pngquant
       - name: Configure image library lookup
         if: runner.os == 'Windows'
         shell: pwsh

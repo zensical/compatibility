@@ -31,5 +31,13 @@
       "path": "/assets/assets~1external~1privacy.test~1mermaid.min.js/strings",
       "value": []
     }
+  ],
+  "differences": [
+    {
+      "path": "/assets/loader.js/strings/0",
+      "mkdocs": "assets/external/privacy.test/mermaid.min.js",
+      "zensical": "/assets/external/privacy.test/mermaid.min.js",
+      "reason": "Root-relative JavaScript dependency URLs are emitted by Zensical so references resolve from nested pages."
+    }
   ]
 }

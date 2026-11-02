@@ -203,6 +203,9 @@ if module == 'mkdocs' and patch_receipt.is_file():
     if 'optimize' in patch:
         optimize = patch['optimize']
         assert hashlib.sha256(Path(optimize['path']).read_bytes()).hexdigest() == optimize['patched_sha256'], 'Material optimize patch receipt does not match installed source; rerun scripts/patch_material.py'
+    if 'privacy' in patch:
+        privacy = patch['privacy']
+        assert hashlib.sha256(Path(privacy['path']).read_bytes()).hexdigest() == privacy['patched_sha256'], 'Material privacy patch receipt does not match installed source; rerun scripts/patch_material.py'
     info['oracle_patches'] = [patch]
 candidate_receipt = Path(sys.prefix) / 'compatibility-candidate.json'
 if module == 'zensical' and candidate_receipt.is_file():

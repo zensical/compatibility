@@ -21,7 +21,7 @@
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
 # IN THE SOFTWARE.
 
-"""Prepare the pinned RSS source and the Material social concurrency patch."""
+"""Prepare the pinned RSS source and the Material concurrency patches."""
 
 from __future__ import annotations
 

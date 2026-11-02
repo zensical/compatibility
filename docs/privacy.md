@@ -56,6 +56,8 @@ Cold/warm output is required to remain unchanged. An image URL is also replaced 
 
 ## Exact observed differences
 
+JavaScript dependency URLs are emitted relative to the site root by Zensical, with the site's base path retained. Dependencies can therefore be resolved from nested pages and local previews. Exact differences from upstream relative and deployment-host URLs are accepted in `no-site-url-mermaid` and `recursive-css-js`. Both cases must pass their cold/warm output and request contracts.
+
 Five fixtures are reported as xfail only after their output contracts, warm builds, requests, and all undeclared fields have passed:
 
 - Shared upstream image fragments are accumulated; each native image fragment is retained independently.

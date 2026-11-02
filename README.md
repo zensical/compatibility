@@ -67,7 +67,9 @@ to restore the pinned RSS source.
 
 The Material 9.7.1 social layer dispatch is also patched by `prepare_oracle.py`. An orphaned placeholder future is prevented by locking submission and publication of the rendering future. Rendering concurrency and card output are preserved.
 
-The optimizer dispatch is also patched so files are removed from the MkDocs collection before their paths can be changed by workers. Source paths used in savings reports are preserved. Both patches are limited to reviewed source bytes and are recorded in each run's environment report. Both patches must be reviewed or removed when Material is updated. An existing oracle can be patched without downloading RSS again:
+The optimizer dispatch is also patched so files are removed from the MkDocs collection before their paths can be changed by workers. Source paths used in savings reports are preserved.
+
+Recursive privacy downloads are also completed before files are published or copied. Missing cached fonts are prevented when dependencies are discovered by concurrent stylesheet workers. All three patches are limited to reviewed source bytes and are recorded in each run's environment report. The patches must be reviewed or removed when Material is updated. An existing oracle can be patched without downloading RSS again:
 
 ```sh
 .venv/bin/python scripts/patch_material.py

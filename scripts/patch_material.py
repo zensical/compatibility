@@ -34,6 +34,7 @@ ROOT = Path(__file__).resolve().parents[1]
 VERSION = "9.7.1"
 ORIGINAL_SHA256 = "44be7988a79b43d0015148ed7ded36775622d651574877e3533061a6d4914bbd"
 OPTIMIZE_ORIGINAL_SHA256 = "a1fb720c9db1d9dfd5e835bb140362cace32b992e16fc80da2f795153b7bbcaf"
+PRIVACY_ORIGINAL_SHA256 = "200c1b16a1c49418d5afda20575e201b2df2d72305752beb80dcb024658eb960"
 RECEIPT = "compatibility-material-patch.json"
 
 ORIGINAL_INIT = "        self.card_layer_pool_jobs: dict[str, Future] = {}\n"
@@ -76,6 +77,17 @@ PATCHED_OPTIMIZE_DISPATCH = """            # The source path is removed before a
             )
 """
 
+ORIGINAL_PRIVACY_WAIT = """        wait(self.pool_jobs)
+        self.pool_jobs.clear()
+"""
+PATCHED_PRIVACY_WAIT = """        # The shared queue is retained while recursive downloads can be appended.
+        # Every queued batch is completed before assets are published or copied.
+        while self.pool_jobs:
+            pending_jobs = self.pool_jobs[:]
+            wait(pending_jobs)
+            del self.pool_jobs[:len(pending_jobs)]
+"""
+
 
 def patch_source(source: str) -> str:
     """Patch reviewed source bytes and accept an identical existing patch."""
@@ -93,6 +105,14 @@ def patch_optimize_source(source: str) -> str:
     return restored.replace(ORIGINAL_OPTIMIZE_DISPATCH, PATCHED_OPTIMIZE_DISPATCH)
 
 
+def patch_privacy_source(source: str) -> str:
+    """Wait for recursively queued downloads before publishing their files."""
+    restored = source.replace(PATCHED_PRIVACY_WAIT, ORIGINAL_PRIVACY_WAIT)
+    if hashlib.sha256(restored.encode()).hexdigest() != PRIVACY_ORIGINAL_SHA256:
+        raise RuntimeError("Material privacy source differs from the reviewed 9.7.1 file; review or remove the patch before updating the oracle")
+    return restored.replace(ORIGINAL_PRIVACY_WAIT, PATCHED_PRIVACY_WAIT)
+
+
 def patch_material(python: Path) -> dict:
     """Patch one oracle environment and record the source change."""
     command = """
@@ -101,6 +121,7 @@ print(json.dumps({
     'version': importlib.metadata.version('mkdocs-material'),
     'path': importlib.util.find_spec('material.plugins.social.plugin').origin,
     'optimize_path': importlib.util.find_spec('material.plugins.optimize.plugin').origin,
+    'privacy_path': importlib.util.find_spec('material.plugins.privacy.plugin').origin,
     'prefix': sys.prefix,
 }))
 """
@@ -114,10 +135,15 @@ print(json.dumps({
     optimize_path = Path(info["optimize_path"])
     optimize_source = optimize_path.read_text(encoding="utf-8")
     optimize_patched = patch_optimize_source(optimize_source)
+    privacy_path = Path(info["privacy_path"])
+    privacy_source = privacy_path.read_text(encoding="utf-8")
+    privacy_patched = patch_privacy_source(privacy_source)
     if source != patched:
         path.write_text(patched, encoding="utf-8")
     if optimize_source != optimize_patched:
         optimize_path.write_text(optimize_patched, encoding="utf-8")
+    if privacy_source != privacy_patched:
+        privacy_path.write_text(privacy_patched, encoding="utf-8")
     receipt = {
         "name": "material-social-layer-futures",
         "version": VERSION,
@@ -129,6 +155,12 @@ print(json.dumps({
             "path": str(optimize_path),
             "original_sha256": OPTIMIZE_ORIGINAL_SHA256,
             "patched_sha256": hashlib.sha256(optimize_path.read_bytes()).hexdigest(),
+        },
+        "privacy": {
+            "name": "material-privacy-recursive-downloads",
+            "path": str(privacy_path),
+            "original_sha256": PRIVACY_ORIGINAL_SHA256,
+            "patched_sha256": hashlib.sha256(privacy_path.read_bytes()).hexdigest(),
         },
     }
     (Path(info["prefix"]) / RECEIPT).write_text(json.dumps(receipt, indent=2) + "\n", encoding="utf-8")

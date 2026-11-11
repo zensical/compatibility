@@ -88,6 +88,20 @@ PATCHED_PRIVACY_WAIT = """        # The shared queue is retained while recursive
             del self.pool_jobs[:len(pending_jobs)]
 """
 
+ORIGINAL_PRIVACY_IMPORT = "from re import Match\n"
+PATCHED_PRIVACY_IMPORT = ORIGINAL_PRIVACY_IMPORT + "from threading import RLock\n"
+ORIGINAL_PRIVACY_INIT = "        self.assets = Files([])\n"
+PATCHED_PRIVACY_INIT = ORIGINAL_PRIVACY_INIT + "        self.assets_lock = RLock()\n"
+ORIGINAL_PRIVACY_QUEUE = "    def _queue(self, url: URL, config: MkDocsConfig, concurrent = False):\n"
+PATCHED_PRIVACY_QUEUE = """    def _queue(self, url: URL, config: MkDocsConfig, concurrent = False):
+        # Lookup, submission, and registration are serialized to prevent duplicates.
+        # The lock can be re-entered when synchronous downloads queue dependencies.
+        with self.assets_lock:
+            return self._queue_locked(url, config, concurrent)
+
+    def _queue_locked(self, url: URL, config: MkDocsConfig, concurrent = False):
+"""
+
 
 def patch_source(source: str) -> str:
     """Patch reviewed source bytes and accept an identical existing patch."""
@@ -106,11 +120,21 @@ def patch_optimize_source(source: str) -> str:
 
 
 def patch_privacy_source(source: str) -> str:
-    """Wait for recursively queued downloads before publishing their files."""
-    restored = source.replace(PATCHED_PRIVACY_WAIT, ORIGINAL_PRIVACY_WAIT)
+    """Deduplicate asset downloads and finish recursive jobs before publishing."""
+    replacements = (
+        (ORIGINAL_PRIVACY_WAIT, PATCHED_PRIVACY_WAIT),
+        (ORIGINAL_PRIVACY_IMPORT, PATCHED_PRIVACY_IMPORT),
+        (ORIGINAL_PRIVACY_INIT, PATCHED_PRIVACY_INIT),
+        (ORIGINAL_PRIVACY_QUEUE, PATCHED_PRIVACY_QUEUE),
+    )
+    restored = source
+    for original, patched in replacements:
+        restored = restored.replace(patched, original)
     if hashlib.sha256(restored.encode()).hexdigest() != PRIVACY_ORIGINAL_SHA256:
         raise RuntimeError("Material privacy source differs from the reviewed 9.7.1 file; review or remove the patch before updating the oracle")
-    return restored.replace(ORIGINAL_PRIVACY_WAIT, PATCHED_PRIVACY_WAIT)
+    for original, patched in replacements:
+        restored = restored.replace(original, patched)
+    return restored
 
 
 def patch_material(python: Path) -> dict:

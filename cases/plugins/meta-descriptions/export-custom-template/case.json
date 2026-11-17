@@ -1,0 +1,29 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "CSV values are read from the final head tag instead of page metadata; body meta tags are excluded.",
+  "assertions": [
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "Generated metadata."
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": [
+        "Rendered, \"quoted\" & final\nsecond line"
+      ]
+    },
+    {
+      "path": "/csv/rows",
+      "value": [
+        [
+          "https://example.test/docs/",
+          "Rendered, \"quoted\" & final\nsecond line"
+        ]
+      ]
+    }
+  ]
+}

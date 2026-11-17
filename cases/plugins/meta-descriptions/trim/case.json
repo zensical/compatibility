@@ -1,0 +1,91 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "Unicode character counts, long words, hyphen boundaries, collapsed whitespace, and explicit-description precedence are compared.",
+  "assertions": [
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "Café naïve 🦀"
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": [
+        "Café naïve 🦀"
+      ]
+    },
+    {
+      "path": "/pages/long~1index.html/metadata",
+      "value": "Extraordinar"
+    },
+    {
+      "path": "/pages/long~1index.html/head",
+      "value": [
+        "Extraordinar"
+      ]
+    },
+    {
+      "path": "/pages/hyphen~1index.html/metadata",
+      "value": "Hello-"
+    },
+    {
+      "path": "/pages/hyphen~1index.html/head",
+      "value": [
+        "Hello-"
+      ]
+    },
+    {
+      "path": "/pages/whitespace~1index.html/metadata",
+      "value": "One two"
+    },
+    {
+      "path": "/pages/whitespace~1index.html/head",
+      "value": [
+        "One two"
+      ]
+    },
+    {
+      "path": "/pages/explicit~1index.html/metadata",
+      "value": "Explicit descriptions are never shortened."
+    },
+    {
+      "path": "/pages/explicit~1index.html/head",
+      "value": [
+        "Explicit descriptions are never shortened."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "change-trim-width",
+      "path": "mkdocs.yml",
+      "before": "max_length: 12",
+      "after": "max_length: 8",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages/index.html/metadata",
+          "value": "Café"
+        },
+        {
+          "path": "/pages/index.html/head",
+          "value": [
+            "Café"
+          ]
+        },
+        {
+          "path": "/pages/hyphen~1index.html/metadata",
+          "value": "Hello-wo"
+        },
+        {
+          "path": "/pages/hyphen~1index.html/head",
+          "value": [
+            "Hello-wo"
+          ]
+        }
+      ]
+    }
+  ]
+}

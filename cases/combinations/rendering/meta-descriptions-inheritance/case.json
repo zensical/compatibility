@@ -1,0 +1,82 @@
+{
+  "plugins": [
+    "meta",
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "Descriptions inherited from Material meta files are preserved alongside explicit and automatically generated descriptions.",
+  "assertions": [
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "Inherited site description"
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": [
+        "Inherited site description"
+      ]
+    },
+    {
+      "path": "/pages/guide~1index.html/metadata",
+      "value": "Guide description"
+    },
+    {
+      "path": "/pages/guide~1index.html/head",
+      "value": [
+        "Guide description"
+      ]
+    },
+    {
+      "path": "/pages/guide~1explicit~1index.html/metadata",
+      "value": "Explicit page description"
+    },
+    {
+      "path": "/pages/guide~1explicit~1index.html/head",
+      "value": [
+        "Explicit page description"
+      ]
+    },
+    {
+      "path": "/pages/empty~1index.html/metadata",
+      "value": "Generated despite empty metadata."
+    },
+    {
+      "path": "/pages/empty~1index.html/head",
+      "value": [
+        "Generated despite empty metadata."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "name": "edit-inherited-description",
+      "path": "docs/guide/.meta.yml",
+      "before": "Guide description",
+      "after": "Revised guide description",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/pages/guide~1index.html/metadata",
+          "value": "Revised guide description"
+        },
+        {
+          "path": "/pages/guide~1index.html/head",
+          "value": [
+            "Revised guide description"
+          ]
+        },
+        {
+          "path": "/pages/guide~1explicit~1index.html/metadata",
+          "value": "Explicit page description"
+        },
+        {
+          "path": "/pages/guide~1explicit~1index.html/head",
+          "value": [
+            "Explicit page description"
+          ]
+        }
+      ]
+    }
+  ]
+}

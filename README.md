@@ -5,7 +5,7 @@ Each case builds the same project through both public CLIs in separate
 environments and checks the generated output.
 
 The suite covers publishing, navigation, API references, tags, metadata,
-search, exclusion, minification, image optimization, privacy and audio/video, with isolated plugin cases, opt-in
+search, meta descriptions, exclusion, minification, image optimization, privacy and audio/video, with isolated plugin cases, opt-in
 combinations and HTTP lifecycle checks.
 
 ## Run locally
@@ -69,7 +69,7 @@ The Material 9.7.1 social layer dispatch is also patched by `prepare_oracle.py`.
 
 The optimizer dispatch is also patched so files are removed from the MkDocs collection before their paths can be changed by workers. Source paths used in savings reports are preserved.
 
-Recursive privacy downloads are also completed before files are published or copied. Missing cached fonts are prevented when dependencies are discovered by concurrent stylesheet workers. All three patches are limited to reviewed source bytes and are recorded in each run's environment report. The patches must be reviewed or removed when Material is updated. An existing oracle can be patched without downloading RSS again:
+Recursive privacy downloads are also completed before files are published or copied. Missing cached fonts are prevented when dependencies are discovered by concurrent stylesheet workers. Asset lookup, download submission, and registration are synchronized so shared dependencies are downloaded once. Downloads of different assets are still run concurrently. All three patches are limited to reviewed source bytes and are recorded in each run's environment report. The patches must be reviewed or removed when Material is updated. An existing oracle can be patched without downloading RSS again:
 
 ```sh
 .venv/bin/python scripts/patch_material.py

@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "assertions": [],
+  "purpose": "Missing final template descriptions are rejected by strict CSV exports.",
+  "failure": {
+    "mkdocs": "Couldn't find meta descriptions for 1 HTML pages",
+    "zensical": "Couldn't find meta descriptions for 1 HTML pages"
+  }
+}

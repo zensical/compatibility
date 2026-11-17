@@ -37,6 +37,9 @@ pairs live in `case.json`; changed or resolved pairs fail until reviewed.
 | Blog raw HTML assets | Native resolves assets from the post source directory; upstream uses the generated route or view. Exact URL and excerpt fields are recorded. |
 | Authors YAML | Upstream publishes `blog/people.yml`; native treats it as internal configuration. Other output files remain compared. |
 | Meta bookkeeping | Public metadata matches; native omits Material's private `__extends`. |
+| Generated meta descriptions | Generated metadata is HTML-escaped upstream and retained as plain text by Zensical. Exact metadata pairs and matching rendered descriptions are checked. |
+| Meta-description fallback lengths | Upstream entity lengths are used for fallback; text lengths are used by Zensical. Exact metadata and site-fallback pairs are checked. |
+| Pre-escaped meta descriptions | Pre-escaped front matter is decoded upstream and retained literally by Zensical's UI escaping. Exact rendered description and CSV field pairs are checked. |
 | Tags export | Native deliberately omits the configured legacy JSON export. |
 | Tags hierarchy / shadow listings | The demo records exact child heading-depth and default shadow-membership differences. Named shadow listings stay observed. |
 | Disabled tags | In Zensical 0.0.67, `tags.enabled: false` still renders metadata tag labels. The isolated control checks the exact visible label difference on cold/warm builds before reporting xfail. |
@@ -94,6 +97,8 @@ failures remain failures in the saved experiment runs. See [expansion](expansion
 for evidence and a bounded concurrency probe. No timeout is treated as xfail.
 
 ## Semantic normalization
+
+- Meta-description CSV data rows are sorted because builder traversal order differs. Empty records from upstream Windows newline translation are ignored. Embedded CRLF field endings are normalized to LF. Headers, duplicate rows, URLs, empty fields, and other decoded field content are retained.
 
 - Internal links are resolved before comparing destinations; queries and
   fragments remain checked.

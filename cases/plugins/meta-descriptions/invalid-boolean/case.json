@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": false,
+  "purpose": "Invalid boolean configuration is rejected before page generation through both public CLIs.",
+  "assertions": [],
+  "failure": {
+    "mkdocs": "trim.*Expected type",
+    "zensical": "trim must be a boolean"
+  }
+}

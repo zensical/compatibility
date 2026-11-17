@@ -1,0 +1,40 @@
+{
+  "plugins": [
+    "meta-descriptions"
+  ],
+  "check": "meta-descriptions",
+  "warm": true,
+  "purpose": "The fallback threshold is checked before trimming; explicit and site descriptions are preserved.",
+  "assertions": [
+    {
+      "path": "/pages/index.html/metadata",
+      "value": "Alpha"
+    },
+    {
+      "path": "/pages/index.html/head",
+      "value": [
+        "Alpha"
+      ]
+    },
+    {
+      "path": "/pages/short~1index.html/metadata",
+      "value": null
+    },
+    {
+      "path": "/pages/short~1index.html/head",
+      "value": [
+        "Site fallback"
+      ]
+    },
+    {
+      "path": "/pages/explicit~1index.html/metadata",
+      "value": "Hi"
+    },
+    {
+      "path": "/pages/explicit~1index.html/head",
+      "value": [
+        "Hi"
+      ]
+    }
+  ]
+}

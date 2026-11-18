@@ -77,6 +77,7 @@ from passing. A homepage must also exist in every successful build.
 | `pixel_budgets` | Social per-card mean RGB allowance and reason; default 1 |
 | `pixel_differences` | Social exact decoded RGBA hash pair and reason |
 | `http` | Local fixture directory, response overrides, per-phase request contracts, and privacy output/cache probes |
+| `git` | Deterministic local commits, optional ignored revisions, shallow clones, worktrees, and nested repositories |
 
 Mutation example:
 
@@ -200,3 +201,35 @@ Markdown transformations are observed by `content`, including callouts, tables, 
 Privacy output is observed by `privacy`. Marked elements, downloaded bytes, CSS references, JavaScript strings, local target existence, and asset fingerprints are compared. A local HTTP origin is enabled by the `http` case field. A stable virtual origin is shared by both project copies, and asset requests are routed through a local HTTP proxy. Actual request counts are recorded separately from semantic manifests, so unchanged warm output and zero warm requests can be required together. The fixture fields and observation boundaries are described in [privacy coverage](privacy.md).
 
 Image optimization is observed by `optimize`. Published fixture assets, decoded image properties, encoder settings, source preservation, marked image URLs, and cache population are compared. Sources and optional cache directories are declared in `project/optimize-probes.json`. Extractor boundaries and fixture selection are described in [image optimization coverage](optimize.md).
+
+## Git history fixtures
+
+Independent repositories are created in the copied projects when `git` is declared. No Git metadata is stored in fixture source directories. Commit identities and configuration are fixed by the runner; user hooks, signing, and Git environment overrides are excluded from setup.
+
+```json
+{
+  "git": {
+    "commits": [
+      {"name": "created", "date": "2024-01-01T08:00:00+00:00"},
+      {
+        "name": "updated",
+        "date": "2024-02-02T12:34:56+00:00",
+        "path": "docs/index.md",
+        "before": "Original content.",
+        "after": "Updated content.",
+        "tag": "v1"
+      }
+    ]
+  }
+}
+```
+
+Existing replacement, copy, and remove mutations are accepted in commit entries. Paths are constrained to the copied project. All project files are staged by default; a `files` list can be supplied to leave selected sources untracked. Pure renames are declared with a `move` mapping. Commit names and resulting hashes are retained in `git-history.json`.
+
+Ignored revisions are declared with `ignored_commits_file` and a list of commit names under `ignored_commits`. Abbreviated hashes, comments, and blank lines are written by the runner. A real shallow clone is requested with `shallow: 1`; a linked worktree is requested with `worktree: true`. Nested repository settings are mapped by project-relative path under `repositories`.
+
+Git actions can also be declared on mutation steps. A new commit is created with `name` and `date`; `amend: true` is used for an amend. An earlier named commit is restored with `checkout`, and a shallow repository is deepened with `deepen: true`. Generated `site/` and `.cache/` directories are excluded from later commits.
+
+With `missing: true`, a broken `.git` boundary is created instead of a repository. Discovery of the suite's own checkout is prevented when artifacts are stored below that checkout. Explicit failure and build-date fallback contracts are checked through both public CLIs.
+
+Date display spans, title attributes, relative-time attributes, and referenced local assets are observed by `git-revision-dates`. Raw metadata is supplied through ordinary template probes and compared by `publication`. Timestamp text is retained in fixed-history cases. A literal custom format is used for wall-clock fallbacks; exact current timestamps are outside those deterministic contracts.

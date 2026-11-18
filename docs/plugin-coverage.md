@@ -25,7 +25,7 @@ IN THE SOFTWARE.
 
 # Plugin coverage
 
-All 27 plugins from the [published compatibility list](https://zensical.org/docs/compatibility/mkdocs/plugins/index.md) are covered. The list was checked on 2026-10-07. Coverage is also provided for development support of `mkdocs-nav-weight`, `markdownextradata`, `include-markdown`, `optimize`, and `privacy`.
+All 27 plugins from the [published compatibility list](https://zensical.org/docs/compatibility/mkdocs/plugins/index.md) are covered. The list was checked on 2026-10-07. Coverage is also provided for development support of `mkdocs-nav-weight`, `markdownextradata`, `include-markdown`, `optimize`, `privacy`, and `git-revision-date-localized`.
 
 Each project is built through both public CLIs in separate environments. Observable contracts are checked before the complete semantic manifests are compared. Cold and unchanged warm builds are checked in the new cases. Focused input changes are applied without a clean build where mutation steps are declared.
 
@@ -40,6 +40,7 @@ API generators are tested with their required `mkdocstrings` renderer under `cas
 | `callouts` | 3 | 1 | Alert types, explicit titles, lists, folded blocks, literal fenced examples, and included callouts. |
 | `exclude` | 4 | 8 | Globs, regular expressions, recursive paths, publication, core inclusion patterns, navigation plugins, generated API exclusions, and included unpublished sources. |
 | `gh-admonitions` | 2 | 0 | GitHub alert types, custom titles, formatted bodies, and literal fenced examples. |
+| `git-revision-date-localized` | 21 | 2 | All six formats, locale and time-zone selection, metadata and inline dates, creation history, renames, ignored revisions, exclusions, fallbacks, shallow deepening, linked worktrees, nested repositories, warm builds, commits, amends, checkouts, and macros/metadata combinations. |
 | `glightbox` | 4 | 0 | Automatic and manual wrapping, skipped classes, captions, dimensions, and page opt-out. |
 | `include-markdown` | 15 | 6 | Directives, paths, nested sources, custom syntax, indentation, encoding, disabled output, fenced code, Snippets settings, URL modes, options, plugin order, and edits. |
 | `literate-nav` | 4 | 4 | Nested summaries, control files, indexes, labels, core inclusion patterns, directory inference, and exclude-plugin interactions. |
@@ -109,6 +110,24 @@ Privacy is covered by 45 fixtures: 31 isolated cases and 14 combinations. Cold a
 The settings are combined with minification and content hashes, search, Glightbox, include-markdown, macros, offline search, exclusion, blog metadata, and social cards. Theme logo/favicon configuration, extra CSS/scripts, extra templates, nested routes, site URL subpaths, and HTTP error templates are covered.
 
 The local server protocol, extraction boundaries, known differences, and selection command are described in [privacy coverage](privacy.md). A development candidate containing privacy support is required.
+
+## Git revision date settings
+
+The baseline is pinned to `mkdocs-git-revision-date-localized-plugin==1.6.0`. Coverage is provided by 21 isolated fixtures and two combinations. Identical commit objects are created for both copied projects with fixed identities, messages, and explicit time zones. User Git configuration, signing, hooks, and inherited Git environment overrides are excluded from fixture setup.
+
+Cold and unchanged warm builds are compared. Commit, amend, checkout, ignored-revision edits, and uncommitted source edits are applied without clean builds. Shallow history is created through a real local clone and is deepened without moving `HEAD`. Linked worktrees and nested repositories are also created through Git.
+
+The six display formats, raw metadata, hashes, tags, inline placeholders, theme/page locale precedence, time zones, creation settings, rename following, exclusions, disabled output, and serial queries are checked. Raw metadata is exposed through fixture-owned template probes. Inherited locales and macro access are checked through plugin combinations.
+
+Relative date spans, their datetime/locale attributes, ISO print fallbacks, and referenced local assets are retained by `git-revision-dates`. Exact script and stylesheet path differences are declared for the timeago implementation. Browser execution, relative wording, and instant navigation are outside these generated-output contracts.
+
+Fallback presence and empty commit hashes are checked with a literal custom format. The current wall-clock timestamp is deliberately outside those deterministic comparisons. Strict builds are disabled for these fallback cases because creation-date corrections can be reported as warnings by the pinned upstream plugin even with plugin-level `strict: false`. Separate rejection cases are provided for unavailable Git metadata, invalid date types, and invalid time zones. Available shallow history is compared with strict builds disabled so warning policies are not conflated with date correctness.
+
+The fixtures can be selected against a development candidate:
+
+```sh
+.venv/bin/python -m pytest tests/test_plugins.py --combinations -k git-revision-date-localized --zensical-python=../zensical-zensical/.venv/bin/python
+```
 
 ## Observation boundaries
 

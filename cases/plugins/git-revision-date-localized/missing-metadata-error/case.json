@@ -1,0 +1,19 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "Git metadata failures are rejected when build-date fallback is disabled.",
+  "strict": true,
+  "git": {
+    "commits": [],
+    "missing": true
+  },
+  "failure": {
+    "mkdocs": "Unable to find a git directory|NoSuchPathError|InvalidGitRepositoryError",
+    "zensical": "fallback_to_build_date"
+  }
+}

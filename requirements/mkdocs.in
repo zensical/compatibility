@@ -46,6 +46,9 @@ mkdocs-minify-plugin==0.8.0
 mkdocs-macros-plugin==1.5.0
 mkdocs-include-markdown-plugin==7.3.0
 
+# Localized Git dates are compared with deterministic local commit history.
+mkdocs-git-revision-date-localized-plugin==1.6.0
+
 # Audio/video rendering compatibility.
 mkdocs-video==1.5.0
 mkdocs-audio==0.0.2

@@ -1,0 +1,31 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "Unknown IANA time zones are rejected instead of silently using UTC.",
+  "strict": true,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      },
+      {
+        "name": "updated",
+        "date": "2024-02-02T12:34:56+00:00",
+        "path": "docs/index.md",
+        "before": "COMPAT_BASE",
+        "after": "COMPAT_UPDATED",
+        "tag": "v1"
+      }
+    ]
+  },
+  "failure": {
+    "mkdocs": "No/Such_Zone",
+    "zensical": "invalid revision date timezone"
+  }
+}

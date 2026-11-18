@@ -35,7 +35,7 @@ ROOT = Path(__file__).resolve().parents[1]
 # The published list is supplemented by supported development-branch plugins.
 SUPPORTED_PLUGINS = {
     "api-autonav", "autorefs", "awesome-nav", "blog", "callouts", "exclude",
-    "gh-admonitions", "glightbox", "include-markdown", "literate-nav", "llmstxt", "macros",
+    "gh-admonitions", "git-revision-date-localized", "glightbox", "include-markdown", "literate-nav", "llmstxt", "macros",
     "markdown-exec", "markdownextradata", "meta", "mike", "minify",
     "mkdocs-audio", "mkdocs-autoapi", "mkdocs-nav-weight", "mkdocs-video",
     "mkdocstrings", "offline", "optimize", "privacy", "redirects", "rss", "search", "section-index",

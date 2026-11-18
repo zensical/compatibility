@@ -1,0 +1,46 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "Default long dates, absent creation metadata, commit tags, inline placeholders, and unchanged warm output.",
+  "warm": true,
+  "strict": true,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      },
+      {
+        "name": "updated",
+        "date": "2024-02-02T12:34:56+00:00",
+        "path": "docs/index.md",
+        "before": "COMPAT_BASE",
+        "after": "COMPAT_UPDATED",
+        "tag": "v1"
+      }
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/revision",
+      "value": "2024-02-02 12:34:56"
+    },
+    {
+      "path": "/publication/probes/index.html/creation",
+      "value": ""
+    },
+    {
+      "path": "/publication/probes/index.html/inline-revision",
+      "value": "February 2, 2024"
+    },
+    {
+      "path": "/publication/probes/index.html/revision-tag",
+      "value": "v1"
+    }
+  ]
+}

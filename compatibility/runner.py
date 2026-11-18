@@ -40,6 +40,7 @@ import yaml
 
 from compatibility import (
     blog,
+    git_history,
     macros,
     media,
     optimize,
@@ -66,6 +67,7 @@ EXTRACTORS = {
     "tag-content": tag_content,
     "macros-diagnostics": macros.diagnostics,
     "content": rendering.content,
+    "git-revision-dates": rendering.git_revision_dates,
     "lightbox": rendering.lightbox,
     "llmstxt": rendering.llmstxt,
     "offline": rendering.offline,
@@ -305,6 +307,7 @@ def validate_case(case: Path, root: Path) -> dict:
             f"generated fixture input: {name}"
         )
     privacy.validate(case, spec)
+    git_history.validate(case, spec)
     return spec
 
 
@@ -437,10 +440,12 @@ def _run_case(
     remote: privacy.Fixture | None,
 ) -> None:
     projects = {}
+    histories = {}
     for engine in interpreters:
         project = output / engine
         shutil.copytree(case / "project", project)
         projects[engine] = project
+        histories[engine] = git_history.prepare(project, spec.get("git"), mutate)
         if remote is not None:
             remote.prepare(project)
     sources = {
@@ -452,6 +457,8 @@ def _run_case(
     }
     write_json(output / "inputs.json", sources)
     write_json(output / "case.json", spec)
+    if spec.get("git"):
+        write_json(output / "git-history.json", histories)
     for seed in spec.get("seed", []):
         if seed["source"] == ".cache/fonts":
             prepare_fonts()
@@ -483,6 +490,9 @@ def _run_case(
         if any(key in step for key in ("path", "copy", "remove")):
             for project in projects.values():
                 mutate(project, step)
+        if "git" in step:
+            for engine, project in projects.items():
+                git_history.advance(project, histories[engine], step["git"])
         outcomes = {}
         for engine, python in interpreters.items():
             before = remote.snapshot() if remote is not None else None

@@ -1,0 +1,38 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "Exact and directory-glob exclusions omit metadata and leave placeholders intact without removing the pages.",
+  "warm": true,
+  "strict": true,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      }
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/revision",
+      "value": ""
+    },
+    {
+      "path": "/publication/probes/index.html/inline-revision",
+      "value": "{{ git_revision_date_localized }}"
+    },
+    {
+      "path": "/publication/probes/guide~1index.html/revision",
+      "value": "2024-01-01 08:00:00"
+    },
+    {
+      "path": "/publication/probes/drafts~1note~1index.html/revision",
+      "value": ""
+    }
+  ]
+}

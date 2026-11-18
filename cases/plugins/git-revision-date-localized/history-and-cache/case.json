@@ -1,0 +1,124 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "Creation/revision metadata, uncommitted edits, persisted caches, commits, amends, and restoring an earlier commit without cleaning.",
+  "warm": true,
+  "strict": true,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      },
+      {
+        "name": "updated",
+        "date": "2024-02-02T12:34:56+00:00",
+        "path": "docs/index.md",
+        "before": "COMPAT_BASE",
+        "after": "COMPAT_UPDATED",
+        "tag": "v1"
+      }
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/revision",
+      "value": "2024-02-02 12:34:56"
+    },
+    {
+      "path": "/publication/probes/index.html/creation",
+      "value": "2024-01-01 08:00:00"
+    },
+    {
+      "path": "/publication/probes/index.html/revision-tag",
+      "value": "v1"
+    }
+  ],
+  "steps": [
+    {
+      "name": "uncommitted-edit",
+      "path": "docs/index.md",
+      "before": "COMPAT_UPDATED",
+      "after": "COMPAT_DIRTY",
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/probes/index.html/revision",
+          "value": "2024-02-02 12:34:56"
+        },
+        {
+          "path": "/publication/probes/index.html/body",
+          "value": "COMPAT_DIRTY"
+        }
+      ]
+    },
+    {
+      "name": "commit-edit",
+      "git": {
+        "name": "committed",
+        "date": "2024-03-03T10:11:12+00:00",
+        "tag": "v2"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/probes/index.html/revision",
+          "value": "2024-03-03 10:11:12"
+        },
+        {
+          "path": "/publication/probes/index.html/creation",
+          "value": "2024-01-01 08:00:00"
+        },
+        {
+          "path": "/publication/probes/index.html/revision-tag",
+          "value": "v2"
+        }
+      ]
+    },
+    {
+      "name": "amend-date",
+      "git": {
+        "name": "amended",
+        "date": "2024-04-04T15:16:17+00:00",
+        "amend": true
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/probes/index.html/revision",
+          "value": "2024-04-04 15:16:17"
+        },
+        {
+          "path": "/publication/probes/index.html/revision-tag",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "name": "checkout-earlier-history",
+      "git": {
+        "checkout": "updated"
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/probes/index.html/revision",
+          "value": "2024-02-02 12:34:56"
+        },
+        {
+          "path": "/publication/probes/index.html/revision-tag",
+          "value": "v1"
+        },
+        {
+          "path": "/publication/probes/index.html/body",
+          "value": "COMPAT_UPDATED"
+        }
+      ]
+    }
+  ]
+}

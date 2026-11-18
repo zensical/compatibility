@@ -1,0 +1,70 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "Relative-time datetime/locale attributes, ISO print fallback, and referenced local script/stylesheet files are compared without claiming browser execution.",
+  "warm": true,
+  "strict": true,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      },
+      {
+        "name": "updated",
+        "date": "2024-02-02T12:34:56+00:00",
+        "path": "docs/index.md",
+        "before": "COMPAT_BASE",
+        "after": "COMPAT_UPDATED",
+        "tag": "v1"
+      }
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/inline-revision",
+      "value": "2024-02-02"
+    },
+    {
+      "path": "/git-revision-dates/pages/index.html/0/kind",
+      "value": "timeago"
+    },
+    {
+      "path": "/git-revision-dates/pages/index.html/0/relative",
+      "value": [
+        {
+          "datetime": "2024-02-02T12:34:56+00:00",
+          "locale": "en"
+        }
+      ]
+    }
+  ],
+  "differences": [
+    {
+      "path": "/git-revision-dates/scripts",
+      "mkdocs": [
+        "js/timeago.min.js",
+        "js/timeago_mkdocs_material.js"
+      ],
+      "zensical": [
+        "js/git-revision-date-localized.js"
+      ],
+      "reason": "Relative dates use the upstream timeago.js assets or the native Intl.RelativeTimeFormat script."
+    },
+    {
+      "path": "/git-revision-dates/styles",
+      "mkdocs": [
+        "css/timeago.css"
+      ],
+      "zensical": [
+        "css/git-revision-date-localized.css"
+      ],
+      "reason": "Each implementation supplies its own stylesheet for the ISO print fallback."
+    }
+  ]
+}

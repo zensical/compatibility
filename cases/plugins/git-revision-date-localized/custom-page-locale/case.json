@@ -1,0 +1,42 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "A page locale overrides the plugin locale and localizes a custom strftime pattern after time-zone conversion.",
+  "warm": true,
+  "strict": true,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      },
+      {
+        "name": "updated",
+        "date": "2024-02-02T12:34:56+00:00",
+        "path": "docs/index.md",
+        "before": "COMPAT_BASE",
+        "after": "COMPAT_UPDATED",
+        "tag": "v1"
+      }
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/inline-revision",
+      "value": "02 février 2024 · 13:34"
+    },
+    {
+      "path": "/publication/probes/index.html/custom",
+      "value": "02 février 2024 · 13:34"
+    },
+    {
+      "path": "/publication/probes/index.html/revision",
+      "value": "2024-02-02 13:34:56"
+    }
+  ]
+}

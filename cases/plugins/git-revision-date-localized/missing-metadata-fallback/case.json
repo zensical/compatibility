@@ -1,0 +1,27 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": "publication",
+  "purpose": "Unreadable Git metadata uses explicit build-date fallback; a broken Git boundary prevents discovery of the suite repository.",
+  "warm": true,
+  "strict": false,
+  "git": {
+    "commits": [],
+    "missing": true
+  },
+  "assertions": [
+    {
+      "path": "/probes/index.html/revision",
+      "value": "%"
+    },
+    {
+      "path": "/probes/index.html/creation",
+      "value": "%"
+    },
+    {
+      "path": "/probes/index.html/revision-hash",
+      "value": ""
+    }
+  ]
+}

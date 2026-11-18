@@ -1,0 +1,42 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "ISO dates and disabled creation history leave creation placeholders untouched.",
+  "warm": true,
+  "strict": true,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      },
+      {
+        "name": "updated",
+        "date": "2024-02-02T12:34:56+00:00",
+        "path": "docs/index.md",
+        "before": "COMPAT_BASE",
+        "after": "COMPAT_UPDATED",
+        "tag": "v1"
+      }
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/inline-revision",
+      "value": "2024-02-02"
+    },
+    {
+      "path": "/publication/probes/index.html/inline-creation",
+      "value": "{{ git_creation_date_localized }}"
+    },
+    {
+      "path": "/publication/probes/index.html/creation",
+      "value": ""
+    }
+  ]
+}

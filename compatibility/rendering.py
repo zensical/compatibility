@@ -26,11 +26,47 @@
 import json
 import re
 from pathlib import Path
+from urllib.parse import unquote, urlsplit
 
 from bs4 import BeautifulSoup, NavigableString
 from markdown import markdown
 
 from compatibility.checks import html, routes
+
+
+def git_revision_dates(site: Path) -> dict:
+    """Observe displayed Git dates, relative-time attributes, and local assets."""
+    pages = {}
+    scripts = set()
+    styles = set()
+    for route in routes(site):
+        soup = html(site / route)
+        dates = []
+        for node in soup.select(".git-revision-date-localized-plugin"):
+            kinds = [name.removeprefix("git-revision-date-localized-plugin-") for name in node.get("class", []) if name.startswith("git-revision-date-localized-plugin-")]
+            assert len(kinds) == 1, f"date representation missing or ambiguous: {route}"
+            dates.append({
+                "kind": kinds[0],
+                "text": node.get_text(),
+                "title": node.get("title"),
+                "relative": [{"datetime": span.get("datetime"), "locale": span.get("locale")} for span in node.select(".timeago")],
+            })
+        pages[route] = dates
+        for selector, attribute, target in [("script[src]", "src", scripts), ("link[rel=stylesheet]", "href", styles)]:
+            for node in soup.select(selector):
+                url = urlsplit(node[attribute])
+                if "timeago" not in url.path and "git-revision-date-localized" not in url.path:
+                    continue
+                assert not url.scheme and not url.netloc, "revision assets must be served locally"
+                path = (site / route).parent / unquote(url.path)
+                assert path.resolve().is_relative_to(site.resolve()), "revision asset escaped the site"
+                assert path.is_file(), f"revision asset missing: {path}"
+                target.add(path.resolve().relative_to(site.resolve()).as_posix())
+    if scripts:
+        assert styles, "relative dates need a print stylesheet"
+        css = "\n".join((site / path).read_text(encoding="utf-8") for path in styles)
+        assert "@media print" in css and "timeago" in css and "iso_date" in css, "relative date print fallback missing"
+    return {"pages": pages, "scripts": sorted(scripts), "styles": sorted(styles)}
 
 
 def content(site: Path) -> dict:

@@ -1,0 +1,40 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": "publication",
+  "purpose": "Untracked pages receive creation/revision fallbacks even with fallback_to_build_date disabled. A literal format keeps the wall clock outside deterministic output contracts.",
+  "warm": true,
+  "strict": false,
+  "git": {
+    "commits": [
+      {
+        "name": "unrelated",
+        "date": "2024-01-01T08:00:00+00:00",
+        "files": [
+          "mkdocs.yml",
+          "overrides",
+          "tracked.txt"
+        ]
+      }
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/probes/index.html/revision",
+      "value": "%"
+    },
+    {
+      "path": "/probes/index.html/creation",
+      "value": "%"
+    },
+    {
+      "path": "/probes/index.html/revision-hash",
+      "value": ""
+    },
+    {
+      "path": "/probes/index.html/inline-revision",
+      "value": "%"
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "A real shallow clone reports available history; fetching full history changes creation dates without moving HEAD and invalidates the persistent cache.",
+  "warm": true,
+  "strict": false,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      },
+      {
+        "name": "updated",
+        "date": "2024-02-02T12:34:56+00:00",
+        "path": "docs/index.md",
+        "before": "COMPAT_BASE",
+        "after": "COMPAT_UPDATED",
+        "tag": "v1"
+      }
+    ],
+    "shallow": 1
+  },
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/revision",
+      "value": "2024-02-02 12:34:56"
+    },
+    {
+      "path": "/publication/probes/index.html/creation",
+      "value": "2024-02-02 12:34:56"
+    }
+  ],
+  "steps": [
+    {
+      "name": "deepen-without-moving-head",
+      "git": {
+        "deepen": true
+      },
+      "changed": true,
+      "assertions": [
+        {
+          "path": "/publication/probes/index.html/revision",
+          "value": "2024-02-02 12:34:56"
+        },
+        {
+          "path": "/publication/probes/index.html/creation",
+          "value": "2024-01-01 08:00:00"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "A pure rename preserves earlier history with --follow, while current-path history starts at the move when following is disabled.",
+  "warm": true,
+  "strict": true,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      },
+      {
+        "name": "renamed",
+        "date": "2024-02-02T12:34:56+00:00",
+        "move": {
+          "docs/guide.md": "docs/moved.md"
+        }
+      }
+    ]
+  },
+  "assertions": [
+    {
+      "path": "/publication/probes/moved~1index.html/revision",
+      "value": "2024-01-01 08:00:00"
+    },
+    {
+      "path": "/publication/probes/moved~1index.html/creation",
+      "value": "2024-01-01 08:00:00"
+    }
+  ]
+}

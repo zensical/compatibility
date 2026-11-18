@@ -1,0 +1,55 @@
+{
+  "plugins": [
+    "git-revision-date-localized"
+  ],
+  "check": [
+    "publication",
+    "git-revision-dates"
+  ],
+  "purpose": "Each physical source uses its containing repository, while site revision dates continue to use the documentation root repository.",
+  "warm": true,
+  "strict": true,
+  "git": {
+    "commits": [
+      {
+        "name": "created",
+        "date": "2024-01-01T08:00:00+00:00"
+      }
+    ],
+    "repositories": {
+      "docs/nested": {
+        "commits": [
+          {
+            "name": "child-created",
+            "date": "2020-01-01T00:00:00+00:00"
+          },
+          {
+            "name": "child-updated",
+            "date": "2021-06-01T10:00:00+00:00",
+            "path": "child.md",
+            "before": "COMPAT_BASE",
+            "after": "COMPAT_CHILD"
+          }
+        ]
+      }
+    }
+  },
+  "assertions": [
+    {
+      "path": "/publication/probes/index.html/revision",
+      "value": "2024-01-01 08:00:00"
+    },
+    {
+      "path": "/publication/probes/nested~1child~1index.html/revision",
+      "value": "2021-06-01 10:00:00"
+    },
+    {
+      "path": "/publication/probes/nested~1child~1index.html/creation",
+      "value": "2020-01-01 00:00:00"
+    },
+    {
+      "path": "/publication/probes/nested~1child~1index.html/site",
+      "value": "2024-01-01 08:00:00"
+    }
+  ]
+}
